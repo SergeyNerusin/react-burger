@@ -1,0 +1,26 @@
+.header {
+  box-sizing: border-box;
+  max-width: 2000px;
+  padding: 40px 40px 0 40px;
+  margin: 0;
+  position: relative;
+  background: #1c1c21;
+
+}
+
+.menu {
+  max-width: 1280px;
+  display: flex;
+  border: 2px solid #4c4cff;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+.items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
