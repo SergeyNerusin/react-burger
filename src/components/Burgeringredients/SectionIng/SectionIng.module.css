@@ -1,8 +1,18 @@
-.list {
-  list-style: none;
+.section {
+  width: 100%;
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.items {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
   padding: 0;
+  margin-left: 0;
+  margin-right: 0;
   margin-bottom: 0;
 }

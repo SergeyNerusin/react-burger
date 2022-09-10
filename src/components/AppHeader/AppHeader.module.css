@@ -1,18 +1,15 @@
 .header {
-  box-sizing: border-box;
-  max-width: 2000px;
-  padding: 40px 40px 0 40px;
-  margin: 0;
+  max-width: 1920px;
+  padding: 0;
+  margin-bottom: 0;
   position: relative;
   background: #1c1c21;
-
 }
 
 .menu {
   max-width: 1280px;
   display: flex;
-  border: 2px solid #4c4cff;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 0 auto;
 }
 
