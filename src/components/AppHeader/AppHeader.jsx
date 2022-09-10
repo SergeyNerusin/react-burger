@@ -7,12 +7,12 @@ const AppHeader = () => {
      <header className={headerStyles.header}>
       <nav className={`${headerStyles.menu} pb-4 pt-4`}>
         <ul className={headerStyles.items}>
-          <NavItem  icon={<BurgerIcon type={"primary"} />} text={'Конструктор'} url={'#'}/>
-          <NavItem  icon={<ListIcon type={"secondary"} />} text={'Лента заказов'} url={'#'}/>      
+          <NavItem  icon={<BurgerIcon type={"primary"} />}>Конструктор</NavItem >
+          <NavItem  icon={<ListIcon type={"secondary"} />}>Лента заказов</NavItem>      
         </ul>
         <Logo />
         <ul className={headerStyles.items}>
-          <NavItem  icon={<ProfileIcon type={"secondary"} />} text={'Личный кабинет'} url={'#'}/> 
+          <NavItem  icon={<ProfileIcon type={"secondary"} />} url={'#'}>Личный кабинет</NavItem>
         </ul>
       </nav>
     </header>
