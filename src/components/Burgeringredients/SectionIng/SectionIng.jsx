@@ -1,5 +1,7 @@
 import Ingredient from '../Ingredient/Ingredient';
 import style from './SectionIng.module.css';
+import ingredientType from '../../../utils/type';
+import PropTypes from 'prop-types';
 
 const SectionIng = ({data, typeIng, ...props}) => {
   return (
@@ -11,5 +13,11 @@ const SectionIng = ({data, typeIng, ...props}) => {
     </section>
   );
 } 
+
+SectionIng.propTypes = {
+  data: PropTypes.arrayOf(ingredientType).isRequired,
+  typeIng: PropTypes.string.isRequired,
+  children: PropTypes.string
+};
 
 export default SectionIng;
