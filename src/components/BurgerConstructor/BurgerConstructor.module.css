@@ -8,3 +8,13 @@
   display: flex;
   justify-content: end;
 }
+
+.order {
+  display: flex;
+  justify-content: end;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+}
