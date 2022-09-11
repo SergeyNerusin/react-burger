@@ -4,9 +4,27 @@
 }
 
 .itemlock {
-  box-sizing: border-box;
   display: flex;
   justify-content: end;
+}
+
+.fillings {
+  padding: 0;
+  max-width: 100%;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-y: scroll;
+  max-height: calc(100vh - 484px);
+  row-gap: 16px;
+}
+
+.item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
 }
 
 .order {
