@@ -17,7 +17,7 @@ const SectionIng = ({data, typeIng, ...props}) => {
 SectionIng.propTypes = {
   data: PropTypes.arrayOf(ingredientType).isRequired,
   typeIng: PropTypes.string.isRequired,
-  children: PropTypes.string
+  children: PropTypes.string.isRequired
 };
 
 export default SectionIng;
