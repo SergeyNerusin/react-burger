@@ -6,8 +6,16 @@ import PropTypes from 'prop-types';
 function BurgerConstructor({data}) {
   return (
     <article className={style.container + ' pl-4'}>
-      
-    </article>
+       <div className={style.itemlock  + ' pr-4 mt-25 mb-4'}>
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={data[0].name + ' (верх)'}
+          price={data[0].price}
+          thumbnail={data[0].image}
+        />
+      </div>
+     </article>
   )
 }
 

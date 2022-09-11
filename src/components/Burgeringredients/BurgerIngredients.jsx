@@ -12,7 +12,7 @@ const BurgerIngredients = ({data}) => {
   return (
     <article className={styles.ingredients + ' mt-10'}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
-      <nav className={styles.tabs + ' mt-5'}>
+      <nav className={styles.tabs + ' mt-5 mb-10'}>
         <li>
           <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
             Булки
