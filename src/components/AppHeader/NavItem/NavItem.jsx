@@ -1,4 +1,5 @@
 import styles from './NavItem.module.css';
+import PropTypes from 'prop-types';
 
 const NavItem = ({icon, ...props}) => {
   return(
@@ -10,5 +11,10 @@ const NavItem = ({icon, ...props}) => {
     </li>
   );
 }
+
+NavItem.propTypes = {
+  icon: PropTypes.object.isRequired,
+  children: PropTypes.string.isRequired
+};
 
 export default NavItem;
