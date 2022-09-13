@@ -47,7 +47,7 @@ function BurgerConstructor({data}) {
         </div>
           <Button type="primary" size="large">
             Оформить заказ
-         </Button>
+          </Button>
       </div>
      </article>
   )

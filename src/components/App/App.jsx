@@ -1,20 +1,32 @@
 /* jshint esversion:6*/ 
+import React from 'react';
 import AppHeader from '../AppHeader/AppHeader';
-import data from '../../utils/data';
 import Burgeringredients from '../Burgeringredients/BurgerIngredients';
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor'; 
-
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
+import checkResponse from '../../service/checkresponse'; 
+import apiUrl  from '../../service/constant';
 
 const App = () => {
-  return (
+ const [ingredients, setIngredients] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchDataIngradients = async () => {
+        fetch(`${apiUrl}/api/ingredients`)
+        .then(res => checkResponse(res))
+        .then(data => setIngredients(data.data))
+        .catch(error => console.error(error.message));
+    };
+    fetchDataIngradients(); 
+  },[]); 
+  
+  return ingredients.length && ( 
     <>
-       <AppHeader/>
+      <AppHeader/>
        <main className="container mb-10">
-         <Burgeringredients data={data}/>
-         <BurgerConstructor data={data}/> 
+          <Burgeringredients data={ingredients}/> 
+          <BurgerConstructor data={ingredients}/>
        </main>
     </>
-   
   );
 }
 
