@@ -20,7 +20,8 @@ function Ingredient({data, openModal}) {
 }
 
 Ingredient.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  openModal: PropTypes.func.isRequired
 };
 
 export default Ingredient

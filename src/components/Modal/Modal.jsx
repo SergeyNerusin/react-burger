@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './Modal.module.css'; 
 import {body} from '../../service/constant'
@@ -13,7 +14,7 @@ const Modal = ({show, onClose, title,...props}) => {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.body.addEventListener('keyup', closeOnEscapeKeyDown);
     if(show){ body.style.overflow = 'hidden'; }
 
@@ -26,7 +27,7 @@ const Modal = ({show, onClose, title,...props}) => {
 
   return show && ReactDOM.createPortal(
     <>
-      <div className={style.overlay} onClick={onClose}>
+      <ModalOverlay onClose={onClose}>
         <div className={style.container} onClick={evt => evt.stopPropagation()}>
           <div className={style.containerTitle}>
             <h2 className="text text_type_main-large">{title}</h2>
@@ -36,10 +37,17 @@ const Modal = ({show, onClose, title,...props}) => {
           </div>
           {props.children}
         </div>
-      </div>
+      </ModalOverlay>  
     </>,
     document.getElementById("popup")
   );
 };
+
+Modal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.object.isRequired
+}
 
 export default Modal;
