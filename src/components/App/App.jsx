@@ -43,7 +43,9 @@ const handleItemData = (data) =>{
           <Burgeringredients data={ingredients} openModal={handleItemData}/> 
           <BurgerConstructor data={ingredients}/>
        </main>
-       <Modal onClose={handleCloseModalIng} show={showModalIngrDetails}>
+       <Modal onClose={handleCloseModalIng} 
+              show={showModalIngrDetails} 
+              title={"Детали инградиента"}>
         <IngredientDetails data={itemData}/>
       </Modal>
 

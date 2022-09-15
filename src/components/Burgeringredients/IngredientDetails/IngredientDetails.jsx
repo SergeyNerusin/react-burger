@@ -4,14 +4,13 @@ import style from './IngradientDetails.module.css';
 const IngredientDetails = ({data}) => {
   return(
     <>
-        <h2 className={style.title}>Детали инградиента</h2>
         <div className={style.imgContainer}>
           <img className={style.img} src={data.image_large} alt={data.name} />
         </div>
-        <h3 className="text text_type_main-medium">{data.name}</h3>
+        <h3 className="text text_type_main-medium mt-4 mb-8">{data.name}</h3>
         <ul className={style.listCompound}>
-          <li className={style.itemCompound}>
-            <span className="text text_type_main-default text_color_inactive">Калории, ккал</span>
+          <li className={style.itemCompoundm}>
+            <span className="text text_type_main-default text_color_inactive">Калории,ккал</span>
             <span className="text text_type_digits-default text_color_inactive">{data.calories}</span>
           </li>
           <li className={style.itemCompound}>
