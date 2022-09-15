@@ -1,0 +1,43 @@
+.title {
+  width: 640px;
+  line-height: 64px;
+  font-size: 36px;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  width: 520px;
+  height: 240px
+}
+
+.img {
+  width: 480px;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.listCompound {
+  display: flex;
+  list-style-type: none;
+  width: 516px;
+  height: 56px;
+  padding: 0;
+  margin: 0;
+  column-gap: 20px;
+}
+
+.itemCompound {
+  width: 120px;
+  height: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
