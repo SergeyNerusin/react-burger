@@ -2,8 +2,8 @@
   max-width: 1920px;
   padding: 0;
   margin-bottom: 0;
-  position: relative;
-  background: #1c1c21;
+  background: var(--background);
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
 }
 
 .menu {
@@ -11,6 +11,7 @@
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
+  position: relative;
 }
 
 .items {
@@ -20,4 +21,11 @@
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }

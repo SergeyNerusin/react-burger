@@ -7,23 +7,30 @@ import checkResponse from '../../service/checkresponse';
 import apiUrl  from '../../service/constant';
 import IngredientDetails from '../Burgeringredients/IngredientDetails/IngredientDetails';
 import Modal from '../Modal/Modal';
+import OrderDetails from '../BurgerConstructor/OrderDetails/OrderDetails';
+import { order } from '../../utils/data';
 
 const App = () => {
  const [ingredients, setIngredients] = React.useState([]);
  const [showModalIngrDetails, setShowModalIngrDetails] = React.useState(false);
  const [itemData, setItemData] = React.useState({});
+ const [showModalOrder, setShowModalOrder] = React.useState(false); 
 
 const handleItemData = (data) =>{
   setItemData(data);
   setShowModalIngrDetails(state => !state);
 }; 
 
- const handleOpenModalIng = () => {
-  setShowModalIngrDetails(true);
- };
+const handleOrder = () => {
+  setShowModalOrder(true);
+};
 
  const handleCloseModalIng = () => {
   setShowModalIngrDetails(false);
+ };
+
+ const handleCloseModalOrder = () => {
+  setShowModalOrder(false);
  };
 
   React.useEffect(() => {
@@ -41,14 +48,17 @@ const handleItemData = (data) =>{
       <AppHeader/>
        <main className="container mb-10">
           <Burgeringredients data={ingredients} openModal={handleItemData}/> 
-          <BurgerConstructor data={ingredients}/>
+          <BurgerConstructor data={ingredients} openModal={handleOrder}/>
        </main>
        <Modal onClose={handleCloseModalIng} 
               show={showModalIngrDetails} 
               title={"Детали инградиента"}>
         <IngredientDetails data={itemData}/>
       </Modal>
-
+      <Modal onClose={handleCloseModalOrder} 
+             show={showModalOrder}>
+             <OrderDetails order={order}/>
+      </Modal>
     </>
   );
 }

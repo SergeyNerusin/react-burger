@@ -3,7 +3,7 @@ import {ConstructorElement, DragIcon, Button, CurrencyIcon} from '@ya.praktikum/
 import ingredientType from '../../utils/type';
 import PropTypes from 'prop-types';
 
-function BurgerConstructor({data}) {
+function BurgerConstructor({data, openModal}) {
   return (
     <article className={style.container + ' ml-4'}>
        <div className={style.itemlock  + ' mr-4 mt-25 mb-4'}>
@@ -45,7 +45,7 @@ function BurgerConstructor({data}) {
           <p className="text text_type_digits-medium mr-2">610</p> 
           <CurrencyIcon type="primary" /> 
         </div>
-          <Button type="primary" size="large">
+          <Button type="primary" size="large" onClick={openModal}> 
             Оформить заказ
           </Button>
       </div>
@@ -55,6 +55,7 @@ function BurgerConstructor({data}) {
 
 BurgerConstructor.propTypes = {
   data: PropTypes.arrayOf(ingredientType).isRequired,
+  openModal: PropTypes.func.isRequired
 };
 
 export default BurgerConstructor

@@ -26,7 +26,7 @@ const IngredientDetails = ({data}) => {
             <span className="text text_type_digits-default text_color_inactive">{data.carbohydrates}</span>
           </li>
         </ul>
-    </>
+   </>
   );
 };
 
