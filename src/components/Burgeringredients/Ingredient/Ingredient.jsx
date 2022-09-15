@@ -3,18 +3,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './Ingredient.module.css';
 
-function Ingredient({data}) {
+function Ingredient({data, openModal}) {
   const [count, setCount] = React.useState(0);
-  const { name, price, image } = data; 
+  
   return (
-    <li className={style.ingredient}>
+    <li className={style.ingredient} onClick={() => openModal(data)}>
       <Counter count={count} size="default" onClick={setCount}/>
-      <img src={image} alt={name} className={style.image + ' pr-4 pl-4'}/>
+      <img src={data.image} alt={data.name} className={style.image + ' pr-4 pl-4'}/>
       <div className={style.price + ' mt-1 pr-4 pl-4'}>
-        <p className='text text_type_digits-default'>{price}</p>
+        <p className='text text_type_digits-default'>{data.price}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <p className="text text_type_main-default mt-1">{name}</p>
+      <p className="text text_type_main-default mt-1">{data.name}</p>
     </li>
   )
 }

@@ -4,7 +4,7 @@ import style from './IngradientDetails.module.css';
 const IngredientDetails = ({data}) => {
   return(
     <>
-        <h4 className={style.title}>Детали инградиента</h4>
+        <h2 className={style.title}>Детали инградиента</h2>
         <div className={style.imgContainer}>
           <img className={style.img} src={data.image_large} alt={data.name} />
         </div>

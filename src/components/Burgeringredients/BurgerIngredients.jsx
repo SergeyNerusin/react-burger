@@ -6,7 +6,7 @@ import ingredientType from '../../utils/type';
 import PropTypes from 'prop-types';
 
 
-const BurgerIngredients = ({data}) => {
+const BurgerIngredients = ({data, openModal}) => {
   const [current, setCurrent] = React.useState('Булки');
 
   return (
@@ -30,9 +30,9 @@ const BurgerIngredients = ({data}) => {
         </li>
       </nav>
       <div className={styles.container}>
-        <SectionIng data={data} typeIng={'bun'}>Булки</SectionIng>
-        <SectionIng data={data} typeIng={'sauce'}>Соусы</SectionIng>
-        <SectionIng data={data} typeIng={'main'}>Начинки</SectionIng>
+        <SectionIng data={data} openModal={openModal} typeIng={'bun'}>Булки</SectionIng>
+        <SectionIng data={data} openModal={openModal} typeIng={'sauce'}>Соусы</SectionIng>
+        <SectionIng data={data} openModal={openModal} typeIng={'main'}>Начинки</SectionIng>
       </div>
     </article>
   )
