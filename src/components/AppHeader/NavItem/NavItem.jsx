@@ -1,9 +1,10 @@
 import styles from './NavItem.module.css';
 import PropTypes from 'prop-types';
 
-const NavItem = ({icon, active,...props}) => {
+const NavItem = ({icon, active, ...props}) => {
+
   const isActive = (active === "primary") ? "text text_type_main-default" : "text text_type_main-default text_color_inactive";
-  console.log(isActive);
+ 
   return(
     <li className={`${styles.item} pr-4`}>
       <a className={`${styles.link} pl-5 pr-5`} href={'/#'}>
