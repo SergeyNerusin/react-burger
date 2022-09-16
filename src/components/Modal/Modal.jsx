@@ -7,16 +7,20 @@ import {body} from '../../service/constant'
 import ModalOverlay from './ModalOverlay/ModalOverlay'; 
 
 
-const Modal = ({show, onClose, title,...props}) => {
-  const closeOnEscapeKeyDown = evt => {
+const Modal = ({show, onClose, title, ...props}) => {
+  
+  React.useEffect(() => {
+    
+    const closeOnEscapeKeyDown = evt => {
     if (evt.key === 'Escape') {
       onClose();
     }
   };
 
-  React.useEffect(() => {
-    document.body.addEventListener('keyup', closeOnEscapeKeyDown);
-    if(show){ body.style.overflow = 'hidden'; }
+  if(show){ 
+      document.body.addEventListener('keyup', closeOnEscapeKeyDown);
+      body.style.overflow = 'hidden'; 
+    }
 
     return function cleanup() {
       document.body.removeEventListener('keyup', closeOnEscapeKeyDown);
