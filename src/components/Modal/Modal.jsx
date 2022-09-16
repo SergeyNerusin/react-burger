@@ -26,7 +26,7 @@ const Modal = ({show, onClose, title,...props}) => {
   }, [show]);
 
   return show && ReactDOM.createPortal(
-    <>
+    
       <ModalOverlay onClose={onClose}>
         <div className={style.container} onClick={evt => evt.stopPropagation()}>
           <div className={style.containerTitle}>
@@ -37,9 +37,8 @@ const Modal = ({show, onClose, title,...props}) => {
           </div>
           {props.children}
         </div>
-      </ModalOverlay>  
-    </>,
-    document.getElementById("popup")
+      </ModalOverlay>,  
+      document.getElementById("popup")
   );
 };
 
