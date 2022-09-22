@@ -1,0 +1,52 @@
+.ingredients {
+  display: block;
+  max-width: 600px;
+  width: 100%;
+}
+
+.tabs {
+  display: flex;
+  list-style: none;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: calc(100vh - 285px);
+  padding: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/*** полоса прокрутки настройка ****/
+
+/* ширина всей полосы прокрутки */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* цвет зоны отслеживания */
+::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+/* цвет зоны отслеживания при наведении курсора */
+::-webkit-scrollbar-track:hover {
+  background: #4c4cff
+}
+
+/* настройка параметров бегунка */
+::-webkit-scrollbar-thumb {
+  /* цвет бегунка */
+  background-color: #8585AD;
+  /* округлось бегунка */
+  border-radius: 0px;
+}
+
+/* Цвет бегунка при наведении курсора  */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #9f9ff1;
+}

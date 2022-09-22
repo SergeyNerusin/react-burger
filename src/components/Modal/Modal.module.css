@@ -1,0 +1,28 @@
+.container {
+  width: 720px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  border-radius: 40px;
+  background-color: #1c1c21;
+  padding: 40px 40px 60px 40px;
+  margin: 0;
+}
+
+.containerTitle {
+  width: 100%;
+  min-height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cursorBox {
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

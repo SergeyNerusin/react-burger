@@ -1,0 +1,18 @@
+.item {
+  display: block;
+  margin: 0;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-primary-color);
+  transition: 0.3s linear;
+}
+
+.link:hover {
+  opacity: 0.7;
+}
