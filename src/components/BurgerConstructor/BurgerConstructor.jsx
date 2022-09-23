@@ -1,10 +1,23 @@
+import React from 'react';
 import style from './BurgerConstructor.module.css';
 import {ConstructorElement, DragIcon, Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import ingredientType from '../../utils/type';
+import { BurgerConstructorContext } from '../../services/BurgerConstrContext';
 import PropTypes from 'prop-types';
 
-function BurgerConstructor({data, openModal}) {
-  return (
+function BurgerConstructor({openModal}) {
+
+  const data = React.useContext(BurgerConstructorContext);
+  const ingredientsId = [];
+  const totalPriceIngredients = data.reduce((sum, item)=>{
+    if(item.type !== 'bun'){
+      ingredientsId.push(item._id);
+      return sum + item.price;
+    } else {
+      return sum;
+    }
+  },0);
+
+    return (
     <article className={style.container + ' ml-4'}>
        <div className={style.itemlock  + ' mr-4 mt-25 mb-4'}>
         <ConstructorElement
@@ -42,10 +55,10 @@ function BurgerConstructor({data, openModal}) {
       </div>
       <div className={style.order + ' mr-4 mt-10'}>
         <div className={style.total + ' mr-10'}>
-          <p className="text text_type_digits-medium mr-2">610</p> 
+          <p className="text text_type_digits-medium mr-2">{totalPriceIngredients + data[0].price*2}</p> 
           <CurrencyIcon type="primary" /> 
         </div>
-          <Button type="primary" size="large" onClick={openModal}> 
+          <Button type="primary" size="large" onClick={()=>openModal(ingredientsId)}> 
             Оформить заказ
           </Button>
       </div>
@@ -54,7 +67,6 @@ function BurgerConstructor({data, openModal}) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientType).isRequired,
   openModal: PropTypes.func.isRequired
 };
 

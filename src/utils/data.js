@@ -2,7 +2,8 @@
  
 export const order = {
   id: "034536"
-} 
+}; 
+
 const data = 
   [
     {
