@@ -3,16 +3,14 @@ import React from 'react';
 import AppHeader from '../app-header/app-header';
 import Burgeringredients from '../burger-ingredients/BurgerIngredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import checkResponse from '../../services/checkresponse';
-import apiUrl  from '../../services/constant';
 import IngredientDetails from '../burger-ingredients/IngredientDetails/IngredientDetails';
 import Modal from '../modal/modal';
 import OrderDetails from '../burger-constructor/order-details/order-details';
+import { apiGetOrderNumber, fetchDataIngradients } from '../../utils/burger-api';
 import { BurgerConstructorContext } from '../../services/burger-constr-context';
 
 
 const App = () => {
-
   const [ingredients, setIngredients] = React.useState([]);
   const [showModalIngrDetails, setShowModalIngrDetails] = React.useState(false);
   const [itemData, setItemData] = React.useState({});
@@ -24,15 +22,16 @@ const App = () => {
   }; 
 
   const handleOrder = (ingredientsId) => {
-    fetch(`${apiUrl}/api/orders`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ingredients: ingredientsId})
-   })
-    .then(res => checkResponse(res))
-    .then(data => data.success ? setOrderNumber(data.order.number) : setOrderNumber(0))
+    apiGetOrderNumber(ingredientsId)
+    .then(data => { 
+      if(data.success){ 
+          setOrderNumber(data.order.number);
+          setShowModalOrder(true);
+      } else {
+          setOrderNumber(0);
+        }
+    }) 
     .catch(error => console.error(error.message));
-    setShowModalOrder(true);
   };
 
  const handleCloseModalIng = () => {
@@ -44,13 +43,9 @@ const App = () => {
  };
 
   React.useEffect(() => {
-    const fetchDataIngradients = async () => {
-        fetch(`${apiUrl}/api/ingredients`)
-        .then(res => checkResponse(res))
-        .then(res => setIngredients(res.data))
-        .catch(error => console.error(error.message));
-    };
-    fetchDataIngradients(); 
+    fetchDataIngradients() 
+    .then(res => setIngredients(res.data))
+    .catch(error => console.error(error.message));
   },[]); 
   
   return (ingredients.length > 0) && ( 

@@ -8,18 +8,25 @@ function BurgerConstructor({openModal}) {
 
   const data = React.useContext(BurgerConstructorContext);
   const ingredientsId = [];
-  const totalPriceIngredients = data.reduce((sum, item)=>{
+
+  const handleGetOrder = () =>{
+    openModal(ingredientsId);
+  };
+
+  ingredientsId.push(data[0]._id);
+  ingredientsId.push(data[0]._id);
+  const totalOrder = React.useMemo(() => data[0].price*2 + data.reduce((sum, item)=>{
     if(item.type !== 'bun'){
       ingredientsId.push(item._id);
       return sum + item.price;
     } else {
       return sum;
     }
-  },0);
+  },0),[data]);
 
-    return (
+  return ( 
     <article className={style.container + ' ml-4'}>
-       <div className={style.itemlock  + ' mr-4 mt-25 mb-4'}>
+       <div className={style.itemlock + ' mr-4 mt-25 mb-4'}>
         <ConstructorElement
           type="top"
           isLocked={true}
@@ -55,10 +62,10 @@ function BurgerConstructor({openModal}) {
       </div>
       <div className={style.order + ' mr-4 mt-10'}>
         <div className={style.total + ' mr-10'}>
-          <p className="text text_type_digits-medium mr-2">{totalPriceIngredients + data[0].price*2}</p> 
+          <p className="text text_type_digits-medium mr-2">{totalOrder}</p> 
           <CurrencyIcon type="primary" /> 
         </div>
-          <Button type="primary" size="large" onClick={()=>openModal(ingredientsId)}> 
+          <Button type="primary" size="large" onClick={handleGetOrder}> 
             Оформить заказ
           </Button>
       </div>
