@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import style from './OrderDetails.module.css';
+import style from './order-details.module.css';
 import takeInWork from '../../../images/done.jpg';
 
-const OrderDetails = ({order}) => {
+const OrderDetails = ({orderNumber}) => {
 
   return(
     <>
-      <h2 className="text text_type_digits-large mb-8">{order}</h2>
+      <h2 className="text text_type_digits-large mb-8">{orderNumber}</h2>
       <span className="text text_type_main-medium mb-15">идентификатор заказа</span>
       <div className={style.imgcontainer + ' mb-15'}>
          <img className={style.img} src={takeInWork} alt="Готовим заказ"/>
@@ -18,7 +18,7 @@ const OrderDetails = ({order}) => {
 }
 
 OrderDetails.propTypes = {
-  order: PropTypes.number.isRequired  
+  orderNumber: PropTypes.number.isRequired  
 }
 
 export default OrderDetails; 

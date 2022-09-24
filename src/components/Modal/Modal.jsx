@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import style from './Modal.module.css'; 
+import style from './modal.module.css'; 
 import {body} from '../../services/constant';
-import ModalOverlay from './ModalOverlay/ModalOverlay'; 
+import ModalOverlay from './modal-overlay/modal-overlay'; 
 
 
 const Modal = ({show, onClose, title, ...props}) => {

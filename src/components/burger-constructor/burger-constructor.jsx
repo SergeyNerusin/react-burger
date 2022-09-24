@@ -1,7 +1,7 @@
 import React from 'react';
-import style from './BurgerConstructor.module.css';
+import style from './burger-constructor.module.css';
 import {ConstructorElement, DragIcon, Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerConstructorContext } from '../../services/BurgerConstrContext';
+import { BurgerConstructorContext } from '../../services/burger-constr-context';
 import PropTypes from 'prop-types';
 
 function BurgerConstructor({openModal}) {
