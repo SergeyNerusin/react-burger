@@ -1,4 +1,4 @@
-import styles from './NavItem.module.css';
+import styles from './nav-item.module.css';
 import PropTypes from 'prop-types';
 
 const NavItem = ({icon, active, ...props}) => {
