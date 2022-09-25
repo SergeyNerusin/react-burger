@@ -1,9 +1,9 @@
 /* jshint esversion:6*/ 
 import React from 'react';
 import AppHeader from '../app-header/app-header';
-import Burgeringredients from '../burger-ingredients/BurgerIngredients';
+import Burgeringredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import IngredientDetails from '../burger-ingredients/IngredientDetails/IngredientDetails';
+import IngredientDetails from '../burger-ingredients/ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import OrderDetails from '../burger-constructor/order-details/order-details';
 import { apiGetOrderNumber, fetchDataIngradients } from '../../utils/burger-api';

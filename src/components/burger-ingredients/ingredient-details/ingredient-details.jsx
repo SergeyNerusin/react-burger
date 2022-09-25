@@ -1,5 +1,5 @@
 import ingredientsType from '../../../utils/type';
-import style from './IngradientDetails.module.css';
+import style from './ingradient-details.module.css';
 
 const IngredientDetails = ({data}) => {
   return(

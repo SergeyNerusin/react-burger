@@ -1,5 +1,5 @@
-import Ingredient from '../Ingredient/Ingredient';
-import style from './SectionIng.module.css';
+import Ingredient from '../ingredient/ingredient';
+import style from './section-ing.module.css';
 import ingredientType from '../../../utils/type';
 import PropTypes from 'prop-types';
 
