@@ -11,11 +11,13 @@ import { BurgerConstructorContext } from '../../services/burger-constr-context';
 
 
 const App = () => {
+  
   const [ingredients, setIngredients] = React.useState([]);
   const [showModalIngrDetails, setShowModalIngrDetails] = React.useState(false);
   const [itemData, setItemData] = React.useState({});
   const [showModalOrder, setShowModalOrder] = React.useState(false); 
   const [orderNumber, setOrderNumber] = React.useState(0);
+
   const handleItemData = (data) =>{
     setItemData(data);
     setShowModalIngrDetails(state => !state);
