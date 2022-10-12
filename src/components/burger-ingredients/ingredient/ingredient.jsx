@@ -1,7 +1,7 @@
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './Ingredient.module.css';
+import style from './ingredient.module.css';
 
 function Ingredient({data, openModal}) {
   const [count, setCount] = React.useState(0);

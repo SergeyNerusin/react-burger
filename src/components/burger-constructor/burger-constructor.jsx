@@ -1,12 +1,32 @@
-import style from './BurgerConstructor.module.css';
+import React from 'react';
+import style from './burger-constructor.module.css';
 import {ConstructorElement, DragIcon, Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import ingredientType from '../../utils/type';
+import { BurgerConstructorContext } from '../../services/burger-constr-context';
 import PropTypes from 'prop-types';
 
-function BurgerConstructor({data, openModal}) {
-  return (
+function BurgerConstructor({openModal}) {
+
+  const data = React.useContext(BurgerConstructorContext);
+  const ingredientsId = [];
+
+  const handleGetOrder = () =>{
+    openModal(ingredientsId);
+  };
+
+  ingredientsId.push(data[0]._id);
+  ingredientsId.push(data[0]._id);
+  const totalOrder = React.useMemo(() => data[0].price*2 + data.reduce((sum, item)=>{
+    if(item.type !== 'bun'){
+      ingredientsId.push(item._id);
+      return sum + item.price;
+    } else {
+      return sum;
+    }
+  },0),[data]);
+
+  return ( 
     <article className={style.container + ' ml-4'}>
-       <div className={style.itemlock  + ' mr-4 mt-25 mb-4'}>
+       <div className={style.itemlock + ' mr-4 mt-25 mb-4'}>
         <ConstructorElement
           type="top"
           isLocked={true}
@@ -42,10 +62,10 @@ function BurgerConstructor({data, openModal}) {
       </div>
       <div className={style.order + ' mr-4 mt-10'}>
         <div className={style.total + ' mr-10'}>
-          <p className="text text_type_digits-medium mr-2">610</p> 
+          <p className="text text_type_digits-medium mr-2">{totalOrder}</p> 
           <CurrencyIcon type="primary" /> 
         </div>
-          <Button type="primary" size="large" onClick={openModal}> 
+          <Button type="primary" size="large" onClick={handleGetOrder}> 
             Оформить заказ
           </Button>
       </div>
@@ -54,7 +74,6 @@ function BurgerConstructor({data, openModal}) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientType).isRequired,
   openModal: PropTypes.func.isRequired
 };
 
