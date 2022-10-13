@@ -7,15 +7,30 @@ import PropTypes from 'prop-types';
 
 
 const BurgerIngredients = ({data, openModal}) => {
-  const [current, setCurrent] = useState('Булки');
+  const [current, setCurrent] = useState('bun');
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
   const mainRef = useRef(null); 
+  const refContainer = useRef();
 
-  const handleScroll = (value, scrollToRef) => {
-    setCurrent(value);
+  const handleMenuScroll = (pointer, scrollToRef) => {
     scrollToRef.current.scrollIntoView();
-    console.dir(scrollToRef);
+    setCurrent(pointer);
+  };
+
+  const handleScroll = () => {
+        
+    let scrollDis = refContainer.current.scrollTop + 362;
+    
+    if(bunRef.current.offsetTop <= scrollDis){
+      setCurrent('bun');
+     } 
+    if(sauceRef.current.offsetTop <= scrollDis){
+      setCurrent('sauce');
+     } 
+    if (mainRef.current.offsetTop <= scrollDis){
+      setCurrent('main');
+     }
   };
 
   return (
@@ -23,22 +38,22 @@ const BurgerIngredients = ({data, openModal}) => {
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <nav className={styles.tabs + ' mt-5 mb-10'}>
         <li>
-          <Tab value="Булки" active={current === 'Булки'} onClick={() => handleScroll('Булки', bunRef)}>
+          <Tab value='bun' active={current === 'bun'} onClick={() => handleMenuScroll('bun', bunRef)}>
             Булки
           </Tab>
         </li>
         <li>
-          <Tab value="Соусы" active={current === 'Соусы'} onClick={() => handleScroll('Соусы', sauceRef)}>
+          <Tab value='sauce' active={current === 'sauce'} onClick={() => handleMenuScroll('sauce', sauceRef)}>
             Соусы
           </Tab>
         </li>
         <li>
-          <Tab value="Начинки" active={current === 'Начинки'} onClick={() => handleScroll('Начинки', mainRef)}>
+          <Tab value='main' active={current === 'main'} onClick={() => handleMenuScroll('main', mainRef)}>
             Начинки
           </Tab>
         </li>
       </nav>
-      <div className={styles.container}>
+      <div className={styles.container} onScroll={handleScroll} ref={refContainer}>
         <SectionIng data={data} openModal={openModal} typeIng={'bun'} scrollToRef={bunRef}>Булки</SectionIng>
         <SectionIng data={data} openModal={openModal} typeIng={'sauce'} scrollToRef={sauceRef}>Соусы</SectionIng>
         <SectionIng data={data} openModal={openModal} typeIng={'main'} scrollToRef={mainRef}>Начинки</SectionIng>
