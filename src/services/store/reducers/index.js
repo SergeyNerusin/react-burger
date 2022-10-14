@@ -14,9 +14,9 @@ export const rootReducer = combineReducers({
 
 /* 
   rootReduser {
-    ingredients: - список всех полученных ингредиентов,
-    burger: - список всех ингредиентов в текущем конструкторе бургера,
-    ingredientInfo:  объект текущего просматриваемого ингредиента,
-    order: объект созданного заказа
+    ingredients: allIngredinentsReducer,- список всех полученных ингредиентов,
+    burger: burgerConstructorReducer, - список всех ингредиентов в текущем конструкторе бургера,
+    ingredientInfo: infoIngredientReducer, объект текущего просматриваемого ингредиента,
+    order: createdOrderReducer - объект созданного заказа
   }
 */ 

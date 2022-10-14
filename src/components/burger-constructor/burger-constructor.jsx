@@ -1,12 +1,15 @@
 import React from 'react';
 import style from './burger-constructor.module.css';
 import {ConstructorElement, DragIcon, Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerConstructorContext } from '../../services/burger-constr-context';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 function BurgerConstructor({openModal}) {
 
-  const data = React.useContext(BurgerConstructorContext);
+  const data = useSelector(store => store.ingredients.data);
+  const { ingredients } = useSelector(store => store.ingredients);
+  console.log(ingredients);
+
   const ingredientsId = [];
 
   const handleGetOrder = () =>{
