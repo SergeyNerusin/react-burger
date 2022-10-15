@@ -8,7 +8,7 @@ import Modal from '../modal/modal';
 import OrderDetails from '../burger-constructor/order-details/order-details';
 import { apiGetOrderNumber } from '../../utils/burger-api';
 import { useSelector, useDispatch } from 'react-redux';
-import { getIngr } from '../../services/store/actions/action';
+import { getIngr, delIngrDetails } from '../../services/store/actions/action';
 
 /*
   Создание первых экшенов и редьюсеров
@@ -29,15 +29,10 @@ const App = () => {
   const ingredients = useSelector(store => store.ingredients.data);
   const dispatch = useDispatch();
   
-  const [showModalIngrDetails, setShowModalIngrDetails] = React.useState(false);
-  const [itemData, setItemData] = React.useState({});
+  const showModalIngrDetails = useSelector(store => store.ingredientInfo.active); 
+
   const [showModalOrder, setShowModalOrder] = React.useState(false); 
   const [orderNumber, setOrderNumber] = React.useState(0);
-
-  const handleItemData = (data) => {
-    setItemData(data);
-    setShowModalIngrDetails(state => !state);
-  }; 
 
   const handleOrder = (ingredientsId) => {
     apiGetOrderNumber(ingredientsId)
@@ -53,7 +48,7 @@ const App = () => {
   };
 
  const handleCloseModalIng = () => {
-  setShowModalIngrDetails(false);
+    dispatch(delIngrDetails()); 
  };
 
  const handleCloseModalOrder = () => {
@@ -68,13 +63,13 @@ const App = () => {
     <>
       <AppHeader/>
         <main className="container mb-10">
-          <Burgeringredients openModal={handleItemData}/>
+          <Burgeringredients/> 
           <BurgerConstructor openModal={handleOrder}/> 
         </main>
        <Modal onClose={handleCloseModalIng} 
               show={showModalIngrDetails} 
               title={"Детали инградиента"}>
-              <IngredientDetails data={itemData}/>
+              <IngredientDetails/>
       </Modal>
       <Modal onClose={handleCloseModalOrder} 
              show={showModalOrder}>

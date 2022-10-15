@@ -2,10 +2,8 @@ import {useState, useRef} from 'react';
 import SectionIng from './section-ing/section-ing';
 import styles from './burger-ingredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 
-
-const BurgerIngredients = ({openModal}) => {
+const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
@@ -53,16 +51,12 @@ const BurgerIngredients = ({openModal}) => {
         </li>
       </nav>
       <div className={styles.container} onScroll={handleScroll} ref={refContainer}>
-        <SectionIng openModal={openModal} typeIng={'bun'} scrollToRef={bunRef}>Булки</SectionIng>
-        <SectionIng openModal={openModal} typeIng={'sauce'} scrollToRef={sauceRef}>Соусы</SectionIng>
-        <SectionIng openModal={openModal} typeIng={'main'} scrollToRef={mainRef}>Начинки</SectionIng>
+        <SectionIng  typeIng={'bun'} scrollToRef={bunRef}>Булки</SectionIng>
+        <SectionIng  typeIng={'sauce'} scrollToRef={sauceRef}>Соусы</SectionIng>
+        <SectionIng  typeIng={'main'} scrollToRef={mainRef}>Начинки</SectionIng>
       </div>
     </article>
   )
 }
-
-BurgerIngredients.propTypes = {
-    openModal: PropTypes.func.isRequired
-};
 
 export default BurgerIngredients

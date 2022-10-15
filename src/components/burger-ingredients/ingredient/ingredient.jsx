@@ -2,12 +2,19 @@ import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-com
 import React from 'react';
 import PropTypes from 'prop-types';
 import style from './ingredient.module.css';
+import { useDispatch } from 'react-redux';
+import { showIngrDetails } from '../../../services/store/actions/action';
 
-function Ingredient({data, openModal}) {
+function Ingredient({data}) {  
   const [count, setCount] = React.useState(0);
+
+  const dispatch = useDispatch();
+  const handleItemData = () => {
+     dispatch(showIngrDetails(data));
+  }; 
   
   return (
-    <li className={style.ingredient} onClick={() => openModal(data)}>
+    <li className={style.ingredient} onClick={handleItemData}>
       <Counter count={count} size="default" onClick={setCount}/>
       <img src={data.image} alt={data.name} className={style.image + ' pr-4 pl-4'}/>
       <div className={style.price + ' mt-1 pr-4 pl-4'}>
@@ -21,7 +28,7 @@ function Ingredient({data, openModal}) {
 
 Ingredient.propTypes = {
   data: PropTypes.object.isRequired,
-  openModal: PropTypes.func.isRequired
+ 
 };
 
 export default Ingredient

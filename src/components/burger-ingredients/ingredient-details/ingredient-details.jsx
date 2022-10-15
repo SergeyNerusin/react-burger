@@ -1,7 +1,11 @@
 import ingredientsType from '../../../utils/type';
 import style from './ingradient-details.module.css';
+import {useSelector} from 'react-redux';
 
-const IngredientDetails = ({data}) => {
+const IngredientDetails = () => {
+
+  const data = useSelector(store => store.ingredientInfo.ingredient);
+
   return(
     <>
         <div className={style.imgContainer}>
