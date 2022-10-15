@@ -1,9 +1,12 @@
 /* для получения списка ингредиентов*/ 
-import {GET_INGR_REQUEST, 
-        GET_INGR_SUCCESS, 
-        GET_INGR_ERR,
-        ADD_INGR_DETAILS,
-        DEL_INGR_DETAILS} from '../actions/action';
+import { GET_INGR_REQUEST, 
+         GET_INGR_SUCCESS, 
+         GET_INGR_ERR,
+         ADD_INGR_DETAILS,
+         DEL_INGR_DETAILS,
+         GET_ORDER_REQUEST,
+         GET_ORDER_SUCCESS,
+         GET_ORDER_ERR } from '../actions/action';
 
 const initialState = {
   dataRequest: false,
@@ -78,6 +81,31 @@ const initialOrderState = {
 
 export const createdOrderReducer = (state=initialOrderState, action) => {
   switch(action.type){
+    case GET_ORDER_REQUEST: {
+      return {
+       ...state,
+       orderRequest: true,
+       orderFailed: false,
+       show: false
+      };
+    }
+    
+    case GET_ORDER_SUCCESS: {
+       return {
+        ...state,
+        orderRequest: false,
+        orderFailed: false,
+        order: action.order,
+      };
+    }
+
+    case GET_ORDER_ERR: {
+      return {
+        ...state,
+        orderRequest: false,
+        orderFailed: true,
+      };
+    }
 
     default: {
       return state;
@@ -86,7 +114,7 @@ export const createdOrderReducer = (state=initialOrderState, action) => {
 };
 
 
-/* для списка ингредиентов в текущем конструкторе бургера */ 
+/* для списка выбранных ингредиентов в конструкторе бургера */ 
 const initialBurgerState = {
   ingredients: [],
   bun: null

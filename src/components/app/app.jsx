@@ -6,9 +6,9 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import IngredientDetails from '../burger-ingredients/ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import OrderDetails from '../burger-constructor/order-details/order-details';
-import { apiGetOrderNumber } from '../../utils/burger-api';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIngr, delIngrDetails } from '../../services/store/actions/action';
+import { getOreder } from '../../services/store/actions/action';
 
 /*
   Создание первых экшенов и редьюсеров
@@ -31,20 +31,12 @@ const App = () => {
   
   const showModalIngrDetails = useSelector(store => store.ingredientInfo.active); 
 
-  const [showModalOrder, setShowModalOrder] = React.useState(false); 
-  const [orderNumber, setOrderNumber] = React.useState(0);
-
+  const [showModalOrder, setShowModalOrder] = React.useState(false);
+  const show = useSelector(store => !store.order.orderRequest); 
+  
   const handleOrder = (ingredientsId) => {
-    apiGetOrderNumber(ingredientsId)
-    .then(data => { 
-      if(data.success){ 
-          setOrderNumber(data.order.number);
-          setShowModalOrder(true);
-      } else {
-          setOrderNumber(0);
-        }
-    }) 
-    .catch(error => console.error(error.message));
+    dispatch(getOreder(ingredientsId));
+    setShowModalOrder(show);
   };
 
  const handleCloseModalIng = () => {
@@ -52,8 +44,8 @@ const App = () => {
  };
 
  const handleCloseModalOrder = () => {
-  setShowModalOrder(false);
- };
+   setShowModalOrder(false);
+};
 
   React.useEffect(() => {
     dispatch(getIngr());
@@ -73,7 +65,7 @@ const App = () => {
       </Modal>
       <Modal onClose={handleCloseModalOrder} 
              show={showModalOrder}>
-             <OrderDetails orderNumber={orderNumber}/>
+             <OrderDetails/>
       </Modal>
     </>
   );

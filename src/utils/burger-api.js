@@ -9,7 +9,7 @@ const checkResponse = (res) => {
         }
 };
 
-export const apiGetOrderNumber = async(ingredientsId) => {
+export const fetchGetOrderNumber = async(ingredientsId) => {
   return fetch(`${apiUrl}/api/orders`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -18,7 +18,7 @@ export const apiGetOrderNumber = async(ingredientsId) => {
           .then(res => checkResponse(res))
 };  
 
-export const fetchDataIngradients = async () => {
+export const fetchDataIngredients = async () => {
   return fetch(`${apiUrl}/api/ingredients`)
          .then(res => checkResponse(res))
 };      
