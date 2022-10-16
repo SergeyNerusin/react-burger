@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { allIngredinentsReducer,
-         burgerConstructorReducer,
-         infoIngredientReducer,
-         createdOrderReducer } from './reducers';
+import { allIngredinentsReducer } from './reducer-get-ing';
+import { burgerConstructorReducer } from './reducer-constructor-ingr';
+import { infoIngredientReducer } from './reducer-show-inrg-details';
+import { createdOrderReducer } from './reducer-get-order';
 
 export const rootReducer = combineReducers({
   ingredients: allIngredinentsReducer,

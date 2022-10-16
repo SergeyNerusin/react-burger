@@ -1,6 +1,6 @@
 import style from '../item-consstructor/item-constructor.module.css';
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {delBurgerIngr} from '../../../services/store/actions/action';
+import {delBurgerIngr} from '../../../services/store/actions/action-constructor-ingr';
 import { useDrag, useDrop } from 'react-dnd';
 import {useDispatch} from 'react-redux';
 import {useRef} from 'react';
@@ -15,7 +15,7 @@ export default function ItemConstructor({ing, index, moveIngr}) {
     collect: monitor => ({
       isDragging: monitor.isDragging()
     })
-  })
+  });
 
   const [, drop] = useDrop({
     accept: 'item',

@@ -1,9 +1,8 @@
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
 import PropTypes from 'prop-types';
 import style from './ingredient.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { showIngrDetails } from '../../../services/store/actions/action';
+import { showIngrDetails } from '../../../services/store/actions/action-show-ingr-details';
 import { useDrag } from 'react-dnd';
 
 function Ingredient({data}) {  
@@ -20,11 +19,11 @@ function Ingredient({data}) {
 
   const setCounter = () => {
     if (data.type !== 'bun') {
-      return ingredients.filter((item) => item._id === data._id).length
+      return ingredients.filter((item) => item._id === data._id).length;
     } else if (bun?._id === data._id) {
-      return 2
-    } else return 0
-  }
+      return 2;
+    } else return 0;
+  };
 
   const counter = setCounter();
   

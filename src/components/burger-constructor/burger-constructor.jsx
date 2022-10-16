@@ -4,7 +4,7 @@ import {ConstructorElement, Button, CurrencyIcon} from '@ya.praktikum/react-deve
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { addBurgerBun, addBurgerIngr, sortBurgerIngr } from '../../services/store/actions/action';
+import { addBurgerBun, addBurgerIngr, sortBurgerIngr } from '../../services/store/actions/action-constructor-ingr';
 import { useDrop } from 'react-dnd';
 import ItemConstructor from './item-consstructor/item-constructor';
 

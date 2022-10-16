@@ -1,4 +1,3 @@
-/* jshint esversion:6*/ 
 import React from 'react';
 import AppHeader from '../app-header/app-header';
 import Burgeringredients from '../burger-ingredients/burger-ingredients';
@@ -8,8 +7,9 @@ import Modal from '../modal/modal';
 import OrderDetails from '../burger-constructor/order-details/order-details';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { getIngr, delIngrDetails } from '../../services/store/actions/action';
-import { getOreder } from '../../services/store/actions/action';
+import { getIngr } from '../../services/store/actions/action-get-ingr';
+import { getOreder } from '../../services/store/actions/action-get-order';
+import { delIngrDetails } from '../../services/store/actions/action-show-ingr-details';
 
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd/dist/core';
