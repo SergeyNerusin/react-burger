@@ -19,7 +19,8 @@ const SectionIng = ({typeIng, scrollToRef, ...props}) => {
 
 SectionIng.propTypes = {
   typeIng: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired
+  children: PropTypes.string.isRequired,
+  scrollToRef: PropTypes.object.isRequired
 };
 
 export default SectionIng;

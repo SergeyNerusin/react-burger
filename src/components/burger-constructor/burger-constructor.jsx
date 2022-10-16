@@ -14,9 +14,6 @@ function BurgerConstructor({openModal}) {
   const {bun} = useSelector(store => store.burger);
   const {ingredients} = useSelector(store => store.burger); 
 
-  console.log('bun:', bun);
-  console.log('ingredients:', ingredients);
-
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
     drop(item) {
