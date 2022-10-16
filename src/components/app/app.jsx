@@ -6,41 +6,33 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import IngredientDetails from '../burger-ingredients/ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import OrderDetails from '../burger-constructor/order-details/order-details';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { getIngr, delIngrDetails } from '../../services/store/actions/action';
 import { getOreder } from '../../services/store/actions/action';
 
-/*
-  Создание первых экшенов и редьюсеров
-  Когда хранилище создано и инициализировано, время наполнить его бизнес-логикой приложения. Опишите экшены и редьюсеры для следующей функциональности:
-  Получение списка ингредиентов от API. Используется в компоненте BurgerIngredients.
-
-  Получение списка ингредиентов для конструктора бургера. Используется в компоненте BurgerConstructor.
-
-  Добавление данных о просматриваемом в модальном окне IngredientDetails ингредиенте.
-  Удаление данных о просматриваемом в модальном окне ингредиенте при закрытии модального окна.
-
-  Получение и обновление номера заказа в модальном окне OrderDetails.
-  
-  Все действия, которые сопровождаются запросами к API или зависят от них, должны проходить через усилители. Не забудьте подключить усилитель к вашему хранилищу.
-*/ 
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd/dist/core';
 
 const App = () => {
-  const ingredients = useSelector(store => store.ingredients.data);
+
+  const {ingredients} = useSelector(store => store.burger);
+  const {bun} = useSelector(store => store.burger);
   const dispatch = useDispatch();
-  
+ 
   const showModalIngrDetails = useSelector(store => store.ingredientInfo.active); 
 
   const [showModalOrder, setShowModalOrder] = React.useState(false);
-  const show = useSelector(store => !store.order.orderRequest); 
   
-  const handleOrder = (ingredientsId) => {
-    dispatch(getOreder(ingredientsId));
-    setShowModalOrder(show);
+  
+  const handleOrder = () => {
+    dispatch(getOreder([bun._id, ...ingredients.map(ingr => ingr._id), bun._id]));
+    setShowModalOrder(true);
   };
 
  const handleCloseModalIng = () => {
-    dispatch(delIngrDetails()); 
+    dispatch(delIngrDetails());
+   
  };
 
  const handleCloseModalOrder = () => {
@@ -48,25 +40,27 @@ const App = () => {
 };
 
   React.useEffect(() => {
-    dispatch(getIngr());
+    dispatch(getIngr());  //получаем ингредиенты 
   },[dispatch]); 
   
-  return (ingredients.length > 0) && ( 
+  return (
     <>
       <AppHeader/>
-        <main className="container mb-10">
-          <Burgeringredients/> 
-          <BurgerConstructor openModal={handleOrder}/> 
-        </main>
-       <Modal onClose={handleCloseModalIng} 
+        <DndProvider backend={HTML5Backend}>
+          <main className="container mb-10">
+            <Burgeringredients/> 
+            <BurgerConstructor openModal={handleOrder}/> 
+          </main>
+        </DndProvider>  
+        <Modal onClose={handleCloseModalIng} 
               show={showModalIngrDetails} 
               title={"Детали инградиента"}>
               <IngredientDetails/>
-      </Modal>
-      <Modal onClose={handleCloseModalOrder} 
+        </Modal>
+        <Modal onClose={handleCloseModalOrder} 
              show={showModalOrder}>
              <OrderDetails/>
-      </Modal>
+        </Modal>
     </>
   );
 }

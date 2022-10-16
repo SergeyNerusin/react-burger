@@ -2,11 +2,18 @@
 import { GET_INGR_REQUEST, 
          GET_INGR_SUCCESS, 
          GET_INGR_ERR,
+
          ADD_INGR_DETAILS,
          DEL_INGR_DETAILS,
+
          GET_ORDER_REQUEST,
          GET_ORDER_SUCCESS,
-         GET_ORDER_ERR } from '../actions/action';
+         GET_ORDER_ERR,
+
+         ADD_BURGER_INGR,
+         ADD_BURGER_BUN,
+         SORT_BURGER_INGR,
+         DEL_BURGER_INGR } from '../actions/action';
 
 const initialState = {
   dataRequest: false,
@@ -122,6 +129,33 @@ const initialBurgerState = {
 
 export const burgerConstructorReducer = (state = initialBurgerState, action) => {
   switch(action.type){
+    case ADD_BURGER_INGR:{
+      return{
+        ...state,
+        ingredients: [...state.ingredients,{...action.data, keyId: action.keyId}]
+      };
+    } 
+
+    case ADD_BURGER_BUN: {
+      return{
+        ...state,
+        bun: action.data
+      };
+    }
+
+    case SORT_BURGER_INGR: {
+        return {
+         ...state,
+         ingredients: action.sort 
+        };   
+    }
+    
+    case DEL_BURGER_INGR: {
+       return {
+        ...state,
+        ingredients: state.ingredients.filter((ingr, index) => index !== action.index)
+       };
+    }
 
     default: {
       return state;

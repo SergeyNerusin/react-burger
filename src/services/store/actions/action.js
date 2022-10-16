@@ -34,16 +34,16 @@ export const ADD_INGR_DETAILS = 'ADD_INGR_DETAILS';
 export const DEL_INGR_DETAILS = 'DEL_INGR_DETAILS';
 
 export function showIngrDetails(data){
-  return ({
+  return {
     type: ADD_INGR_DETAILS,
     ingr: data
-  });
+  };
 }
 
 export function delIngrDetails(){
-  return ({
+  return {
     type: DEL_INGR_DETAILS
-  });
+  };
 }
 
 /* для получения номера заказа  */ 
@@ -69,6 +69,43 @@ export function getOreder(ingredientsId){
           });
         }
     });
+  };
+}
+
+/* для работы со списком всех ингредиентов в  конструкторе бургера */ 
+
+export const ADD_BURGER_INGR = 'ADD_BURGER_ING';
+export const ADD_BURGER_BUN = 'ADD_BURGER_BUN';
+export const SORT_BURGER_INGR = 'SORTING_BURGER_INGR';
+export const DEL_BURGER_INGR = 'DEL_BURGER_ING';
+
+
+export function addBurgerBun(item) {
+  return {
+    type: ADD_BURGER_BUN, 
+    data: item
+  };
+}
+
+export function addBurgerIngr(item) { 
+  return {
+    type: ADD_BURGER_INGR, 
+    data: item, 
+    keyId: Date.now()
+  };
+}
+
+export function sortBurgerIngr(ingredients) {
+  return {
+    type: SORT_BURGER_INGR, 
+    sort: ingredients
+  };
+}  
+
+export function delBurgerIngr(id){
+  return {
+    type: DEL_BURGER_INGR, 
+    index: id 
   };
 }
 

@@ -3,6 +3,7 @@ import SectionIng from './section-ing/section-ing';
 import styles from './burger-ingredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 
+
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
   const bunRef = useRef(null);
