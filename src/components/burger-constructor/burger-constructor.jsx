@@ -71,7 +71,7 @@ function BurgerConstructor({openModal}) {
           </ul>
         </div>
         :
-        <div className={`${style.drop}`}>
+        <div className={`${style.drop} mb-4`}>
           <h2 className={`${style.title}`}>Выберете и перетащите начинку</h2>
         </div>
         }
