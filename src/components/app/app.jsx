@@ -10,24 +10,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getIngr } from '../../services/store/actions/action-get-ingr';
 import { getOreder } from '../../services/store/actions/action-get-order';
 import { delIngrDetails } from '../../services/store/actions/action-show-ingr-details';
+import { cleanOrder } from '../../services/store/actions/action-get-order';
 
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd/dist/core';
 
 const App = () => {
 
-  const {ingredients} = useSelector(store => store.burger);
-  const {bun} = useSelector(store => store.burger);
+  const {ingredients} = useSelector(store => store.burgerConstructor);
+  const {bun} = useSelector(store => store.burgerConstructor);
   const dispatch = useDispatch();
  
   const showModalIngrDetails = useSelector(store => store.ingredientInfo.active); 
-
-  const [showModalOrder, setShowModalOrder] = React.useState(false);
+  
+  const showOrderNumber = useSelector(store => store.order.order);
   
   
   const handleOrder = () => {
     dispatch(getOreder([bun._id, ...ingredients.map(ingr => ingr._id), bun._id]));
-    setShowModalOrder(true);
   };
 
  const handleCloseModalIng = () => {
@@ -36,7 +36,7 @@ const App = () => {
  };
 
  const handleCloseModalOrder = () => {
-   setShowModalOrder(false);
+   dispatch(cleanOrder());
 };
 
   React.useEffect(() => {
@@ -52,17 +52,18 @@ const App = () => {
             <BurgerConstructor openModal={handleOrder}/> 
           </main>
         </DndProvider>  
+        { showModalIngrDetails && 
         <Modal onClose={handleCloseModalIng} 
-              show={showModalIngrDetails} 
-              title={"Детали инградиента"}>
+               title={"Детали инградиента"}>
               <IngredientDetails/>
-        </Modal>
-        <Modal onClose={handleCloseModalOrder} 
-             show={showModalOrder}>
+        </Modal> }
+        { !!showOrderNumber && 
+        <Modal onClose={handleCloseModalOrder}>
              <OrderDetails/>
-        </Modal>
+        </Modal> }
     </>
   );
 }
 
 export default App;
+

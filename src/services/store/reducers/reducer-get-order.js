@@ -1,11 +1,12 @@
 /* инфо о сделанном заказе */ 
 import { GET_ORDER_REQUEST,
          GET_ORDER_SUCCESS,
-         GET_ORDER_ERR } from '../actions/action-get-order';
+         GET_ORDER_ERROR, 
+         CLEAN_ORDER_NUMBER} from '../actions/action-get-order';
 
 
 const initialOrderState = {
-  order: 0,
+  order: null,
   orderRequest: false,
   orderFailed: false,
 };
@@ -17,7 +18,6 @@ export const createdOrderReducer = (state=initialOrderState, action) => {
        ...state,
        orderRequest: true,
        orderFailed: false,
-       show: false
       };
     }
     
@@ -30,11 +30,18 @@ export const createdOrderReducer = (state=initialOrderState, action) => {
       };
     }
 
-    case GET_ORDER_ERR: {
+    case GET_ORDER_ERROR: {
       return {
         ...state,
         orderRequest: false,
         orderFailed: true,
+      };
+    }
+
+    case CLEAN_ORDER_NUMBER: {
+      return {
+       ...state,
+       order: null
       };
     }
 

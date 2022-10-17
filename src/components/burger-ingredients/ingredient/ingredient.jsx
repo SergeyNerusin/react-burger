@@ -6,8 +6,8 @@ import { showIngrDetails } from '../../../services/store/actions/action-show-ing
 import { useDrag } from 'react-dnd';
 
 function Ingredient({data}) {  
-  const {ingredients} = useSelector(store => store.burger);
-  const {bun} = useSelector(store => store.burger);
+  const {ingredients} = useSelector(store => store.burgerConstructor);
+  const {bun} = useSelector(store => store.burgerConstructor);
   const [, dragRef] = useDrag({
     type: 'ingredient',
     item: data,
@@ -42,7 +42,6 @@ function Ingredient({data}) {
 
 Ingredient.propTypes = {
   data: PropTypes.object.isRequired,
- 
 };
 
 export default Ingredient

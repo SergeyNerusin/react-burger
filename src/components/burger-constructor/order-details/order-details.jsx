@@ -9,9 +9,7 @@ const OrderDetails = () => {
  
   return (
     <>
-      {orderNumber !==0 ? <h2 className="text text_type_digits-large mb-8">{orderNumber}</h2>
-      :
-      <h2 className="text text_type_digits-large mb-8" style={{fontSize: "40px", fontFamily: "Jet Brains Mono"}}>Запрос...</h2>}
+      <h2 className="text text_type_digits-large mb-8">{orderNumber}</h2>
       <span className="text text_type_main-medium mb-15">идентификатор заказа</span>
       <div className={style.imgcontainer + ' mb-15'}>
          <img className={style.img} src={takeInWork} alt="Готовим заказ"/>

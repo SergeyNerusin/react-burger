@@ -1,4 +1,4 @@
-import apiUrl  from '../services/constant';
+import API_URL  from './constant';
   
 
 const checkResponse = (res) => {
@@ -10,7 +10,7 @@ const checkResponse = (res) => {
 };
 
 export const fetchGetOrderNumber = async(ingredientsId) => {
-  return fetch(`${apiUrl}/api/orders`, {
+  return fetch(`${API_URL}/api/orders`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ingredients: ingredientsId})
@@ -19,6 +19,6 @@ export const fetchGetOrderNumber = async(ingredientsId) => {
 };  
 
 export const fetchDataIngredients = async () => {
-  return fetch(`${apiUrl}/api/ingredients`)
+  return fetch(`${API_URL}/api/ingredients`)
          .then(res => checkResponse(res))
 };      

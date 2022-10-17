@@ -11,9 +11,9 @@ const BurgerIngredients = () => {
   const mainRef = useRef(null); 
   const refContainer = useRef();
 
-  const handleMenuScroll = (pointer, scrollToRef) => {
+  const handleMenuScroll = (value, scrollToRef) => {
     scrollToRef.current.scrollIntoView();
-    setCurrent(pointer);
+    setCurrent(value);
   };
 
   const handleScroll = () => {
@@ -36,17 +36,17 @@ const BurgerIngredients = () => {
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <nav className={styles.tabs + ' mt-5 mb-10'}>
         <li>
-          <Tab value='bun' active={current === 'bun'} onClick={() => handleMenuScroll('bun', bunRef)}>
+          <Tab value='bun' active={current === 'bun'} onClick={(value) => handleMenuScroll(value, bunRef)}>
             Булки
           </Tab>
         </li>
         <li>
-          <Tab value='sauce' active={current === 'sauce'} onClick={() => handleMenuScroll('sauce', sauceRef)}>
+          <Tab value='sauce' active={current === 'sauce'} onClick={(value) => handleMenuScroll(value, sauceRef)}>
             Соусы
           </Tab>
         </li>
         <li>
-          <Tab value='main' active={current === 'main'} onClick={() => handleMenuScroll('main', mainRef)}>
+          <Tab value='main' active={current === 'main'} onClick={(value) => handleMenuScroll(value, mainRef)}>
             Начинки
           </Tab>
         </li>

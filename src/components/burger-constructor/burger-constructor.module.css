@@ -33,7 +33,7 @@
 
 .itemlock {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .fillings {
@@ -57,7 +57,7 @@
 
 .order {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .total {

@@ -6,7 +6,7 @@ import { createdOrderReducer } from './reducer-get-order';
 
 export const rootReducer = combineReducers({
   ingredients: allIngredinentsReducer,
-  burger: burgerConstructorReducer,
+  burgerConstructor: burgerConstructorReducer,
   ingredientInfo: infoIngredientReducer,
   order: createdOrderReducer
 });
@@ -15,8 +15,8 @@ export const rootReducer = combineReducers({
 /* 
   rootReduser {
     ingredients: allIngredinentsReducer,- список всех полученных ингредиентов,
-    burger: burgerConstructorReducer, - список всех ингредиентов в текущем конструкторе бургера,
+    burgerConstructor: burgerConstructorReducer, - список всех ингредиентов в текущем конструкторе бургера,
     ingredientInfo: infoIngredientReducer, данные о текущем ингредиенте для просмотра,
-    order: createdOrderReducer - объект созданного заказа
+    order: createdOrderReducer - номер созданного заказа
   }
 */ 

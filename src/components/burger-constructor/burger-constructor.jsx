@@ -11,8 +11,8 @@ import ItemConstructor from './item-consstructor/item-constructor';
 function BurgerConstructor({openModal}) {
 
   const dispatch = useDispatch();
-  const {bun} = useSelector(store => store.burger);
-  const {ingredients} = useSelector(store => store.burger); 
+  const {bun} = useSelector(store => store.burgerConstructor);
+  const {ingredients} = useSelector(store => store.burgerConstructor); 
 
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
@@ -36,6 +36,7 @@ function BurgerConstructor({openModal}) {
     mixIngredients[dragIndex] = hoverItem;
     mixIngredients[hoverIndex] = dragItem;
     dispatch(sortBurgerIngr(mixIngredients));
+  // eslint-disable-next-line
   },[ingredients]);
 
   const renderIngr = (ing, index) => {
