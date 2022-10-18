@@ -21,8 +21,8 @@ const App = () => {
   const {bun} = useSelector(store => store.burgerConstructor);
   const dispatch = useDispatch();
  
+  const {data} = useSelector(store => store.ingredients);
   const showModalIngrDetails = useSelector(store => store.ingredientInfo.ingredient); 
-  
   const showOrderNumber = useSelector(store => store.order.order);
   
   
@@ -43,7 +43,7 @@ const App = () => {
     dispatch(getIngr());  //получаем ингредиенты 
   },[dispatch]); 
   
-  return (
+  return !!data && (
     <>
       <AppHeader/>
         <DndProvider backend={HTML5Backend}>
@@ -59,7 +59,7 @@ const App = () => {
         </Modal> }
         { !!showOrderNumber && 
         <Modal onClose={handleCloseModalOrder}>
-             <OrderDetails/>
+             <OrderDetails orderNumber={showOrderNumber}/>
         </Modal> }
     </>
   );

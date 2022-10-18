@@ -7,15 +7,16 @@ import {useSelector} from 'react-redux';
 
 
 const BurgerIngredients = () => {
-  const [current, setCurrent] = useState('bun');
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
   const mainRef = useRef(null); 
   const refContainer = useRef();
-
+  
   // идём в store, получаем ссылку на массив объектов для отрисовки 
   const {data} = useSelector(store => store.ingredients);
   
+  const [current, setCurrent] = useState('bun');
+
   const handleMenuScroll = (value, scrollToRef) => {
     scrollToRef.current.scrollIntoView();
     setCurrent(value);

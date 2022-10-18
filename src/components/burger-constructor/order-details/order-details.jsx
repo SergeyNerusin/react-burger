@@ -1,13 +1,11 @@
 import style from './order-details.module.css';
 import takeInWork from '../../../images/done.jpg';
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 
-const OrderDetails = () => {
+const OrderDetails = ({orderNumber}) => {
   
-  const orderNumber = useSelector(store => store.order.order);
- 
-  return (
+return (
     <>
       <h2 className="text text_type_digits-large mb-8">{orderNumber}</h2>
       <span className="text text_type_main-medium mb-15">идентификатор заказа</span>
@@ -19,5 +17,9 @@ const OrderDetails = () => {
     </>
   );
 }
+
+OrderDetails.propTypes = {
+  orderNumber: PropTypes.number.isRequired,
+};
 
 export default OrderDetails; 

@@ -6,7 +6,7 @@ import { GET_INGR_REQUEST,
 const initialState = {
   dataRequest: false,
   dataFailed: false,
-  data: []
+  data: null
 };
 
 export const allIngredinentsReducer = (state = initialState , action) => {
