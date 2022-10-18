@@ -17,8 +17,7 @@ function BurgerConstructor({openModal}) {
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
     drop(item) {
-      if (item.type === 'bun') {dispatch(addBurgerBun(item))}
-      else {dispatch(addBurgerIngr(item))}
+      dispatch(item.type === 'bun' ? addBurgerBun(item) : (addBurgerIngr(item)));
     },
     collect: monitor => ({
       isOver: monitor.isOver()
@@ -38,12 +37,6 @@ function BurgerConstructor({openModal}) {
     dispatch(sortBurgerIngr(mixIngredients));
   // eslint-disable-next-line
   },[ingredients]);
-
-  const renderIngr = (ing, index) => {
-    return (
-      <ItemConstructor ing={ing} index={index} key={ing.keyId} moveIngr={moveIngr}/>
-    );
-  };
 
   return ( 
     <div ref={dropRef} className={isOver ? `${style.container} ${style.bordercolor} mt-25` : `${style.container } mt-25`}>
@@ -67,7 +60,7 @@ function BurgerConstructor({openModal}) {
         <div>
           <ul className={style.fillings + ' ml-4'}>
             {ingredients.map((ingr, index) => (
-              renderIngr(ingr, index)
+              <ItemConstructor ing={ingr} index={index} key={ingr.keyId} moveIngr={moveIngr}/>
             ))}
           </ul>
         </div>

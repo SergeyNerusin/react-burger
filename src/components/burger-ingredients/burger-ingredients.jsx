@@ -23,7 +23,7 @@ const BurgerIngredients = () => {
 
   const handleScroll = () => {
         
-    let scrollDis = refContainer.current.scrollTop + 362;
+    const scrollDis = refContainer.current.scrollTop + 362;
     
     if(bunRef.current.offsetTop <= scrollDis){
       setCurrent('bun');
