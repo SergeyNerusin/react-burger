@@ -21,7 +21,7 @@ const App = () => {
   const {bun} = useSelector(store => store.burgerConstructor);
   const dispatch = useDispatch();
  
-  const showModalIngrDetails = useSelector(store => store.ingredientInfo.active); 
+  const showModalIngrDetails = useSelector(store => store.ingredientInfo.ingredient); 
   
   const showOrderNumber = useSelector(store => store.order.order);
   
@@ -52,7 +52,7 @@ const App = () => {
             <BurgerConstructor openModal={handleOrder}/> 
           </main>
         </DndProvider>  
-        { showModalIngrDetails && 
+        { !!showModalIngrDetails && 
         <Modal onClose={handleCloseModalIng} 
                title={"Детали инградиента"}>
               <IngredientDetails/>

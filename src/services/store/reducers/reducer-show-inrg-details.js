@@ -3,10 +3,7 @@
 import { ADD_INGR_DETAILS,
          DEL_INGR_DETAILS } from '../actions/action-show-ingr-details';
 
-const initialInfoIngrState = {
-  ingredient: {},
-  active: false
-};
+const initialInfoIngrState = { ingredient: null };
 
 export const infoIngredientReducer = (state = initialInfoIngrState, action) => {
   switch(action.type){
@@ -14,14 +11,12 @@ export const infoIngredientReducer = (state = initialInfoIngrState, action) => {
       return {
         ...state,
         ingredient: action.ingr,
-        active: true
       };
       
     case DEL_INGR_DETAILS:
       return {
         ...state,
-        ingredient: {},
-        active: false
+        ingredient: null
       };
 
     default: {
