@@ -1,7 +1,9 @@
+import React from 'react';
 import {useState, useRef} from 'react';
 import SectionIng from './section-ing/section-ing';
 import styles from './burger-ingredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
+import {useSelector} from 'react-redux';
 
 
 const BurgerIngredients = () => {
@@ -11,6 +13,9 @@ const BurgerIngredients = () => {
   const mainRef = useRef(null); 
   const refContainer = useRef();
 
+  // идём в store, получаем ссылку на массив объектов для отрисовки 
+  const {data} = useSelector(store => store.ingredients);
+  
   const handleMenuScroll = (value, scrollToRef) => {
     scrollToRef.current.scrollIntoView();
     setCurrent(value);
@@ -30,6 +35,20 @@ const BurgerIngredients = () => {
       setCurrent('main');
      }
   };
+  
+  // создаём массивы объектов по соответствию ингредиентов
+  const buns = React.useMemo(() => data.filter((item) => item.type === "bun"),
+    [data]
+  );
+
+  const sauces = React.useMemo(() => data.filter((item) => item.type === "sauce"),
+    [data]
+  );
+
+  const mains = React.useMemo(() => data.filter((item) => item.type === "main"),
+    [data]
+  );
+
 
   return (
     <article className={styles.ingredients + ' mt-10'}>
@@ -52,9 +71,9 @@ const BurgerIngredients = () => {
         </li>
       </nav>
       <div className={styles.container} onScroll={handleScroll} ref={refContainer}>
-        <SectionIng  typeIng={'bun'} scrollToRef={bunRef}>Булки</SectionIng>
-        <SectionIng  typeIng={'sauce'} scrollToRef={sauceRef}>Соусы</SectionIng>
-        <SectionIng  typeIng={'main'} scrollToRef={mainRef}>Начинки</SectionIng>
+        <SectionIng  ingredients = {buns}  scrollToRef={bunRef}>Булки</SectionIng>
+        <SectionIng  ingredients = {sauces} scrollToRef={sauceRef}>Соусы</SectionIng>
+        <SectionIng  ingredients = {mains} scrollToRef={mainRef}>Начинки</SectionIng>
       </div>
     </article>
   )

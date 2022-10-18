@@ -6,7 +6,7 @@ import style from './modal.module.css';
 import ModalOverlay from './modal-overlay/modal-overlay'; 
 
 
-  const Modal = ({onClose, title="", children}) => {
+const Modal = ({onClose, title="", children}) => {
   const body = document.querySelector('body');  
   
   React.useEffect(() => {
@@ -16,7 +16,7 @@ import ModalOverlay from './modal-overlay/modal-overlay';
     }
   };
 
-      document.body.addEventListener('keyup', closeOnEscapeKeyDown);
+    document.body.addEventListener('keyup', closeOnEscapeKeyDown);
     body.style.overflow = 'hidden'; 
    
     return function cleanup() {

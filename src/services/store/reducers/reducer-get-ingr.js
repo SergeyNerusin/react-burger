@@ -1,7 +1,7 @@
 /* для получения списка ингредиентов*/ 
 import { GET_INGR_REQUEST, 
          GET_INGR_SUCCESS, 
-         GET_INGR_ERR } from '../actions/action-get-ingr';
+         GET_INGR_ERRОR} from '../actions/action-get-ingr';
 
 const initialState = {
   dataRequest: false,
@@ -24,7 +24,7 @@ export const allIngredinentsReducer = (state = initialState , action) => {
         dataRequest: false,
         dataFailed: false
       };
-    case GET_INGR_ERR: 
+    case GET_INGR_ERRОR: 
       return {
         ...state,
         dataRequest: false,

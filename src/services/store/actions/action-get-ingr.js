@@ -3,7 +3,7 @@ import { fetchDataIngredients } from '../../../utils/burger-api';
 
 export const GET_INGR_REQUEST = 'GET_INGR_REQUEST'; // экшн получить ингредиенты 
 export const GET_INGR_SUCCESS = 'GET_INGR_SUCCESS'; 
-export const GET_INGR_ERR = 'GET_INGR_ERR';
+export const GET_INGR_ERRОR = 'GET_INGR_ERRОR';
 
 export function getIngr() {
  return function(dispatch){
@@ -20,13 +20,15 @@ export function getIngr() {
     });
     } else {
       dispatch({
-      type: GET_INGR_ERR
+      type: GET_INGR_ERRОR
     });
     }
-  }); 
- 
+  })
+  .catch(() => dispatch({ 
+    type: GET_INGR_ERRОR 
+  })); 
  };
-};
+}
 
 
 

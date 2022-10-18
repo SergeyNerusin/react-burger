@@ -1,3 +1,4 @@
+import React from 'react';
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import style from './ingredient.module.css';
@@ -17,15 +18,15 @@ function Ingredient({data}) {
      dispatch(showIngrDetails(data));
   }; 
 
-  const setCounter = () => {
+  const counter = React.useMemo(
+   () => {
     if (data.type !== 'bun') {
       return ingredients.filter((item) => item._id === data._id).length;
     } else if (bun?._id === data._id) {
       return 2;
     } else return 0;
-  };
-
-  const counter = setCounter();
+  // eslint-disable-next-line 
+  },[bun, ingredients]);
   
   return (
     <li className={style.ingredient} ref={dragRef} onClick={handleItemData}>

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { allIngredinentsReducer } from './reducer-get-ing';
+import { allIngredinentsReducer } from './reducer-get-ingr';
 import { burgerConstructorReducer } from './reducer-constructor-ingr';
 import { infoIngredientReducer } from './reducer-show-inrg-details';
 import { createdOrderReducer } from './reducer-get-order';

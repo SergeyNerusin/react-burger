@@ -22,7 +22,10 @@ export function getOreder(ingredientsId){
             type: GET_ORDER_ERROR
           });
         }
-    });
+    })
+    .catch(() =>  dispatch({
+            type: GET_ORDER_ERROR
+          }));
   };
 }
 
