@@ -6,7 +6,7 @@ import {ADD_BURGER_INGR,
 
 /* для списка выбранных ингредиентов в конструкторе бургера */ 
 const initialBurgerState = {
-  ingredients: [],
+  ingredients: null,
   bun: null
 };
 
@@ -15,7 +15,7 @@ export const burgerConstructorReducer = (state = initialBurgerState, action) => 
     case ADD_BURGER_INGR:{
       return{
         ...state,
-        ingredients: [...state.ingredients,{...action.payload, keyId: action.payload.keyId}]
+        ingredients: (state.ingredients === null) ? [{...action.payload}] : [...state.ingredients,{...action.payload}]
       };
     } 
 

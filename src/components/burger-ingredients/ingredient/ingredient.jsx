@@ -20,7 +20,7 @@ function Ingredient({data}) {
 
   const counter = React.useMemo(
    () => {
-    if (data.type !== 'bun') {
+    if (data.type !== 'bun' && ingredients !== null) {
       return ingredients.filter((item) => item._id === data._id).length;
     } else if (bun?._id === data._id) {
       return 2;
