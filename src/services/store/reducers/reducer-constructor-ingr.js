@@ -15,7 +15,7 @@ export const burgerConstructorReducer = (state = initialBurgerState, action) => 
     case ADD_BURGER_INGR:{
       return{
         ...state,
-        ingredients: [...state.ingredients,{...action.data, keyId: action.keyId}]
+        ingredients: [...state.ingredients,{...action.payload, keyId: action.payload.keyId}]
       };
     } 
 

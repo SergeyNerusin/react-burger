@@ -16,8 +16,7 @@ export function addBurgerBun(item) {
 export function addBurgerIngr(item) { 
   return {
     type: ADD_BURGER_INGR, 
-    data: item, 
-    keyId: Date.now()
+    payload:{...item, keyId: Date.now()}
   };
 }
 
