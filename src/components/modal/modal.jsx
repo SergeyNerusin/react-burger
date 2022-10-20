@@ -5,9 +5,9 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './modal.module.css'; 
 import ModalOverlay from './modal-overlay/modal-overlay'; 
 
+const body = document.querySelector('body');  
 
 const Modal = ({onClose, title="", children}) => {
-  const body = document.querySelector('body');  
   
   React.useEffect(() => {
   const closeOnEscapeKeyDown = evt => {
@@ -24,7 +24,7 @@ const Modal = ({onClose, title="", children}) => {
       body.style.overflow = 'visible';
     };
     // eslint-disable-next-line
-   }, []);
+   }, [onClose]);
 
   return ReactDOM.createPortal(
     <>
@@ -45,7 +45,7 @@ const Modal = ({onClose, title="", children}) => {
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  children: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired,
   title: PropTypes.string
 }
 

@@ -18,7 +18,7 @@ const BurgerIngredients = () => {
   const [current, setCurrent] = useState('bun');
 
   const handleMenuScroll = (value, scrollToRef) => {
-    scrollToRef.current.scrollIntoView();
+    scrollToRef.current.scrollIntoView({ behavior: 'smooth' });
     setCurrent(value);
   };
 
@@ -72,9 +72,9 @@ const BurgerIngredients = () => {
         </li>
       </nav>
       <div className={styles.container} onScroll={handleScroll} ref={refContainer}>
-        <SectionIng  ingredients = {buns}  scrollToRef={bunRef}>Булки</SectionIng>
-        <SectionIng  ingredients = {sauces} scrollToRef={sauceRef}>Соусы</SectionIng>
-        <SectionIng  ingredients = {mains} scrollToRef={mainRef}>Начинки</SectionIng>
+        <SectionIng  listIngr = {buns}  scrollToRef={bunRef}>Булки</SectionIng>
+        <SectionIng  listIngr = {sauces} scrollToRef={sauceRef}>Соусы</SectionIng>
+        <SectionIng  listIngr = {mains} scrollToRef={mainRef}>Начинки</SectionIng>
       </div>
     </article>
   )

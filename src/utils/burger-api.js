@@ -1,15 +1,12 @@
-import API_URL  from './constant';
+import { API_URL }  from './constant';
   
 
 const checkResponse = (res) => {
-  if (res.ok) {
-        return res.json();
-      } else {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
+  if (res.ok) return res.json();
+  return Promise.reject(`Ошибка: ${res.status}`);
 };
 
-export const fetchGetOrderNumber = async(ingredientsId) => {
+export const fetchGetOrderNumber = (ingredientsId) => {
   return fetch(`${API_URL}/api/orders`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -18,7 +15,7 @@ export const fetchGetOrderNumber = async(ingredientsId) => {
           .then(res => checkResponse(res))
 };  
 
-export const fetchDataIngredients = async () => {
+export const fetchDataIngredients = () => {
   return fetch(`${API_URL}/api/ingredients`)
          .then(res => checkResponse(res))
 };      

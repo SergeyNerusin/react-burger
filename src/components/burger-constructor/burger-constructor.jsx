@@ -15,9 +15,8 @@ import ItemConstructor from './item-consstructor/item-constructor';
 function BurgerConstructor({openModal}) {
 
   const dispatch = useDispatch();
-  const {bun} = useSelector(store => store.burgerConstructor);
-  const {ingredients} = useSelector(store => store.burgerConstructor); 
-
+  const {bun, ingredients} = useSelector(store => store.burgerConstructor);
+  
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
     drop(item) {
