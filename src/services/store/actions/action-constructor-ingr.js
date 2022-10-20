@@ -1,9 +1,9 @@
 /* для работы со списком всех ингредиентов в  конструкторе бургера */ 
 
-export const ADD_BURGER_INGR = 'ADD_BURGER_ING';
+export const ADD_BURGER_INGR = 'ADD_BURGER_INGR';
 export const ADD_BURGER_BUN = 'ADD_BURGER_BUN';
 export const SORT_BURGER_INGR = 'SORTING_BURGER_INGR';
-export const DEL_BURGER_INGR = 'DEL_BURGER_ING';
+export const DEL_BURGER_INGR = 'DEL_BURGER_INGR';
 
 
 export function addBurgerBun(item) {
