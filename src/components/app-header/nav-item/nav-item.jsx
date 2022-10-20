@@ -18,7 +18,7 @@ const NavItem = ({icon, active, ...props}) => {
 NavItem.propTypes = {
   icon: PropTypes.object.isRequired,
   active: PropTypes.string,
-  children: PropTypes.string.isRequired
+  children: PropTypes.node.isRequired
 };
 
 export default NavItem;
