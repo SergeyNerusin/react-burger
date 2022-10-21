@@ -7,7 +7,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import {useDispatch} from 'react-redux';
 import {useRef} from 'react';
 
-export default function ItemConstructor({ing, index, moveIngr}) {
+export default function ItemConstructor({ingredient, index, moveIngr}) {
   const dispatch = useDispatch();
   const refItem = useRef(null);
 
@@ -52,9 +52,9 @@ export default function ItemConstructor({ing, index, moveIngr}) {
         </span>
       </div>
       <ConstructorElement
-        text={ing.name}
-        price={ing.price}
-        thumbnail={ing.image}
+        text={ingredient.name}
+        price={ingredient.price}
+        thumbnail={ingredient.image}
         handleClose={() => HandleDelItem()}
       />
     </li>
@@ -62,7 +62,7 @@ export default function ItemConstructor({ing, index, moveIngr}) {
 }
 
 ItemConstructor.propTypes = {
-  ing: ingredientType.isRequired,
+  ingredient: ingredientType.isRequired,
   index: PropTypes.number.isRequired,
   moveIngr: PropTypes.func.isRequired
 };

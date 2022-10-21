@@ -66,7 +66,7 @@ function BurgerConstructor({openModal}) {
         <div>
           <ul className={style.fillings + ' ml-4'}>
             {ingredients.map((ingr, index) => (
-              <ItemConstructor ing={ingr} index={index} key={ingr.keyId} moveIngr={moveIngr}/>
+              <ItemConstructor ingredient={ingr} index={index} key={ingr.keyId} moveIngr={moveIngr}/>
             ))}
           </ul>
         </div>
