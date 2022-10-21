@@ -17,7 +17,7 @@ const SectionIng = ({listIngr, scrollToRef, children}) => {
 } 
 
 SectionIng.propTypes = {
-  listIngr: PropTypes.arrayOf(ingredientType).isRequired,
+  listIngr: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
   scrollToRef: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired
 };

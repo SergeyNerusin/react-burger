@@ -1,4 +1,6 @@
 import style from '../item-consstructor/item-constructor.module.css';
+import ingredientType from '../../../utils/type';
+import PropTypes from 'prop-types';
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {delBurgerIngr} from '../../../services/store/actions/action-constructor-ingr';
 import { useDrag, useDrop } from 'react-dnd';
@@ -58,4 +60,10 @@ export default function ItemConstructor({ing, index, moveIngr}) {
     </li>
   )
 }
+
+ItemConstructor.propTypes = {
+  ing: ingredientType.isRequired,
+  index: PropTypes.number.isRequired,
+  moveIngr: PropTypes.func.isRequired
+};
 

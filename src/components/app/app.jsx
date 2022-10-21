@@ -1,6 +1,6 @@
 import React from 'react';
 import AppHeader from '../app-header/app-header';
-import Burgeringredients from '../burger-ingredients/burger-ingredients';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import IngredientDetails from '../burger-ingredients/ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
@@ -48,7 +48,7 @@ const App = () => {
       <AppHeader/>
         <DndProvider backend={HTML5Backend}>
           <main className="container mb-10">
-            <Burgeringredients/> 
+            <BurgerIngredients/> 
             <BurgerConstructor openModal={handleOrder}/> 
           </main>
         </DndProvider>  
