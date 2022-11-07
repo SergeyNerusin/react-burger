@@ -1,75 +1,69 @@
-/* jshint esversion:6*/ 
 import React from 'react';
 import AppHeader from '../app-header/app-header';
-import Burgeringredients from '../burger-ingredients/burger-ingredients';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import IngredientDetails from '../burger-ingredients/ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import OrderDetails from '../burger-constructor/order-details/order-details';
-import { apiGetOrderNumber, fetchDataIngradients } from '../../utils/burger-api';
-import { BurgerConstructorContext } from '../../services/burger-constr-context';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { getIngr } from '../../services/store/actions/action-get-ingr';
+import { getOreder } from '../../services/store/actions/action-get-order';
+import { delIngrDetails } from '../../services/store/actions/action-show-ingr-details';
+import { cleanOrder } from '../../services/store/actions/action-get-order';
+
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd/dist/core';
 
 const App = () => {
+
+  const {ingredients} = useSelector(store => store.burgerConstructor);
+  const {bun} = useSelector(store => store.burgerConstructor);
+  const dispatch = useDispatch();
+ 
+  const {data} = useSelector(store => store.ingredients);
+  const showModalIngrDetails = useSelector(store => store.ingredientInfo.ingredient); 
+  const showOrderNumber = useSelector(store => store.order.order);
   
-  const [ingredients, setIngredients] = React.useState([]);
-  const [showModalIngrDetails, setShowModalIngrDetails] = React.useState(false);
-  const [itemData, setItemData] = React.useState({});
-  const [showModalOrder, setShowModalOrder] = React.useState(false); 
-  const [orderNumber, setOrderNumber] = React.useState(0);
-
-  const handleItemData = (data) =>{
-    setItemData(data);
-    setShowModalIngrDetails(state => !state);
-  }; 
-
-  const handleOrder = (ingredientsId) => {
-    apiGetOrderNumber(ingredientsId)
-    .then(data => { 
-      if(data.success){ 
-          setOrderNumber(data.order.number);
-          setShowModalOrder(true);
-      } else {
-          setOrderNumber(0);
-        }
-    }) 
-    .catch(error => console.error(error.message));
+  
+  const handleOrder = () => {
+    dispatch(getOreder([bun._id, ...ingredients.map(ingr => ingr._id), bun._id]));
   };
 
  const handleCloseModalIng = () => {
-  setShowModalIngrDetails(false);
+    dispatch(delIngrDetails());
+   
  };
 
  const handleCloseModalOrder = () => {
-  setShowModalOrder(false);
- };
+   dispatch(cleanOrder());
+};
 
   React.useEffect(() => {
-    fetchDataIngradients() 
-    .then(res => setIngredients(res.data))
-    .catch(error => console.error(error.message));
-  },[]); 
+    dispatch(getIngr());  //получаем ингредиенты 
+  },[dispatch]); 
   
-  return (ingredients.length > 0) && ( 
+  return !!data && (
     <>
       <AppHeader/>
-       <main className="container mb-10">
-          <Burgeringredients data={ingredients} openModal={handleItemData}/> 
-          <BurgerConstructorContext.Provider value={ingredients}>
-            <BurgerConstructor openModal={handleOrder}/>
-          </BurgerConstructorContext.Provider>
-       </main>
-       <Modal onClose={handleCloseModalIng} 
-              show={showModalIngrDetails} 
-              title={"Детали инградиента"}>
-        <IngredientDetails data={itemData}/>
-      </Modal>
-      <Modal onClose={handleCloseModalOrder} 
-             show={showModalOrder}>
-             <OrderDetails orderNumber={orderNumber}/>
-      </Modal>
+        <DndProvider backend={HTML5Backend}>
+          <main className="container mb-10">
+            <BurgerIngredients/> 
+            <BurgerConstructor openModal={handleOrder}/> 
+          </main>
+        </DndProvider>  
+        { !!showModalIngrDetails && 
+        <Modal onClose={handleCloseModalIng} 
+               title={"Детали инградиента"}>
+              <IngredientDetails/>
+        </Modal> }
+        { !!showOrderNumber && 
+        <Modal onClose={handleCloseModalOrder}>
+             <OrderDetails orderNumber={showOrderNumber}/>
+        </Modal> }
     </>
   );
 }
 
 export default App;
+

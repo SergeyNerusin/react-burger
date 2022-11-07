@@ -1,7 +1,7 @@
 import styles from './nav-item.module.css';
 import PropTypes from 'prop-types';
 
-const NavItem = ({icon, active, ...props}) => {
+const NavItem = ({icon, active, children}) => {
 
   const isActive = (active === "primary") ? "text text_type_main-default" : "text text_type_main-default text_color_inactive";
  
@@ -9,7 +9,7 @@ const NavItem = ({icon, active, ...props}) => {
     <li className={`${styles.item} pr-4`}>
       <a className={`${styles.link} pl-5 pr-5`} href={'/#'}>
           {icon}
-          <p className={`${isActive} pl-2`} >{props.children}</p>
+          <p className={`${isActive} pl-2`} >{children}</p>
       </a>
     </li>
   );
@@ -18,7 +18,7 @@ const NavItem = ({icon, active, ...props}) => {
 NavItem.propTypes = {
   icon: PropTypes.object.isRequired,
   active: PropTypes.string,
-  children: PropTypes.string.isRequired
+  children: PropTypes.node.isRequired
 };
 
 export default NavItem;

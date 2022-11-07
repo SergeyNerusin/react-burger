@@ -1,46 +1,83 @@
 import React from 'react';
+import {useState, useRef} from 'react';
 import SectionIng from './section-ing/section-ing';
 import styles from './burger-ingredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import ingredientType from '../../utils/type';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 
 
-const BurgerIngredients = ({data, openModal}) => {
-  const [current, setCurrent] = React.useState('Булки');
+const BurgerIngredients = () => {
+  const bunRef = useRef(null);
+  const sauceRef = useRef(null);
+  const mainRef = useRef(null); 
+  const refContainer = useRef();
+  
+  // идём в store, получаем ссылку на массив объектов для отрисовки 
+  const {data} = useSelector(store => store.ingredients);
+  
+  const [current, setCurrent] = useState('bun');
+
+  const handleMenuScroll = (value, scrollToRef) => {
+    scrollToRef.current.scrollIntoView({ behavior: 'smooth' });
+    setCurrent(value);
+  };
+
+  const handleScroll = () => {
+        
+    const scrollDis = refContainer.current.scrollTop + 362;
+    
+    if(bunRef.current.offsetTop <= scrollDis){
+      setCurrent('bun');
+     } 
+    if(sauceRef.current.offsetTop <= scrollDis){
+      setCurrent('sauce');
+     } 
+    if (mainRef.current.offsetTop <= scrollDis){
+      setCurrent('main');
+     }
+  };
+  
+  // создаём массивы объектов по соответствию ингредиентов
+  const buns = React.useMemo(() => data.filter((item) => item.type === "bun"),
+    [data]
+  );
+
+  const sauces = React.useMemo(() => data.filter((item) => item.type === "sauce"),
+    [data]
+  );
+
+  const mains = React.useMemo(() => data.filter((item) => item.type === "main"),
+    [data]
+  );
+
 
   return (
     <article className={styles.ingredients + ' mt-10'}>
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <nav className={styles.tabs + ' mt-5 mb-10'}>
         <li>
-          <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
+          <Tab value='bun' active={current === 'bun'} onClick={(value) => handleMenuScroll(value, bunRef)}>
             Булки
           </Tab>
         </li>
         <li>
-          <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
+          <Tab value='sauce' active={current === 'sauce'} onClick={(value) => handleMenuScroll(value, sauceRef)}>
             Соусы
           </Tab>
         </li>
         <li>
-          <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
+          <Tab value='main' active={current === 'main'} onClick={(value) => handleMenuScroll(value, mainRef)}>
             Начинки
           </Tab>
         </li>
       </nav>
-      <div className={styles.container}>
-        <SectionIng data={data} openModal={openModal} typeIng={'bun'}>Булки</SectionIng>
-        <SectionIng data={data} openModal={openModal} typeIng={'sauce'}>Соусы</SectionIng>
-        <SectionIng data={data} openModal={openModal} typeIng={'main'}>Начинки</SectionIng>
+      <div className={styles.container} onScroll={handleScroll} ref={refContainer}>
+        <SectionIng  ingredients = {buns}  scrollToRef={bunRef}>Булки</SectionIng>
+        <SectionIng  ingredients  = {sauces} scrollToRef={sauceRef}>Соусы</SectionIng>
+        <SectionIng  ingredients  = {mains} scrollToRef={mainRef}>Начинки</SectionIng>
       </div>
     </article>
   )
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType).isRequired,
-  openModal: PropTypes.func.isRequired
-};
 
 export default BurgerIngredients

@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
 import style from './order-details.module.css';
 import takeInWork from '../../../images/done.jpg';
+import PropTypes from 'prop-types';
+
 
 const OrderDetails = ({orderNumber}) => {
-
-  return(
+  
+return (
     <>
       <h2 className="text text_type_digits-large mb-8">{orderNumber}</h2>
       <span className="text text_type_main-medium mb-15">идентификатор заказа</span>
@@ -18,7 +19,7 @@ const OrderDetails = ({orderNumber}) => {
 }
 
 OrderDetails.propTypes = {
-  orderNumber: PropTypes.number.isRequired  
-}
+  orderNumber: PropTypes.number.isRequired,
+};
 
 export default OrderDetails; 

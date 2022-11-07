@@ -3,21 +3,24 @@ import style from './section-ing.module.css';
 import ingredientType from '../../../utils/type';
 import PropTypes from 'prop-types';
 
-const SectionIng = ({data, typeIng, openModal,...props}) => {
+
+const SectionIng = ({ingredients, scrollToRef, children}) => { 
+     
   return (
-    <section className={style.section + ' mt-10'}>
-      <h2 className='text text_type_main-medium'>{props.children}</h2>
+    <section className={style.section + ' mt-10'} ref={scrollToRef}>
+      <h2 className='text text_type_main-medium'>{children}</h2>
       <ul className={style.items + ' mt-6'}>
-        { data.filter(ing => ing.type === `${typeIng}`).map(ing => <Ingredient data={ing} key={ing._id} openModal={openModal}/>) }
+        { ingredients.map(ing => <Ingredient data={ing} key={ing._id}/>)}
       </ul>
     </section>
   );
 } 
 
 SectionIng.propTypes = {
-  data: PropTypes.arrayOf(ingredientType).isRequired,
-  typeIng: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired
+  ingredients: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+  scrollToRef: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default SectionIng;
+

@@ -3,53 +3,49 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './modal.module.css'; 
-import {body} from '../../services/constant';
 import ModalOverlay from './modal-overlay/modal-overlay'; 
 
+const body = document.querySelector('body');  
 
-const Modal = ({show, onClose, title, ...props}) => {
+const Modal = ({onClose, title="", children}) => {
   
   React.useEffect(() => {
-    
-    const closeOnEscapeKeyDown = evt => {
+  const closeOnEscapeKeyDown = evt => {
     if (evt.key === 'Escape') {
       onClose();
     }
   };
 
-  if(show){ 
-      document.body.addEventListener('keyup', closeOnEscapeKeyDown);
-      body.style.overflow = 'hidden'; 
-    }
-
+    document.body.addEventListener('keyup', closeOnEscapeKeyDown);
+    body.style.overflow = 'hidden'; 
+   
     return function cleanup() {
       document.body.removeEventListener('keyup', closeOnEscapeKeyDown);
       body.style.overflow = 'visible';
     };
     // eslint-disable-next-line
-  }, [show]);
+   }, [onClose]);
 
-  return show && ReactDOM.createPortal(
-    
-      <ModalOverlay onClose={onClose}>
-        <div className={style.container} onClick={evt => evt.stopPropagation()}>
+  return ReactDOM.createPortal(
+    <>
+      <div className={style.container}>
           <div className={style.containerTitle}>
             <h2 className="text text_type_main-large">{title}</h2>
             <div className={style.cursorBox}> 
               <CloseIcon type="primary" onClick={onClose}/>
             </div>   
           </div>
-          {props.children}
+          {children} 
         </div>
-      </ModalOverlay>,  
+        <ModalOverlay onClose={onClose}/>
+     </>,
       document.getElementById("popup")
   );
 };
 
 Modal.propTypes = {
-  show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  children: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
   title: PropTypes.string
 }
 
