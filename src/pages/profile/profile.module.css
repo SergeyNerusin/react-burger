@@ -1,0 +1,53 @@
+.wrapper {
+  width: 860px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+}
+
+.menu {
+  width: 320px;
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+.items {
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  width: 100%;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.itemLink {
+  text-decoration: none;
+}
+
+.itemActive {
+  color: #f2f2f3;
+}
+
+.form {
+  padding: 0;
+  margin: 0;
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -15,6 +15,11 @@ import { cleanOrder } from '../../services/store/actions/action-get-order';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd/dist/core';
 
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import LoginPage from '../../pages/login/login';
+import RegisterPage from '../../pages/register/register';
+import ProfilePage from '../../pages/profile/profile';
+
 const App = () => {
 
   const {ingredients} = useSelector(store => store.burgerConstructor);
@@ -46,21 +51,38 @@ const App = () => {
   return !!data && (
     <>
       <AppHeader/>
-        <DndProvider backend={HTML5Backend}>
-          <main className="container mb-10">
-            <BurgerIngredients/> 
-            <BurgerConstructor openModal={handleOrder}/> 
-          </main>
-        </DndProvider>  
-        { !!showModalIngrDetails && 
-        <Modal onClose={handleCloseModalIng} 
-               title={"Детали инградиента"}>
-              <IngredientDetails/>
-        </Modal> }
-        { !!showOrderNumber && 
-        <Modal onClose={handleCloseModalOrder}>
-             <OrderDetails orderNumber={showOrderNumber}/>
-        </Modal> }
+      <div className="page">
+        <Router>
+          <Switch>
+            <Route path="/login" exact={true}>
+              <LoginPage/>
+            </Route>
+            <Route path="/register" exact={true}>
+              <RegisterPage/>
+            </Route>
+            <Route path="/profile" exact={true}>
+              <ProfilePage/>
+            </Route>
+            <Route path="/" exact={true}>
+              <DndProvider backend={HTML5Backend}>
+                <main className="container mb-10">
+                  <BurgerIngredients/> 
+                  <BurgerConstructor openModal={handleOrder}/> 
+                </main>
+              </DndProvider>  
+              { !!showModalIngrDetails && 
+              <Modal onClose={handleCloseModalIng} 
+                    title={"Детали инградиента"}>
+                    <IngredientDetails/>
+              </Modal> }
+              { !!showOrderNumber && 
+              <Modal onClose={handleCloseModalOrder}>
+                  <OrderDetails orderNumber={showOrderNumber}/>
+              </Modal> }
+            </Route>
+          </Switch>
+        </Router>  
+      </div>
     </>
   );
 }

@@ -1,10 +1,7 @@
 import { API_URL }  from './constant';
-  
+import checkResponse from './check-response';  
 
-const checkResponse = (res) => {
-  if (res.ok) return res.json();
-  return Promise.reject(`Ошибка: ${res.status}`);
-};
+
 
 export const fetchGetOrderNumber = (ingredientsId) => {
   return fetch(`${API_URL}/api/orders`, {
@@ -18,4 +15,5 @@ export const fetchGetOrderNumber = (ingredientsId) => {
 export const fetchDataIngredients = () => {
   return fetch(`${API_URL}/api/ingredients`)
          .then(res => checkResponse(res))
-};      
+}; 
+

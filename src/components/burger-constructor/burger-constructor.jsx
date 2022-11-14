@@ -28,8 +28,8 @@ function BurgerConstructor({openModal}) {
   });
 
   const totalOrder = React.useMemo(() => { 
-    return ((ingredients !== null) ? 
-    bun.price*2 + ingredients.reduce((sum, item) => sum + item.price,0) : 0);
+    return ((bun === null) ? 0 
+    : bun.price*2 + ingredients.reduce((sum, item) => sum + item.price,0));
   },[bun, ingredients]);
 
   const moveIngr = React.useCallback ((dragIndex, hoverIndex) => {
@@ -62,7 +62,7 @@ function BurgerConstructor({openModal}) {
             <h2 className={`${style.title}`}>Выберете и перетащите булку</h2>
         </div>
         }
-        { !!bun && !!ingredients ?
+        {!!ingredients ?
         <div>
           <ul className={style.fillings + ' ml-4'}>
             {ingredients.map((ingr, index) => (
@@ -92,7 +92,7 @@ function BurgerConstructor({openModal}) {
             <p className="text text_type_digits-medium mr-2">{totalOrder}</p> 
             <CurrencyIcon type="primary" /> 
           </div>
-            <Button type="primary" size="large" onClick={openModal}> 
+            <Button htmlType="button" type="primary" size="large" onClick={openModal}> 
               Оформить заказ
             </Button>
         </div>
