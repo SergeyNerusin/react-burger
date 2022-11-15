@@ -1,20 +1,19 @@
 import React, { useCallback } from 'react';
-import style from './register.module.css';
+import style from './forgot-password.module.css';
 import {Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { useHistory } from 'react-router-dom';
 import { fetchUserRegistration } from '../../services/api/api';
 import { setCookie } from '../../utils/cookie';
 
-export default function RegisterPage(){
+export default function ForgotPasswordPage(){
   const history = useHistory();
-  const [form, setValue] = React.useState({name:'', email:'', password:''});
+  const [form, setValue] = React.useState({ email:'' });
   const [data, setData] = React.useState({});
 
   const onChange = e => {
     setValue({...form, [e.target.name]: e.target.value});
   };
  
-  
   function userRegister(e){
     e.preventDefault();
     console.log('register form:', form);
@@ -49,43 +48,22 @@ export default function RegisterPage(){
   return (
     <div className={style.wrapper}>
       <form className={style.form} onSubmit={userRegister}>
-        <h2 className='text text_type_main-medium mb-6'>Регистрация</h2>
-        <div className='mb-6'>
-          <Input
-						type='text'
-						placeholder='Имя'
-						onChange={onChange}
-						value={form.name}
-						name='name'
-						error={false}
-						size='default'
-					/>
-        </div>
+        <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
         <div className='mb-6'>
           <EmailInput
             onChange={onChange}
             value={form.email}
             size = 'default'
-            name='email'
-            autoComplete='new-email'
+            name={'email'}
             isIcon={false}
           />
         </div>
-        <div className='mb-6'>
-          <PasswordInput
-            onChange={onChange}
-            value={form.password}
-            name={'password'}
-            autoComplete='new-password'
-            icon='ShowIcon'
-          />
-        </div>
-        <div className='p-0 mb-20'>
-          <Button htmlType='submit' type='primary' size='medium' >Зарегестрироваться</Button>
+        <div>
+          <Button htmlType='submit' type='primary' size='medium' >Восстановить</Button>
         </div>
       </form> 
       <div>
-        <span className='text text_type_main-default text_color_inactive pr-2'>Уже зарегистрированы?</span>
+        <span className='text text_type_main-default text_color_inactive pr-2'>Вспомнили пароль ?</span>
         <Button htmlType='button' type='secondary' 
                 size='large' onClick={handleLogin}>
             Войти

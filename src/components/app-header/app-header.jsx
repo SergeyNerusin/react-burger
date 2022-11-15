@@ -7,14 +7,14 @@ const AppHeader = () => {
     <header className={`${headerStyles.header} ml-10 mt-10 mr-10`}>
       <nav className={`${headerStyles.menu} pb-4 pt-4`}>
         <ul className={headerStyles.items}>
-          <NavItem  icon={<BurgerIcon type={"primary"} />} active={"primary"}>Конструктор</NavItem>
-          <NavItem  icon={<ListIcon type={"secondary"} />}>Лента заказов</NavItem>      
+          <NavItem  icon={<BurgerIcon type={'primary'} />} active={'primary'}>Конструктор</NavItem>
+          <NavItem  icon={<ListIcon type={'secondary'} />}>Лента заказов</NavItem>      
         </ul>
-        <div className="Logo">
+        <div className='Logo'>
            <Logo />
         </div>
         <ul className={headerStyles.items}>
-          <NavItem  icon={<ProfileIcon type={"secondary"} />} url={'#'}>Личный кабинет</NavItem>
+          <NavItem  icon={<ProfileIcon type={'secondary'} />} url={'#'}>Личный кабинет</NavItem>
         </ul>
       </nav>
     </header>

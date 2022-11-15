@@ -1,9 +1,9 @@
-import React, { useCallback } from "react";
+import React, { useCallback } from 'react';
 import style from './login.module.css';
 import {EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import { Redirect, useLocation, useHistory } from "react-router-dom";
-import { fetchUserAuthorization } from "../../services/api/api";
-import { setCookie, getCookie } from "../../utils/cookie";
+import { Redirect, useLocation, useHistory } from 'react-router-dom';
+import { fetchUserAuthorization } from '../../services/api/api';
+import { setCookie, getCookie } from '../../utils/cookie';
 
 export default function LoginPage(){
   const history = useHistory(); 
@@ -12,7 +12,7 @@ export default function LoginPage(){
   console.log('authorization data:', data);
 
   const location = useLocation();
-  console.log("location:", location); 
+  console.log('location:', location); 
   const cookie = getCookie('token');
 
   const onChange = e => {
@@ -59,8 +59,8 @@ export default function LoginPage(){
   return (
     <div className={style.wrapper}>
      <form className={style.form} onSubmit={authorizationUser}>
-      <h2 className="text text_type_main-medium mb-6">Вход</h2>
-        <div className="mb-6">
+      <h2 className='text text_type_main-medium mb-6'>Вход</h2>
+        <div className='mb-6'>
           <EmailInput
             onChange={onChange}
             value={form.email}
@@ -69,28 +69,28 @@ export default function LoginPage(){
             isIcon={false}
           />
         </div>
-        <div className="mb-6">
+        <div className='mb-6'>
           <PasswordInput
             onChange={onChange}
             value={form.password}
             name={'password'}
-            autoComplete="on"
-            icon="ShowIcon"
+            autoComplete='on'
+            icon='ShowIcon'
           />
         </div>
-        <div className="mb-20">
-          <Button htmlType="submit" type="primary" size="medium">
+        <div className='mb-20'>
+          <Button htmlType='submit' type='primary' size='medium'>
             Войти
           </Button>
         </div>
       </form> 
-      <div className="text text_type_main-default text_color_inactive">
+      <div className='text text_type_main-default text_color_inactive'>
         Вы новый пользователь?
-        <Button htmlType="button" type="secondary" size="large" onClick={handleRegisterUser}>Зарегестрироваться</Button>
+        <Button htmlType='button' type='secondary' size='large' onClick={handleRegisterUser}>Зарегестрироваться</Button>
       </div>
-      <div className="text text_type_main-default text_color_inactive">
+      <div className='text text_type_main-default text_color_inactive'>
         Забыли пароль?
-        <Button htmlType="button" type="secondary" size="large" onClick={handleForgotPassword}>Bосстановить пароль</Button>
+        <Button htmlType='button' type='secondary' size='large' onClick={handleForgotPassword}>Bосстановить пароль</Button>
       </div>
     </div>
   );

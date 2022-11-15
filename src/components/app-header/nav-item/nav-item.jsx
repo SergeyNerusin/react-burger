@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const NavItem = ({icon, active, children}) => {
 
-  const isActive = (active === "primary") ? "text text_type_main-default" : "text text_type_main-default text_color_inactive";
+  const isActive = (active === 'primary') ? 'text text_type_main-default' : 'text text_type_main-default text_color_inactive';
  
   return(
     <li className={`${styles.item} pr-4`}>

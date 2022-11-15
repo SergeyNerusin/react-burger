@@ -50,7 +50,7 @@ function BurgerConstructor({openModal}) {
         {!!bun ?
         <div className={style.itemlock + ' mr-4 mt-0 mb-4'}>
           <ConstructorElement
-            type="top"
+            type='top'
             isLocked={true}
             text={`${bun.name} (верх)`}
             price={bun.price}
@@ -78,7 +78,7 @@ function BurgerConstructor({openModal}) {
         { !!bun &&
           <div className={style.itemlock + ' mr-4'}>
             <ConstructorElement
-              type="bottom"
+              type='bottom'
               isLocked={true}
               text={`${bun.name} (низ)`}
               price={bun.price}
@@ -89,10 +89,10 @@ function BurgerConstructor({openModal}) {
         { !!bun && !!ingredients ?
           <div className={style.order + ' mr-4 mt-10'}>
           <div className={style.total + ' mr-10'}>
-            <p className="text text_type_digits-medium mr-2">{totalOrder}</p> 
-            <CurrencyIcon type="primary" /> 
+            <p className='text text_type_digits-medium mr-2'>{totalOrder}</p> 
+            <CurrencyIcon type='primary' /> 
           </div>
-            <Button htmlType="button" type="primary" size="large" onClick={openModal}> 
+            <Button htmlType='button' type='primary' size='large' onClick={openModal}> 
               Оформить заказ
             </Button>
         </div>

@@ -48,7 +48,7 @@ export default function ItemConstructor({ingredient, index, moveIngr}) {
     <li className={isDragging ? `${style.item} ${style.item_hover} pr-2` : `${style.item} pr-2`} ref={refItem}>
       <div className={style.icon}>
         <span className='mr-2'>
-          <DragIcon type="primary" />
+          <DragIcon type='primary' />
         </span>
       </div>
       <ConstructorElement
