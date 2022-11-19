@@ -28,7 +28,7 @@ function BurgerConstructor({openModal}) {
   });
 
   const totalOrder = React.useMemo(() => { 
-    return ((bun === null) ? 0 
+    return ((bun === null || ingredients === null) ? 0 
     : bun.price*2 + ingredients.reduce((sum, item) => sum + item.price,0));
   },[bun, ingredients]);
 

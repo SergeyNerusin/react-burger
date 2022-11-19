@@ -16,6 +16,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd/dist/core';
 
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { getDataUser } from '../../services/store/actions/action-user-auth';
 import LoginPage from '../../pages/login/login';
 import RegisterPage from '../../pages/register/register';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
@@ -50,7 +51,7 @@ const App = () => {
   React.useEffect(() => {
     dispatch(getIngr());  //получаем ингредиенты 
   },[dispatch]); 
-  
+
   return !!data && (
     <>
       <AppHeader/>

@@ -1,80 +1,73 @@
 import React, { useCallback } from 'react';
-import style from './register.module.css';
+import styles from './register.module.css';
 import {Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { userDataForm, userRegistration } from '../../services/store/actions/action-user-auth';
 import { useHistory } from 'react-router-dom';
-import { fetchUserRegistration } from '../../services/api/api';
-import { setCookie } from '../../utils/cookie';
+
 
 export default function RegisterPage(){
+  const inputRef = React.useRef(null);
+  const dispatch = useDispatch();
   const history = useHistory();
-  const [form, setValue] = React.useState({name:'', email:'', password:''});
-  const [data, setData] = React.useState({});
+  
+  const  form = useSelector(state => state.userAuth.form);
+  const {name, email, password} = form;
+  
+  const onIconClick = () => {
+    setTimeout(() => inputRef.current.focus(), 10);
+  };
 
   const onChange = e => {
-    setValue({...form, [e.target.name]: e.target.value});
+    dispatch(userDataForm(e.target.name, e.target.value));
   };
- 
-  
-  function userRegister(e){
+    
+  function submitFormUserRegister(e){
     e.preventDefault();
-    console.log('register form:', form);
-    console.log('отправка формы');
-    const { name, email, password} = form;
     if(name && email && password){
-      fetchUserRegistration(form)
-      .then(data => { 
-        if(data && data.success){
-          setData(data);
-          const accessToken = data.accessToken.split('Bearer ')[1];
-          setCookie('token', accessToken);
-          localStorage.setItem('refreshToken', data.refreshToken);
-
-          console.log('Registration data:', data);
-        }
-      })
-      .catch(error => console.log(error.message));
-      
-    } else {
-      console.log('Введите дынные в каждое поле');
+      dispatch(userRegistration(form)); // запрос на регистрацию пользователя
     }
-  }
+  }; 
    
   const handleLogin = useCallback(
     () => {
-        history.replace({ pathname: '/login' });
-    },
-    [history]
+            history.replace({ pathname: '/login' });
+    },[history]
   ); 
 
   return (
-    <div className={style.wrapper}>
-      <form className={style.form} onSubmit={userRegister}>
+    <div className={styles.wrapper}>
+      <form className={styles.form} onSubmit={submitFormUserRegister}>
         <h2 className='text text_type_main-medium mb-6'>Регистрация</h2>
         <div className='mb-6'>
           <Input
 						type='text'
 						placeholder='Имя'
 						onChange={onChange}
-						value={form.name}
+						value={name}
 						name='name'
 						error={false}
 						size='default'
+            ref={inputRef}
+            onIconClick={onIconClick}
+            icon='EditIcon'
 					/>
         </div>
         <div className='mb-6'>
           <EmailInput
             onChange={onChange}
-            value={form.email}
+            value={email}
             size = 'default'
             name='email'
             autoComplete='new-email'
-            isIcon={false}
+            isIcon={true}
           />
         </div>
         <div className='mb-6'>
           <PasswordInput
             onChange={onChange}
-            value={form.password}
+            value={password}
             name={'password'}
             autoComplete='new-password'
             icon='ShowIcon'
@@ -86,10 +79,8 @@ export default function RegisterPage(){
       </form> 
       <div>
         <span className='text text_type_main-default text_color_inactive pr-2'>Уже зарегистрированы?</span>
-        <Button htmlType='button' type='secondary' 
-                size='large' onClick={handleLogin}>
-            Войти
-        </Button>
+        <button className={styles.button + ' text text_type_main-default' } type='button' onClick={handleLogin}>Войти
+        </button>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import style from './reset-password.module.css';
 import {Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { useHistory } from 'react-router-dom';
-import { fetchUserRegistration } from '../../services/api/api';
+import { fetchUserRegistration } from '../../utils/auth-api';
 import { setCookie } from '../../utils/cookie';
 
 export default function ResetPasswordPage(){

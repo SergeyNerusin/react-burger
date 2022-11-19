@@ -9,7 +9,7 @@ const initialState = {
   data: null
 };
 
-export const allIngredinentsReducer = (state = initialState , action) => {
+export const allIngredinentsReducer = (state = initialState, action) => {
   switch(action.type){
     case GET_INGR_REQUEST: 
       return {
@@ -31,9 +31,8 @@ export const allIngredinentsReducer = (state = initialState , action) => {
         dataFailed: true
       };
 
-    default: {
+    default: 
       return state;
-    }
   }
 };
 

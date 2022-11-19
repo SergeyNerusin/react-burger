@@ -1,22 +1,24 @@
 import React, { useCallback } from 'react';
-import style from './login.module.css';
-import {EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './login.module.css';
+import { EmailInput, 
+         PasswordInput, 
+         Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'react-redux';         
 import { Redirect, useLocation, useHistory } from 'react-router-dom';
-import { fetchUserAuthorization } from '../../services/api/api';
-import { setCookie, getCookie } from '../../utils/cookie';
+import { userloginForm, userLogin } from '../../services/store/actions/action-user-auth'; 
+import { getCookie } from '../../utils/cookie';
 
 export default function LoginPage(){
-  const history = useHistory(); 
-  const [form, setValue] = React.useState({email:'', password:''});
-  const [data, setData] = React.useState({});
-  console.log('authorization data:', data);
-
+  const dispatch = useDispatch(); 
+  const form = useSelector(state => state.userAuth.form);
+  const { email, password } = form; 
+  
+  const history = useHistory();
   const location = useLocation();
-  console.log('location:', location); 
   const cookie = getCookie('token');
 
   const onChange = e => {
-    setValue({...form, [e.target.name]: e.target.value});
+    dispatch(userloginForm(e.target.name, e.target.value));
   };
 
   const handleRegisterUser = useCallback(
@@ -33,37 +35,25 @@ export default function LoginPage(){
     [history]
   ); 
 
-  function authorizationUser(e){
+  function submitFormAuthorizationUser(e){
     e.preventDefault();
-    const { email, password } = form;
     if (email && password){
-      fetchUserAuthorization(form)
-      .then(res => {
-        if(res && res.success){
-          setData(res);
-          const accessToken = res.accessToken.split('Bearer ')[1];
-          setCookie('token', accessToken);
-          localStorage.setItem('refreshToken', data.refreshToken);
-        } else {
-          console.log('Введите Логин и Пароль пользователя');
-        } 
-    })
-    .catch(error => console.log(error.message));
-  }
+      dispatch(userLogin(form)); //запрос на авторизацию пользователя
+    }
   }
 
   if(cookie){
-    return(<Redirect to={location.state?.from || '/'}/>);
+    return(<Redirect to={ location.state?.from || '/' }/>);
   }
 
   return (
-    <div className={style.wrapper}>
-     <form className={style.form} onSubmit={authorizationUser}>
+    <div className={styles.wrapper}>
+     <form className={styles.form} onSubmit={submitFormAuthorizationUser}>
       <h2 className='text text_type_main-medium mb-6'>Вход</h2>
         <div className='mb-6'>
           <EmailInput
             onChange={onChange}
-            value={form.email}
+            value={email}
             size = 'default'
             name={'email'}
             isIcon={false}
@@ -72,7 +62,7 @@ export default function LoginPage(){
         <div className='mb-6'>
           <PasswordInput
             onChange={onChange}
-            value={form.password}
+            value={password}
             name={'password'}
             autoComplete='on'
             icon='ShowIcon'
@@ -86,11 +76,19 @@ export default function LoginPage(){
       </form> 
       <div className='text text_type_main-default text_color_inactive'>
         Вы новый пользователь?
-        <Button htmlType='button' type='secondary' size='large' onClick={handleRegisterUser}>Зарегестрироваться</Button>
+          <button className={styles.button + ' text text_type_main-default' } 
+                  type='button' 
+                  onClick={handleRegisterUser}
+                  >Зарегестрироваться
+          </button>
       </div>
       <div className='text text_type_main-default text_color_inactive'>
         Забыли пароль?
-        <Button htmlType='button' type='secondary' size='large' onClick={handleForgotPassword}>Bосстановить пароль</Button>
+          <button className={styles.button + ' text text_type_main-default' } 
+                  type='button' 
+                  onClick={handleForgotPassword}
+                  >Bосстановить пароль
+          </button>
       </div>
     </div>
   );

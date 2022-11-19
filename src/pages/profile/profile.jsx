@@ -3,41 +3,63 @@ import style from './profile.module.css';
 import { NavLink } from 'react-router-dom';
 import {Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import { useHistory } from 'react-router-dom';
-
-import { fetchUserRegistration } from '../../services/api/api';
+import { getDataUser, 
+         userLogout,
+         changeDataUser 
+        } from '../../services/store/actions/action-user-auth';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCookie } from '../../utils/cookie';
 
 export default function ProfilePage(){
 
-  const history = useHistory();
-  
-  const [form, setValue] = React.useState({name:'', email:'', password:''});
+  const dispatch = useDispatch();
 
-  const onChange = (e)=> {
+   React.useEffect(() => {
+    dispatch(getDataUser());
+  },[dispatch]);
+
+  const [form, setValue] = React.useState({name: '', email: '', password:''});
+
+  const user = useSelector(state => state.userAuth.user); 
+
+  const { name, email } = user;  
+
+  
+  React.useEffect(
+    () => {
+      setValue({
+        name: name, 
+        email: email,
+        password: '' 
+      });
+  },[user]);
+
+  console.log('profile state user:', user);
+  console.log('profile form', form);
+  
+  const onChange = (e) => {
     setValue({...form, [e.target.name]: e.target.value});
   };
 
-  // Изменить данный пользователя
+  // Изменить данные профиля пользователя
   const changeUserData = (e) => {
     e.preventDefault();
-
+    const {name, email, password} = form;
+    if(name && email && password){
+      dispatch(changeDataUser(form));
+    }
   };
   
   //отмена изменений данных профиля
   const handleResetForm = () => {
-    setValue({name:'', email:'', password:''});
+    setValue({name: name , email: email, password: ''});
   };
 
+  const handleLogoutUser = () => {
+    dispatch(userLogout());
+  };
 
- 
-  // const handleLogin = useCallback(
-  //   () => {
-  //       history.replace({ pathname: '/login' });
-  //   },
-  //   [history]
-  // ); 
-
-  return (
+  return !!name && !!email &&(
     <div className={style.wrapper}>
       <nav className={style.menu}>
        <ul className={style.items}>
@@ -57,7 +79,7 @@ export default function ProfilePage(){
           </NavLink>
         </li>
         <li className={style.item}>
-          <NavLink to='/login' 
+          <NavLink to='/login' onClick={handleLogoutUser}
             className={style.itemLink + ' text text_type_main-medium text_color_inactive'}
             activeClassName={style.itemActive}>
             Выход  
@@ -79,6 +101,7 @@ export default function ProfilePage(){
               name='name'
               error={false}
               size='default'
+              autoComplete='current-name'
               icon='EditIcon'
             />
           </div>
@@ -88,7 +111,7 @@ export default function ProfilePage(){
               value={form.email}
               size = 'default'
               name='email'
-              autoComplete='on'
+              autoComplete='current-email'
               isIcon={true}
             />
           </div>

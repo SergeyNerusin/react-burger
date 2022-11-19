@@ -14,7 +14,15 @@
   align-items: center;
 }
 
-.link {
+.button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #8585ad;
+  padding: 0;
+  transition: color .8 linear;
+}
+
+.button:hover {
   color: #4c4cff;
-  text-decoration: none;
 }
