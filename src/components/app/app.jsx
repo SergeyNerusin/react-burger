@@ -15,8 +15,7 @@ import { cleanOrder } from '../../services/store/actions/action-get-order';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd/dist/core';
 
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import { getDataUser } from '../../services/store/actions/action-user-auth';
+import { Switch, Route, useLocation} from 'react-router-dom';
 import LoginPage from '../../pages/login/login';
 import RegisterPage from '../../pages/register/register';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
@@ -25,15 +24,16 @@ import ResetPasswordPage from '../../pages/reset-password/reset-password';
 import NotFound from '../../pages/not-found-404/not-found';
 
 const App = () => {
-
+  
   const {ingredients} = useSelector(store => store.burgerConstructor);
   const {bun} = useSelector(store => store.burgerConstructor);
   const dispatch = useDispatch();
- 
+  
   const {data} = useSelector(store => store.ingredients);
   const showModalIngrDetails = useSelector(store => store.ingredientInfo.ingredient); 
   const showOrderNumber = useSelector(store => store.order.order);
   
+  const location = useLocation();
   
   const handleOrder = () => {
     dispatch(getOreder([bun._id, ...ingredients.map(ingr => ingr._id), bun._id]));
@@ -56,45 +56,43 @@ const App = () => {
     <>
       <AppHeader/>
       <div className='page'>
-        <Router>
-          <Switch>
-            <Route path='/login' exact={true}>
-              <LoginPage/>
-            </Route>
-            <Route path='/register' exact={true}>
-              <RegisterPage/>
-            </Route>
-            <Route path='/forgot-password' exact={true}>
-              <ForgotPasswordPage/> 
-            </Route>
-            <Route path='/reset-password' exact={true}>
-              <ResetPasswordPage/>
-            </Route>
-            <Route path='/profile' exact={true}>
-              <ProfilePage/>
-            </Route>
-            <Route path='/' exact={true}>
-              <DndProvider backend={HTML5Backend}>
-                <main className='container mb-10'>
-                  <BurgerIngredients/> 
-                  <BurgerConstructor openModal={handleOrder}/> 
-                </main>
-              </DndProvider>  
-              { !!showModalIngrDetails && 
-              <Modal onClose={handleCloseModalIng} 
-                    title={'Детали инградиента'}>
-                    <IngredientDetails/>
-              </Modal> }
-              { !!showOrderNumber && 
-              <Modal onClose={handleCloseModalOrder}>
-                  <OrderDetails orderNumber={showOrderNumber}/>
-              </Modal> }
-            </Route>
-            <Route>
-              <NotFound/>
-            </Route>
-          </Switch>
-        </Router>  
+        <Switch location={location}>
+          <Route path='/login' exact={true}>
+            <LoginPage/>
+          </Route>
+          <Route path='/register' exact={true}>
+            <RegisterPage/>
+          </Route>
+          <Route path='/forgot-password' exact={true}>
+            <ForgotPasswordPage/> 
+          </Route>
+          <Route path='/reset-password' exact={true}>
+            <ResetPasswordPage/>
+          </Route>
+          <Route path='/profile' exact={true}>
+            <ProfilePage/>
+          </Route>
+          <Route path='/' exact={true}>
+            <DndProvider backend={HTML5Backend}>
+              <main className='container mb-10'>
+                <BurgerIngredients/> 
+                <BurgerConstructor openModal={handleOrder}/> 
+              </main>
+            </DndProvider>  
+            { !!showModalIngrDetails && 
+            <Modal onClose={handleCloseModalIng} 
+                  title={'Детали инградиента'}>
+                  <IngredientDetails/>
+            </Modal> }
+            { !!showOrderNumber && 
+            <Modal onClose={handleCloseModalOrder}>
+                <OrderDetails orderNumber={showOrderNumber}/>
+            </Modal> }
+          </Route>
+          <Route>
+            <NotFound/>
+          </Route>
+        </Switch>
       </div>
     </>
   );
