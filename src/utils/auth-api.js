@@ -77,4 +77,37 @@ export const  fetchChangeDataUser = async (form) =>{
     })
   })
   .then(res => checkResponse(res))
+};
+
+// запрос на восстановление пароля
+export const fetchForgotPassword = async (email) => {
+  return await fetch(`${API_URL}${AUTH_URL.FORGOT_PASSWORD}`,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'email': email
+    })
+  })
+  .then(res => checkResponse(res))
 }; 
+
+
+// запрос на смену пароля 
+export const fetchNewPassword = async (form) => {
+  const {password, token} = form;
+  return await fetch(`${API_URL}${AUTH_URL.PASSWORD_RESET}`,{
+    method:'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'password': password,
+      'token': token
+    })
+  })
+  .then(res => checkResponse(res))
+}
+
+

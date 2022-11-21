@@ -1,43 +1,24 @@
 import React, { useCallback } from 'react';
-import style from './reset-password.module.css';
-import {Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import { useHistory } from 'react-router-dom';
-import { fetchUserRegistration } from '../../utils/auth-api';
-import { setCookie } from '../../utils/cookie';
+import styles from './reset-password.module.css';
+import {Input, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { newPasswordForm, newPassword } from '../../services/store/actions/action-user-auth';
+import { getCookie } from '../../utils/cookie';
 
 export default function ResetPasswordPage(){
+  const dispatch = useDispatch();
+  const {form, newPasswordSuccess}  = useSelector(state => state.userAuth);
+  const { password, token } = form; 
   const history = useHistory();
-  const [form, setValue] = React.useState({ password:'',    });
-  const [data, setData] = React.useState({});
+  const location = useLocation();
+  const cookie = getCookie('token');
+  
 
   const onChange = e => {
-    setValue({...form, [e.target.name]: e.target.value});
+    dispatch(newPasswordForm(e.target.name, e.target.value));
   };
- 
-  function userRegister(e){
-    e.preventDefault();
-    console.log('register form:', form);
-    console.log('отправка формы');
-    const { name, email, password} = form;
-    if(name && email && password){
-      fetchUserRegistration(form)
-      .then(data => { 
-        if(data && data.success){
-          setData(data);
-          const accessToken = data.accessToken.split('Bearer ')[1];
-          setCookie('token', accessToken);
-          localStorage.setItem('refreshToken', data.refreshToken);
 
-          console.log('Registration data:', data);
-        }
-      })
-      .catch(error => console.log(error.message));
-      
-    } else {
-      console.log('Введите дынные в каждое поле');
-    }
-  }
-   
   const handleLogin = useCallback(
     () => {
         history.replace({ pathname: '/login' });
@@ -45,17 +26,29 @@ export default function ResetPasswordPage(){
     [history]
   ); 
 
+  const submitNewPassword = (e) => {
+    e.preventDefault();
+    const { password, token} = form;
+    if(password && token){
+      dispatch(newPassword(form)); 
+    }
+  };
+
+  if(cookie || newPasswordSuccess){
+    return (<Redirect to={ location.state?.from || '/' }/>);
+  }
+
   return (
-    <div className={style.wrapper}>
-      <form className={style.form} onSubmit={userRegister}>
+    <div className={styles.wrapper}>
+      <form className={styles.form} onSubmit={submitNewPassword}>
         <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
         <div className='mb-6'>
           <PasswordInput
             onChange={onChange}
             placeholder={'Введите новый пароль'}
-            value={form.password}
+            value={password}
+            autoComplete='new-password'
             name={'password'}
-            autoComplete='on'
             icon='ShowIcon'
           />
         </div>
@@ -64,8 +57,8 @@ export default function ResetPasswordPage(){
 						type={'text'}
 						placeholder={'Введите код из письма'}
 						onChange={onChange}
-						value={form.name}
-						name={'name'}
+						value={token}
+						name={'token'}
 						error={false}
 						size={'default'}
 					/>
@@ -76,10 +69,11 @@ export default function ResetPasswordPage(){
       </form> 
       <div>
         <span className='text text_type_main-default text_color_inactive pr-2'>Вспомнили пароль ?</span>
-        <Button htmlType='button' type='secondary' 
-                size='large' onClick={handleLogin}>
+         <button className={styles.button + ' text text_type_main-default' } 
+                  type='button' 
+            onClick={handleLogin}>
             Войти
-        </Button>
+        </button>
       </div>
     </div>
   );

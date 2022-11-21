@@ -43,7 +43,7 @@ export default function LoginPage(){
   }
 
   if(cookie){
-    return(<Redirect to={ location.state?.from || '/' }/>);
+    return (<Redirect to={ location.state?.from || '/' }/>);
   }
 
   return (
@@ -74,16 +74,16 @@ export default function LoginPage(){
           </Button>
         </div>
       </form> 
-      <div className='text text_type_main-default text_color_inactive'>
-        Вы новый пользователь?
+      <div>
+        <span className='text text_type_main-default text_color_inactive pr-2'>Вы новый пользователь?</span>
           <button className={styles.button + ' text text_type_main-default' } 
                   type='button' 
                   onClick={handleRegisterUser}
                   >Зарегестрироваться
           </button>
       </div>
-      <div className='text text_type_main-default text_color_inactive'>
-        Забыли пароль?
+      <div>
+        <span className='text text_type_main-default text_color_inactive pr-2'>Забыли пароль?</span>
           <button className={styles.button + ' text text_type_main-default' } 
                   type='button' 
                   onClick={handleForgotPassword}

@@ -1,43 +1,25 @@
 import React, { useCallback } from 'react';
-import style from './forgot-password.module.css';
-import {Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import { useHistory } from 'react-router-dom';
-import { fetchUserRegistration } from '../../utils/auth-api';
-import { setCookie } from '../../utils/cookie';
+import styles from './forgot-password.module.css';
+import {EmailInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, useLocation, useHistory  } from 'react-router-dom';
+import { forgotPassword } from '../../services/store/actions/action-user-auth'; 
+import { getCookie } from '../../utils/cookie';
 
 export default function ForgotPasswordPage(){
-  const history = useHistory();
   const [form, setValue] = React.useState({ email:'' });
-  const [data, setData] = React.useState({});
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
+  const cookie = getCookie('token');
+  
+  const forgotPasswordSuccess = useSelector(state => state.userAuth.forgotPasswordSuccess); 
 
   const onChange = e => {
-    setValue({...form, [e.target.name]: e.target.value});
+    setValue({...form, email: e.target.value});
+    console.log("form reset password", form);
   };
  
-  function userRegister(e){
-    e.preventDefault();
-    console.log('register form:', form);
-    console.log('отправка формы');
-    const { name, email, password} = form;
-    if(name && email && password){
-      fetchUserRegistration(form)
-      .then(data => { 
-        if(data && data.success){
-          setData(data);
-          const accessToken = data.accessToken.split('Bearer ')[1];
-          setCookie('token', accessToken);
-          localStorage.setItem('refreshToken', data.refreshToken);
-
-          console.log('Registration data:', data);
-        }
-      })
-      .catch(error => console.log(error.message));
-      
-    } else {
-      console.log('Введите дынные в каждое поле');
-    }
-  }
-   
   const handleLogin = useCallback(
     () => {
         history.replace({ pathname: '/login' });
@@ -45,13 +27,30 @@ export default function ForgotPasswordPage(){
     [history]
   ); 
 
+  const submitEmail = (e) => {
+    e.preventDefault();
+    if(!!form.email){
+      dispatch(forgotPassword(form.email));
+    }
+  }; 
+  
+  if(forgotPasswordSuccess){
+    return(<Redirect to={ '/reset-password' } />);         
+  }
+
+  
+  if(cookie){
+    return (<Redirect to={ location.state?.from || '/' }/>);
+  }
+
   return (
-    <div className={style.wrapper}>
-      <form className={style.form} onSubmit={userRegister}>
+    <div className={styles.wrapper}>
+      <form className={styles.form} onSubmit={submitEmail}>
         <h2 className='text text_type_main-medium mb-6'>Восстановление пароля</h2>
         <div className='mb-6'>
           <EmailInput
             onChange={onChange}
+            placeholder='Введите e-mail'
             value={form.email}
             size = 'default'
             name={'email'}
@@ -63,11 +62,10 @@ export default function ForgotPasswordPage(){
         </div>
       </form> 
       <div>
-        <span className='text text_type_main-default text_color_inactive pr-2'>Вспомнили пароль ?</span>
-        <Button htmlType='button' type='secondary' 
-                size='large' onClick={handleLogin}>
+        <span className='text text_type_main-default text_color_inactive pr-2'>Вспомнили пароль?</span>
+        <button className={styles.button + ' text text_type_main-default' }  onClick={handleLogin}>
             Войти
-        </Button>
+        </button>
       </div>
     </div>
   );

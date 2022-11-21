@@ -4,14 +4,19 @@ import {Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-deve
 
 import { useSelector, useDispatch } from 'react-redux';
 import { userDataForm, userRegistration } from '../../services/store/actions/action-user-auth';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useLocation, useHistory } from 'react-router-dom';
+import { getCookie } from '../../utils/cookie';
 
 
 export default function RegisterPage(){
+  
   const inputRef = React.useRef(null);
   const dispatch = useDispatch();
-  const history = useHistory();
   
+  const history = useHistory();
+  const location = useLocation();
+  const cookie = getCookie('token');
+
   const  form = useSelector(state => state.userAuth.form);
   const {name, email, password} = form;
   
@@ -36,6 +41,10 @@ export default function RegisterPage(){
     },[history]
   ); 
 
+  if(cookie){
+    return (<Redirect to={ location.state?.from || '/' }/>);
+  }
+  
   return (
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={submitFormUserRegister}>

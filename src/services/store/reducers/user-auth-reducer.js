@@ -18,14 +18,22 @@ import { FORM_DATA_USER_REGISTRATION,
          
          UPDATE_DATA_USER_REQUEST,
          UPDATE_DATA_USER_SUCCESS,
-         UPDATE_DATA_USER_ERROR
+         UPDATE_DATA_USER_ERROR,
 
-        } from '../actions/action-user-auth';
+         FORGOT_PASSWORD_REQUEST,
+         FORGOT_PASSWORD_SUCCESS,
+         FORGOT_PASSWORD_ERROR,
+
+         NEW_PASSWORD_FORM,
+         NEW_PASSWORD_REQUEST,
+         NEW_PASSWORD_SUCCESS,
+         NEW_PASSWORD_ERROR } from '../actions/action-user-auth';
 
 const initialState = {
   form:{ name:'',
          email:'',
-         password:'' },
+         password:'',
+         token: '' },
   
   user: { name:'',
           email:'' },
@@ -40,7 +48,7 @@ const initialState = {
 
   userLogoutRequest: false,
   logoutUserSuccess: false,
-  messagelogout:'',
+  messageLogout:'',
   logoutUserError: false,
 
   getDataUserRequest: false,
@@ -50,6 +58,13 @@ const initialState = {
   updateDataUserRequest: false,
   updateDataUserSuccess: false,
   updateDataUserError: false,
+
+  forgotPasswordRequest: false,
+  forgotPasswordSuccess: false,
+  massageForgotPassword: '',
+  forgotPasswordError:false,
+  
+  newPasswordSuccess: false
 };
 
 export const userAuthReducer =  (state = initialState, action) => {
@@ -107,9 +122,8 @@ export const userAuthReducer =  (state = initialState, action) => {
       ...state,
       form:{
         ...state.form,
-        name:'',
         email:'',
-        password:''
+        password:'',
       },
       user:{ 
         ...state.user,
@@ -125,6 +139,11 @@ export const userAuthReducer =  (state = initialState, action) => {
     case AUTHORIZATION_USER_ERROR:
       return {
       ...state,
+      form:{
+        ...state.form,
+        email:'',
+        password:'',
+      },
       // requestUserAuthorization: false,
       userAuthorization: false,
       userRegistered: false,
@@ -151,13 +170,18 @@ export const userAuthReducer =  (state = initialState, action) => {
         },
         // userLogoutRequest: false,
         logoutUserSuccess: true,
-        messagelogout: action.payload,
+        messageLogout: action.payload,
         // logoutUserError: false,
       };
 
     case LOGOUT_USER_ERROR:
       return {
         ...state,
+        user: {
+          ...state.user,
+          name: '',
+          email: ''
+        },
         // userLogoutRequest: false,
         logoutUserSuccess: false,
         // messagelogout: '',
@@ -207,8 +231,66 @@ export const userAuthReducer =  (state = initialState, action) => {
 
     case UPDATE_DATA_USER_ERROR:
       return {
+         ...state,
          updateDataUserSuccess: false,
          updateDataUserError: true,
+      };
+    case FORGOT_PASSWORD_REQUEST:
+      return {
+        ...state,
+        forgotPasswordRequest: true 
+      };
+
+    case FORGOT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        massageForgotPassword: action.payload,
+        forgotPasswordSuccess: true,
+      };
+
+    case FORGOT_PASSWORD_ERROR:      
+      return {
+        ...state,
+        forgotPasswordError: true,
+      };
+
+    case NEW_PASSWORD_FORM:
+      return {
+        ...state,
+        form:{
+          ...state.form,
+         [action.name]:action.value,
+        }
+      }; 
+    
+    case NEW_PASSWORD_REQUEST: 
+      return {
+        ...state,
+        newPasswordRequest: true
+      };
+
+    case NEW_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          password: '',
+          token: ''
+        },
+        newPasswordSuccess: true,
+        massageNewPassword: action.payload
+      };
+    
+     case NEW_PASSWORD_ERROR:
+      return {
+      ...state,
+      form: {
+          ...state.form,
+          password: '',
+          token: ''
+        },
+        newPasswordSuccess: false,
+        newPasswordError: true,
       };
 
     default:

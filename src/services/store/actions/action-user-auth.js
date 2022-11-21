@@ -1,9 +1,10 @@
-
 import { fetchUserRegistration, 
          fetchUserAuthorization,
          fetchLogoutUser,
          fetchGetDataUser,
-         fetchChangeDataUser } from "../../../utils/auth-api";
+         fetchChangeDataUser,
+         fetchForgotPassword,
+         fetchNewPassword } from "../../../utils/auth-api";
 import { setCookie, deleteCookie } from '../../../utils/cookie';
           
 
@@ -34,6 +35,22 @@ export const UPDATE_DATA_USER_REQUEST = 'UPDATE_DATA_USER_REQUEST';
 export const UPDATE_DATA_USER_SUCCESS = 'UPDATE_DATA_USER_SUCCESS';
 export const UPDATE_DATA_USER_ERROR = 'UPDATE_DATA_USER_ERROR';
 
+/* для запроса на восстановления пароля */ 
+export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
+export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
+export const FORGOT_PASSWORD_ERROR = 'FORGOT_PASSWORD_ERROR';
+
+/* сброс старого и задание нового проля */ 
+export const NEW_PASSWORD_FORM = 'NEW_PASSWORD_FORM';
+export const NEW_PASSWORD_REQUEST = 'NEW_PASSWORD_REQUEST';
+export const NEW_PASSWORD_SUCCESS = 'NEW_PASSWORD_SUCCESS';
+export const NEW_PASSWORD_ERROR = 'NEW_PASSWORD_ERROR';
+
+
+
+/* ФУНКЦИИ ЭКШЕНЫ: */ 
+
+/* для регистрации пользователя */ 
 export function userDataForm(name, value){
   return {
       type: FORM_DATA_USER_REGISTRATION,
@@ -185,3 +202,69 @@ export function changeDataUser(form){
     }));
   };
 }
+
+/* запрос для восстановления пароля */
+export function forgotPassword(email){
+  return function(dispatch){
+    dispatch({
+      type: FORGOT_PASSWORD_REQUEST
+    });
+    fetchForgotPassword(email)
+    .then(res => {
+      console.log('forgotPassword res', res);
+      if(res && res.success){
+        dispatch({
+          type: FORGOT_PASSWORD_SUCCESS,
+          payload: res.message
+        });
+      } else {
+        dispatch({
+          type: FORGOT_PASSWORD_ERROR
+        });
+      }
+    })
+    .catch((res) => {dispatch({
+       type: FORGOT_PASSWORD_ERROR
+    });
+    console.log('forgotPassword catch res', res);
+  });
+  }; 
+} 
+
+/* новый пароль */
+export function newPasswordForm(name, value){
+  return { 
+    type:NEW_PASSWORD_FORM,
+    name,
+    value
+  };
+} 
+
+export function newPassword(form){
+  return function(dispatch){
+    dispatch({
+      type: NEW_PASSWORD_REQUEST
+    });
+    fetchNewPassword(form)
+    .then(res => {
+      console.log('newPassword res', res);
+      if(res && res.success){
+        dispatch({
+          type: NEW_PASSWORD_SUCCESS,
+          payload: res.message
+        });
+      } else {
+        dispatch({
+          type: NEW_PASSWORD_ERROR
+        });
+      }
+    })
+    .catch((res) => {dispatch({
+       type: NEW_PASSWORD_ERROR
+    });
+    console.log('newPassword catch res', res);
+  });
+  }; 
+} 
+  
+
