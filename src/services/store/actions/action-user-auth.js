@@ -4,9 +4,10 @@ import { fetchUserRegistration,
          fetchGetDataUser,
          fetchChangeDataUser,
          fetchForgotPassword,
-         fetchNewPassword } from "../../../utils/auth-api";
+         fetchNewPassword,
+         fetchTokenRefresh } from "../../../utils/auth-api";
 import { setCookie, deleteCookie } from '../../../utils/cookie';
-          
+
 
 /* для регистрации пользователя */ 
 export const FORM_DATA_USER_REGISTRATION = 'FORM_DATA_USER_REGISTRATION';
@@ -46,6 +47,10 @@ export const NEW_PASSWORD_REQUEST = 'NEW_PASSWORD_REQUEST';
 export const NEW_PASSWORD_SUCCESS = 'NEW_PASSWORD_SUCCESS';
 export const NEW_PASSWORD_ERROR = 'NEW_PASSWORD_ERROR';
 
+/* запрос на обновления токена */
+export const TOKEN_REFRESH_REQUEST = 'TOKEN_REFRESH_REQUEST';
+export const TOKEN_REFRESH_SUCCESS = 'TOKEN_REFRESH_SUCCESS';
+export const TOKEN_REFRESH_ERROR = 'TOKEN_REFRESH_ERROR';
 
 
 /* ФУНКЦИИ ЭКШЕНЫ: */ 
@@ -103,7 +108,6 @@ export function userLogin (form){
     fetchUserAuthorization(form)
       .then(res => { 
         if(res && res.success){
-          console.log('userLogin res:', res);
           dispatch({
             type: AUTHORIZATION_USER_SUCCESS,
             payload: res.user
@@ -132,7 +136,6 @@ export function userLogout(){
     fetchLogoutUser()
     .then(res => {
       if(res && res.success){
-        console.log('userLogout res:', res);
         deleteCookie('token');
         localStorage.removeItem('refreshToken');
         dispatch({
@@ -159,7 +162,6 @@ export function getDataUser(){
     });
     fetchGetDataUser()
     .then(res => {
-      console.log('getDataUser res:', res);
       if(res && res.success){
         dispatch({
           type: GET_DATA_USER_SUCCESS,
@@ -171,9 +173,14 @@ export function getDataUser(){
         });
       }
     })
-    .catch(() => dispatch({
+    .catch((res) => {
+      dispatch({
       type: GET_DATA_USER_ERROR 
-    }));
+    });
+    if(res ==='Ошибка: 403'){
+      deleteCookie('token');
+    } 
+    });
   }; 
 }
 
@@ -185,7 +192,6 @@ export function changeDataUser(form){
     });
     fetchChangeDataUser(form)
     .then(res => {
-      console.log('changeDataUser res', res.user);
       if(res && res.success){
         dispatch({
           type: UPDATE_DATA_USER_SUCCESS,
@@ -211,7 +217,6 @@ export function forgotPassword(email){
     });
     fetchForgotPassword(email)
     .then(res => {
-      console.log('forgotPassword res', res);
       if(res && res.success){
         dispatch({
           type: FORGOT_PASSWORD_SUCCESS,
@@ -223,11 +228,11 @@ export function forgotPassword(email){
         });
       }
     })
-    .catch((res) => {dispatch({
+    .catch(() => {
+      dispatch({
        type: FORGOT_PASSWORD_ERROR
-    });
-    console.log('forgotPassword catch res', res);
-  });
+      });
+   });
   }; 
 } 
 
@@ -247,7 +252,6 @@ export function newPassword(form){
     });
     fetchNewPassword(form)
     .then(res => {
-      console.log('newPassword res', res);
       if(res && res.success){
         dispatch({
           type: NEW_PASSWORD_SUCCESS,
@@ -259,12 +263,39 @@ export function newPassword(form){
         });
       }
     })
-    .catch((res) => {dispatch({
-       type: NEW_PASSWORD_ERROR
+    .catch(() => {dispatch({
+          type: NEW_PASSWORD_ERROR
+       });
     });
-    console.log('newPassword catch res', res);
-  });
   }; 
 } 
+
+/* для обновления токена */
+export function tokenRefresh(){
+  return function(dispatch){
+    dispatch({
+      type: TOKEN_REFRESH_REQUEST
+    });
+    fetchTokenRefresh()
+    .then(res => {
+      if(res && res.success){
+        const accessToken = res.accessToken.split('Bearer ')[1];
+        setCookie('token', accessToken);
+        localStorage.setItem('refreshToken', res.refreshToken);
+        dispatch({
+          type: TOKEN_REFRESH_SUCCESS,
+        });
+      } else {
+        dispatch({
+          type: TOKEN_REFRESH_ERROR
+        });
+      }
+    })
+    .catch((res) => {dispatch({
+          type: TOKEN_REFRESH_ERROR
+       });
+    });
+  }; 
+}
   
 

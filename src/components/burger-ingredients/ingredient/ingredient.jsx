@@ -1,10 +1,10 @@
 import React from 'react';
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientType from '../../../utils/type';
-import style from './ingredient.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { showIngrDetails } from '../../../services/store/actions/action-show-ingr-details';
+import styles from './ingredient.module.css';
+import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
+import { useLocation, Link } from 'react-router-dom';
 
 function Ingredient({data}) {  
   const {ingredients} = useSelector(store => store.burgerConstructor);
@@ -13,11 +13,9 @@ function Ingredient({data}) {
     type: 'ingredient',
     item: data,
   });
-  const dispatch = useDispatch();
-  const handleItemData = () => {
-     dispatch(showIngrDetails(data));
-  }; 
 
+  const location = useLocation();
+  
   const counter = React.useMemo(
    () => {
     if (data.type !== 'bun' && ingredients !== null) {
@@ -29,15 +27,18 @@ function Ingredient({data}) {
   },[bun, ingredients]);
   
   return (
-    <li className={style.ingredient} ref={dragRef} onClick={handleItemData}>
-      {counter !== 0 ? <Counter count={counter} size='default'/> : <></>}
-      <img src={data.image} alt={data.name} className={style.image + ' pr-4 pl-4'}/>
-      <div className={style.price + ' mt-1 pr-4 pl-4'}>
-        <p className='text text_type_digits-default'>{data.price}</p>
-        <CurrencyIcon type='primary' />
-      </div>
-      <p className='text text_type_main-default mt-1'>{data.name}</p>
-    </li>
+    <Link to={{  pathname: `/ingredients/${data._id}`, state: { background: location }}}
+          className={styles.link}>
+      <li className={styles.ingredient} ref={dragRef}>
+        {counter !== 0 ? <Counter count={counter} size='default'/> : <></>}
+        <img src={data.image} alt={data.name} className={styles.image + ' pr-4 pl-4'}/>
+        <div className={styles.price + ' mt-1 pr-4 pl-4'}>
+          <p className='text text_type_digits-default'>{data.price}</p>
+          <CurrencyIcon type='primary' />
+        </div>
+        <p className='text text_type_main-default mt-1'>{data.name}</p>
+      </li>
+    </Link>
   )
 }
 

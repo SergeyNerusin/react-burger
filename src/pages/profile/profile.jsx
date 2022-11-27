@@ -1,29 +1,22 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import style from './profile.module.css';
 import { NavLink } from 'react-router-dom';
-import {Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import { useHistory } from 'react-router-dom';
-import { getDataUser, 
-         userLogout,
-         changeDataUser 
-        } from '../../services/store/actions/action-user-auth';
+import { Input, 
+         EmailInput, 
+         PasswordInput, 
+         Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { userLogout,
+         changeDataUser } from '../../services/store/actions/action-user-auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCookie } from '../../utils/cookie';
 
 export default function ProfilePage(){
 
   const dispatch = useDispatch();
 
-   React.useEffect(() => {
-    dispatch(getDataUser());
-  },[dispatch]);
-
   const [form, setValue] = React.useState({name: '', email: '', password:''});
 
-  const user = useSelector(state => state.userAuth.user); 
-
-  const { name, email } = user;  
-
+  const { name, email } = useSelector(state => state.userAuth.user); 
+  
   
   React.useEffect(
     () => {
@@ -32,11 +25,8 @@ export default function ProfilePage(){
         email: email,
         password: '' 
       });
-  },[user]);
+  },[name, email]);
 
-  console.log('profile state user:', user);
-  console.log('profile form', form);
-  
   const onChange = (e) => {
     setValue({...form, [e.target.name]: e.target.value});
   };
@@ -59,30 +49,26 @@ export default function ProfilePage(){
     dispatch(userLogout());
   };
 
-  return !!name && !!email &&(
+  return (
     <div className={style.wrapper}>
       <nav className={style.menu}>
        <ul className={style.items}>
         <li className={style.item}>
           <NavLink to='/profile' 
             className={style.itemLink + ' text text_type_main-medium text_color_inactive'}
-            activeClassName={style.itemActive}> 
-           Профиль
+            activeClassName={style.itemActive}>Профиль
           </NavLink>
-         
         </li>
         <li className={style.item}>
           <NavLink to='/profile/orders' 
             className={style.itemLink + ' text text_type_main-medium text_color_inactive'}
-            activeClassName={style.itemActive}>
-            История заказов
+            activeClassName={style.itemActive}>История заказов
           </NavLink>
         </li>
         <li className={style.item}>
           <NavLink to='/login' onClick={handleLogoutUser}
             className={style.itemLink + ' text text_type_main-medium text_color_inactive'}
-            activeClassName={style.itemActive}>
-            Выход  
+            activeClassName={style.itemActive}>Выход  
           </NavLink>
         </li>
        </ul>
@@ -126,8 +112,7 @@ export default function ProfilePage(){
           </div>
           <div className={style.button}>
             <Button htmlType='reset' type='secondary'
-                    size='large' onClick={handleResetForm}>
-                  Отмена
+                    size='large' onClick={handleResetForm}>Отмена
             </Button>
             <Button htmlType='submit' type='primary' size='medium'>
               Cохранить

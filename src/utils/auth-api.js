@@ -2,6 +2,7 @@ import { API_URL, AUTH_URL } from './constant';
 import checkResponse from './check-response';
 import { getCookie } from './cookie';
 
+
 // регистрация нового пользователя
 export const fetchUserRegistration = async (form) => {
   const { name, email, password } = form; 
@@ -9,9 +10,9 @@ export const fetchUserRegistration = async (form) => {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body:JSON.stringify({
-      'email': `${email}`, 
-      'password': `${password}`, 
-      'name': `${name}`
+      'email': email, 
+      'password': password, 
+      'name': name
     })
   })
   .then(res => checkResponse(res))
@@ -48,15 +49,9 @@ export const fetchLogoutUser = async () => {
 export const fetchGetDataUser = async () => {
   return await fetch(`${API_URL}${AUTH_URL.UPDATING_USER_INFO}`,{
     method: 'GET',
-    // mode: 'cors',
-    // cache: 'no-cache',
-    // credentials: 'same-origin',
     headers: {
-      // 'Content-Type': 'application/json',
       Authorization: 'Bearer ' + getCookie('token')
     },
-    // redirect: 'follow',
-    // referrerPolicy: 'no-referrer'
   })
   .then(res => checkResponse(res))
 }; 
@@ -93,7 +88,6 @@ export const fetchForgotPassword = async (email) => {
   .then(res => checkResponse(res))
 }; 
 
-
 // запрос на смену пароля 
 export const fetchNewPassword = async (form) => {
   const {password, token} = form;
@@ -108,6 +102,21 @@ export const fetchNewPassword = async (form) => {
     })
   })
   .then(res => checkResponse(res))
-}
+};
+
+// запрос на обновление токена
+export const fetchTokenRefresh = async () => {
+  const refreshToken = localStorage.getItem('refreshToken');
+  return await fetch(`${API_URL}${AUTH_URL.TOKEN}`,{
+    method:'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'token': refreshToken
+    })
+  })
+  .then(res => checkResponse(res))
+};
 
 

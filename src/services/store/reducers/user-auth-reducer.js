@@ -27,7 +27,11 @@ import { FORM_DATA_USER_REGISTRATION,
          NEW_PASSWORD_FORM,
          NEW_PASSWORD_REQUEST,
          NEW_PASSWORD_SUCCESS,
-         NEW_PASSWORD_ERROR } from '../actions/action-user-auth';
+         NEW_PASSWORD_ERROR,
+        
+        TOKEN_REFRESH_REQUEST,
+        TOKEN_REFRESH_SUCCESS,
+        TOKEN_REFRESH_ERROR } from '../actions/action-user-auth';
 
 const initialState = {
   form:{ name:'',
@@ -64,7 +68,14 @@ const initialState = {
   massageForgotPassword: '',
   forgotPasswordError:false,
   
-  newPasswordSuccess: false
+  newPasswordRequest: false,
+  newPasswordSuccess: false,
+  massageNewPassword: '',
+  newPasswordError: false,
+
+  tokenRefreshRequest: false,
+  tokenRefreshSuccess: false,
+  tokenRefreshError: false
 };
 
 export const userAuthReducer =  (state = initialState, action) => {
@@ -251,6 +262,7 @@ export const userAuthReducer =  (state = initialState, action) => {
     case FORGOT_PASSWORD_ERROR:      
       return {
         ...state,
+        forgotPasswordSuccess: false,
         forgotPasswordError: true,
       };
 
@@ -292,6 +304,25 @@ export const userAuthReducer =  (state = initialState, action) => {
         newPasswordSuccess: false,
         newPasswordError: true,
       };
+
+      case TOKEN_REFRESH_REQUEST:
+        return {
+          ...state,
+          tokenRefreshRequest: true,
+        };
+
+      case TOKEN_REFRESH_SUCCESS:
+        return {
+          ...state,
+          tokenRefreshSuccess: true,
+        };
+
+      case TOKEN_REFRESH_ERROR:
+        return{
+          ...state,
+          tokenRefreshSuccess: false,
+          tokenRefreshError: true
+        };    
 
     default:
       return state;

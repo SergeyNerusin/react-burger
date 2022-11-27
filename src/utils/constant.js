@@ -11,7 +11,3 @@ export const AUTH_URL = {
   PASSWORD_RESET: '/api/password-reset/reset'
 }; 
 
-
-
-
-

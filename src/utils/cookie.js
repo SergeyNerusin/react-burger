@@ -1,16 +1,20 @@
 function getCookie(name) {
   const matches = document.cookie.match(
+    // eslint-disable-next-line
     new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
   );
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
 function setCookie(name, value, props) {
-  props = props || {};
+  props = {
+    path: '/',
+    ...props
+  };
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
     const d = new Date();
-    d.setTime(d.getTime() + exp * 20000);
+    d.setTime(d.getTime() + exp * 1000);
     exp = props.expires = d;
   }
   if (exp && exp.toUTCString) {

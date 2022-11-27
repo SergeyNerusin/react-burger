@@ -10,9 +10,11 @@ import { store } from './services/store/index';
 const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
-  <Router>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </Router>  
+  <React.StrictMode>
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router> 
+  </React.StrictMode> 
 );

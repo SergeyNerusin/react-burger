@@ -45,7 +45,7 @@ function BurgerConstructor({openModal}) {
   return ( 
     <div ref={dropRef} 
          className={isOver ? `${style.container} ${style.bordercolor} mt-25` 
-         : `${style.container } mt-25`}>
+         : `${style.container}  mt-25`}>
       <article className={style.constructor}>
         {!!bun ?
         <div className={style.itemlock + ' mr-4 mt-0 mb-4'}>
