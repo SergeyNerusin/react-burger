@@ -1,6 +1,7 @@
 import NavItem from './nav-item/nav-item';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './app-header.module.css';
+import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
  
 const AppHeader = () => {
@@ -21,7 +22,9 @@ const AppHeader = () => {
           </NavItem>      
         </ul>
         <div className={styles.logo}>
-           <Logo />
+           <Link to={'/'} className={styles.logo__link}>
+              <Logo />
+           </Link>
         </div>
         <ul className={styles.items}>
           <NavItem  icon={<ProfileIcon 

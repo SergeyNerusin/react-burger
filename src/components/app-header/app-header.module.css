@@ -31,3 +31,12 @@
 .logo {
   margin-right: 272px;
 }
+
+.logo__link {
+  text-decoration: none;
+  transition: opacity .3s linear;
+}
+
+.logo__link:hover {
+  opacity: .8;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './profile.module.css';
+import styles from './profile.module.css';
 import { NavLink } from 'react-router-dom';
 import { Input, 
          EmailInput, 
@@ -50,25 +50,25 @@ export default function ProfilePage(){
   };
 
   return (
-    <div className={style.wrapper}>
-      <nav className={style.menu}>
-       <ul className={style.items}>
-        <li className={style.item}>
+    <div className={styles.wrapper}>
+      <nav className={styles.menu}>
+       <ul className={styles.items}>
+        <li className={styles.item}>
           <NavLink to='/profile' 
-            className={style.itemLink + ' text text_type_main-medium text_color_inactive'}
-            activeClassName={style.itemActive}>Профиль
+            className={styles.itemLink + ' text text_type_main-medium text_color_inactive'}
+            activeClassName={styles.itemActive}>Профиль
           </NavLink>
         </li>
-        <li className={style.item}>
+        <li className={styles.item}>
           <NavLink to='/profile/orders' 
-            className={style.itemLink + ' text text_type_main-medium text_color_inactive'}
-            activeClassName={style.itemActive}>История заказов
+            className={styles.itemLink + ' text text_type_main-medium text_color_inactive'}
+            activeClassName={styles.itemActive}>История заказов
           </NavLink>
         </li>
-        <li className={style.item}>
+        <li className={styles.item}>
           <NavLink to='/login' onClick={handleLogoutUser}
-            className={style.itemLink + ' text text_type_main-medium text_color_inactive'}
-            activeClassName={style.itemActive}>Выход  
+            className={styles.itemLink + ' text text_type_main-medium text_color_inactive'}
+            activeClassName={styles.itemActive}>Выход  
           </NavLink>
         </li>
        </ul>
@@ -77,7 +77,7 @@ export default function ProfilePage(){
        </p> 
       </nav>
       <div>
-        <form className={style.form} onSubmit={changeUserData}>
+        <form className={styles.form} onSubmit={changeUserData}>
           <div className='mb-6'>
             <Input
               type='text'
@@ -110,7 +110,7 @@ export default function ProfilePage(){
               icon='EditIcon'
             />
           </div>
-          <div className={style.button}>
+          <div className={styles.button}>
             <Button htmlType='reset' type='secondary'
                     size='large' onClick={handleResetForm}>Отмена
             </Button>
