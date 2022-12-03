@@ -5,9 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useLocation, useHistory  } from 'react-router-dom';
 import { forgotPassword } from '../../services/store/actions/action-user-auth'; 
 import { getCookie } from '../../utils/cookie';
+import { useForm } from '../../hooks/useForm';
 
 export default function ForgotPasswordPage(){
-  const [form, setValue] = React.useState({ email:'' });
+  
+  // const [form, setValue] = React.useState({ email:'' });
+  const { form, onChange } = useForm({ email:''});
+
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
@@ -15,10 +19,10 @@ export default function ForgotPasswordPage(){
   
   const forgotPasswordSuccess = useSelector(state => state.userAuth.forgotPasswordSuccess); 
 
-  const onChange = e => {
-    setValue({...form, email: e.target.value});
-    console.log("form reset password", form);
-  };
+  // const onChange = e => {
+  //   setValue({...form, email: e.target.value});
+  //   console.log("form reset password", form);
+  // };
  
   const handleLogin = useCallback(
     () => {
