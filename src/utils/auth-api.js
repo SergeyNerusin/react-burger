@@ -1,113 +1,106 @@
 import { API_URL, AUTH_URL } from './constant';
-import checkResponse from './check-response';
+import { request } from './fetch-request';
 import { getCookie } from './cookie';
 
 
 // регистрация нового пользователя
-export const fetchUserRegistration = async (form) => {
+export const fetchUserRegistration = (form) => {
   const { name, email, password } = form; 
-  return await fetch(`${API_URL}${AUTH_URL.REGISTER}`,{
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body:JSON.stringify({
-      'email': email, 
-      'password': password, 
-      'name': name
-    })
-  })
-  .then(res => checkResponse(res))
+  return request(`${API_URL}${AUTH_URL.REGISTER}`,
+    { method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body:JSON.stringify({
+        'email': email, 
+        'password': password, 
+        'name': name
+      })
+    });
 };
 
 // авторизоваться с ранее созданными данными пользователя(логином и паролем)
-export const fetchUserAuthorization = async (form) => {
+export const fetchUserAuthorization = (form) => {
   const { email, password } = form;
-  return await fetch(`${API_URL}${AUTH_URL.LOGIN}`,{
-    method: 'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({
-      'email': email,
-      'password': password
-    })
-  })
-  .then(res => checkResponse(res))
+  return request( `${API_URL}${AUTH_URL.LOGIN}`,
+    { method: 'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          'email': email,
+          'password': password
+        })
+    });
 };
 
 // закрытие авторизыции
-export const fetchLogoutUser = async () => {
+export const fetchLogoutUser = () => {
   const refreshToken = localStorage.getItem('refreshToken');
-  return await fetch(`${API_URL}${AUTH_URL.LOGOUT}`,{
-    method: 'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({
-      token: refreshToken
-    })
-   })
-   .then(res => checkResponse(res))
+  return request(`${API_URL}${AUTH_URL.LOGOUT}`,
+    { method: 'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        token: refreshToken
+      })
+    });
 };
 
 // получение данных о пользователе
-export const fetchGetDataUser = async () => {
-  return await fetch(`${API_URL}${AUTH_URL.UPDATING_USER_INFO}`,{
-    method: 'GET',
-    headers: {
-      Authorization: 'Bearer ' + getCookie('token')
-    },
-  })
-  .then(res => checkResponse(res))
+export const fetchGetDataUser = () => {
+  return request(`${API_URL}${AUTH_URL.UPDATING_USER_INFO}`,
+    { method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + getCookie('token')
+      }
+    });
 }; 
 
 // изменение данных о пользователе
-export const  fetchChangeDataUser = async (form) =>{
+export const  fetchChangeDataUser = (form) => {
   const { name, email, password } = form;
-  return await fetch(`${API_URL}${AUTH_URL.UPDATING_USER_INFO}`,{
-    method: 'PATCH',
-    headers: {
-     'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + getCookie('token')
-    },
-    body: JSON.stringify({
-      'name': name,
-      'email': email,
-      'password': password
-    })
-  })
-  .then(res => checkResponse(res))
+  return request(`${API_URL}${AUTH_URL.UPDATING_USER_INFO}`,
+    { method: 'PATCH',
+      headers: {
+      'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + getCookie('token')
+      },
+      body: JSON.stringify({
+        'name': name,
+        'email': email,
+        'password': password
+      })
+    });
 };
 
 // запрос на восстановление пароля
-export const fetchForgotPassword = async (email) => {
-  return await fetch(`${API_URL}${AUTH_URL.FORGOT_PASSWORD}`,{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'email': email
-    })
-  })
-  .then(res => checkResponse(res))
+export const fetchForgotPassword = (email) => {
+  return request(`${API_URL}${AUTH_URL.FORGOT_PASSWORD}`,
+    { method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'email': email
+      })
+    });
 }; 
 
 // запрос на смену пароля 
 export const fetchNewPassword = async (form) => {
   const {password, token} = form;
-  return await fetch(`${API_URL}${AUTH_URL.PASSWORD_RESET}`,{
-    method:'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'password': password,
-      'token': token
-    })
-  })
-  .then(res => checkResponse(res))
+  return request (`${API_URL}${AUTH_URL.PASSWORD_RESET}`,
+    { method:'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'password': password,
+        'token': token
+      })
+    });
 };
 
 // запрос на обновление токена
-export const fetchTokenRefresh = async () => {
+export const fetchTokenRefresh = () => {
   const refreshToken = localStorage.getItem('refreshToken');
-  return await fetch(`${API_URL}${AUTH_URL.TOKEN}`,{
+  return request (`${API_URL}${AUTH_URL.TOKEN}`,{
     method:'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -115,8 +108,7 @@ export const fetchTokenRefresh = async () => {
     body: JSON.stringify({
       'token': refreshToken
     })
-  })
-  .then(res => checkResponse(res))
+  });
 };
 
 
