@@ -2,30 +2,27 @@
 import { GET_ORDER_REQUEST,
          GET_ORDER_SUCCESS,
          GET_ORDER_ERROR, 
-         CLEAN_ORDER_NUMBER} from '../actions/action-get-order';
+         CLEAN_ORDER_NUMBER } from '../actions/action-get-order';
 
 
 const initialOrderState = {
-  order: null,
+  order: 0,
   orderRequest: false,
   orderFailed: false,
 };
 
-export const createdOrderReducer = (state=initialOrderState, action) => {
+export const createdOrderReducer = (state = initialOrderState, action) => {
   switch(action.type){
     case GET_ORDER_REQUEST: {
       return {
        ...state,
        orderRequest: true,
-       orderFailed: false,
       };
     }
     
     case GET_ORDER_SUCCESS: {
        return {
         ...state,
-        orderRequest: false,
-        orderFailed: false,
         order: action.order,
       };
     }
@@ -41,7 +38,8 @@ export const createdOrderReducer = (state=initialOrderState, action) => {
     case CLEAN_ORDER_NUMBER: {
       return {
        ...state,
-       order: null
+       order: 0,
+       orderRequest: false
       };
     }
 

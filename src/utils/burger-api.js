@@ -1,21 +1,10 @@
 import { API_URL }  from './constant';
-  
+import { request } from './fetch-request';
 
-const checkResponse = (res) => {
-  if (res.ok) return res.json();
-  return Promise.reject(`Ошибка: ${res.status}`);
-};
+export const fetchGetOrderNumber = (ingredientsId) => 
+  request(`${API_URL}/api/orders`,
+           {  method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({ingredients: ingredientsId})});
 
-export const fetchGetOrderNumber = (ingredientsId) => {
-  return fetch(`${API_URL}/api/orders`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ingredients: ingredientsId})
-          })
-          .then(res => checkResponse(res))
-};  
-
-export const fetchDataIngredients = () => {
-  return fetch(`${API_URL}/api/ingredients`)
-         .then(res => checkResponse(res))
-};      
+export const fetchDataIngredients = () => request(`${API_URL}/api/ingredients`,{});

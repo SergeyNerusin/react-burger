@@ -1,0 +1,30 @@
+.wrapper {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #8585ad;
+  padding: 0;
+  transition: color .8 linear;
+}
+
+.button:hover {
+  color: #4c4cff;
+}

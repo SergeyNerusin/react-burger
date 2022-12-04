@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,7 +7,7 @@ import ModalOverlay from './modal-overlay/modal-overlay';
 
 const body = document.querySelector('body');  
 
-const Modal = ({onClose, title="", children}) => {
+const Modal = ({onClose, title='', children}) => {
   
   React.useEffect(() => {
   const closeOnEscapeKeyDown = evt => {
@@ -30,16 +30,16 @@ const Modal = ({onClose, title="", children}) => {
     <>
       <div className={style.container}>
           <div className={style.containerTitle}>
-            <h2 className="text text_type_main-large">{title}</h2>
+            <h2 className='text text_type_main-large'>{title}</h2>
             <div className={style.cursorBox}> 
-              <CloseIcon type="primary" onClick={onClose}/>
+              <CloseIcon type='primary' onClick={onClose}/>
             </div>   
           </div>
           {children} 
         </div>
         <ModalOverlay onClose={onClose}/>
      </>,
-      document.getElementById("popup")
+      document.getElementById('popup')
   );
 };
 

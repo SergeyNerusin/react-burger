@@ -28,8 +28,8 @@ function BurgerConstructor({openModal}) {
   });
 
   const totalOrder = React.useMemo(() => { 
-    return ((ingredients !== null) ? 
-    bun.price*2 + ingredients.reduce((sum, item) => sum + item.price,0) : 0);
+    return ((bun === null || ingredients === null) ? 0 
+    : bun.price*2 + ingredients.reduce((sum, item) => sum + item.price,0));
   },[bun, ingredients]);
 
   const moveIngr = React.useCallback ((dragIndex, hoverIndex) => {
@@ -45,12 +45,12 @@ function BurgerConstructor({openModal}) {
   return ( 
     <div ref={dropRef} 
          className={isOver ? `${style.container} ${style.bordercolor} mt-25` 
-         : `${style.container } mt-25`}>
+         : `${style.container}  mt-25`}>
       <article className={style.constructor}>
         {!!bun ?
         <div className={style.itemlock + ' mr-4 mt-0 mb-4'}>
           <ConstructorElement
-            type="top"
+            type='top'
             isLocked={true}
             text={`${bun.name} (верх)`}
             price={bun.price}
@@ -62,7 +62,7 @@ function BurgerConstructor({openModal}) {
             <h2 className={`${style.title}`}>Выберете и перетащите булку</h2>
         </div>
         }
-        { !!bun && !!ingredients ?
+        {!!ingredients ?
         <div>
           <ul className={style.fillings + ' ml-4'}>
             {ingredients.map((ingr, index) => (
@@ -78,7 +78,7 @@ function BurgerConstructor({openModal}) {
         { !!bun &&
           <div className={style.itemlock + ' mr-4'}>
             <ConstructorElement
-              type="bottom"
+              type='bottom'
               isLocked={true}
               text={`${bun.name} (низ)`}
               price={bun.price}
@@ -89,10 +89,10 @@ function BurgerConstructor({openModal}) {
         { !!bun && !!ingredients ?
           <div className={style.order + ' mr-4 mt-10'}>
           <div className={style.total + ' mr-10'}>
-            <p className="text text_type_digits-medium mr-2">{totalOrder}</p> 
-            <CurrencyIcon type="primary" /> 
+            <p className='text text_type_digits-medium mr-2'>{totalOrder}</p> 
+            <CurrencyIcon type='primary' /> 
           </div>
-            <Button type="primary" size="large" onClick={openModal}> 
+            <Button htmlType='button' type='primary' size='large' onClick={openModal}> 
               Оформить заказ
             </Button>
         </div>

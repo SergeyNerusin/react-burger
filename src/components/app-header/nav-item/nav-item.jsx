@@ -1,19 +1,20 @@
 import styles from './nav-item.module.css';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const NavItem = ({icon, active, children}) => {
-
-  const isActive = (active === "primary") ? "text text_type_main-default" : "text text_type_main-default text_color_inactive";
- 
-  return(
-    <li className={`${styles.item} pr-4`}>
-      <a className={`${styles.link} pl-5 pr-5`} href={'/#'}>
+const NavItem = ({icon, active, path, children}) => {
+  
+  const isActive = (active === 'primary') ? 'text text_type_main-default' : 'text text_type_main-default text_color_inactive';
+  
+  return (
+    <li className={`${styles.item} pr-2`}>
+      <Link className={`${styles.link}  pt-4 pl-5 pb-4 pr-5 `} to={`${path}`}>  
           {icon}
-          <p className={`${isActive} pl-2`} >{children}</p>
-      </a>
+          <p className={`${isActive} pl-2`}>{children}</p>
+      </Link>
     </li>
   );
-}
+}    
 
 NavItem.propTypes = {
   icon: PropTypes.object.isRequired,
