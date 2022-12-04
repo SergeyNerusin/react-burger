@@ -1,9 +1,10 @@
 /* для работы со списком всех ингредиентов в  конструкторе бургера */ 
 
-export const ADD_BURGER_INGR = 'ADD_BURGER_INGR';
+export const ADD_BURGER_INGREDIENT = 'ADD_BURGER_INGREDIENT';
 export const ADD_BURGER_BUN = 'ADD_BURGER_BUN';
-export const SORT_BURGER_INGR = 'SORTING_BURGER_INGR';
-export const DEL_BURGER_INGR = 'DEL_BURGER_INGR';
+export const SORTING_BURGER_INGREDIENT = 'SORTING_BURGER_INGREDIENT';
+export const DELETE_BURGER_INGREDIENT = 'DELETE_BURGER_INGREDIENT';
+export const CLEAN_BURGER_INGREDIENT = 'CLEAN_BURGER_INGREDIENT';
 
 
 export function addBurgerBun(item) {
@@ -15,21 +16,27 @@ export function addBurgerBun(item) {
 
 export function addBurgerIngr(item) { 
   return {
-    type: ADD_BURGER_INGR, 
+    type: ADD_BURGER_INGREDIENT, 
     payload:{...item, keyId: Date.now()}
   };
 }
 
 export function sortBurgerIngr(ingredients) {
   return {
-    type: SORT_BURGER_INGR, 
+    type: SORTING_BURGER_INGREDIENT, 
     sort: ingredients
   };
 }  
 
 export function delBurgerIngr(id){
   return {
-    type: DEL_BURGER_INGR, 
+    type: DELETE_BURGER_INGREDIENT, 
     index: id 
+  };
+}
+
+export function cleanBurgerConctrutor(){
+  return {
+    type: CLEAN_BURGER_INGREDIENT
   };
 }

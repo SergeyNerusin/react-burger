@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getIngr } from '../../services/store/actions/action-get-ingr';
 import { getOreder } from '../../services/store/actions/action-get-order';
 import { cleanOrder } from '../../services/store/actions/action-get-order';
+import { cleanBurgerConctrutor } from '../../services/store/actions/action-constructor-ingr';
 
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd/dist/core';
@@ -33,8 +34,8 @@ const App = () => {
   const dispatch = useDispatch();
   
   const {data} = useSelector(store => store.ingredients);
-  const showOrderNumber = useSelector(store => store.order.order);
-  
+  // const showOrderNumber = useSelector(store => store.order.order);
+  const {order, orderRequest} = useSelector(store => store.order);
   const location = useLocation();
   const history = useHistory();
   const background = location.state?.background; 
@@ -57,6 +58,7 @@ const App = () => {
 
   const handleCloseModalOrder = () => {
    dispatch(cleanOrder());
+   dispatch(cleanBurgerConctrutor());
   };
 
   useEffect(() => {
@@ -116,9 +118,9 @@ const App = () => {
                 <IngredientDetails/>
           </Modal>
         </Route> }
-      { !!showOrderNumber && 
+      { !!orderRequest && 
         <Modal onClose={handleCloseModalOrder}>
-            <OrderDetails orderNumber={showOrderNumber}/>
+              <OrderDetails orderNumber={order}/>
         </Modal> }
     </>
   );
