@@ -16,10 +16,10 @@ const AppHeader = () => {
                     path={'/'}>Конструктор
           </NavItem>
           <NavItem  icon={<ListIcon 
-                    type={location.pathname === '/profile/orders' ? 'primary': 'secondary'} />} 
-                    active={location.pathname === '/profile/orders' ? 'primary': 'secondary'}
-                    path={'/profile/orders'}>Лента&nbsp;заказов
-          </NavItem>      
+                    type={location.pathname === '/feed' ? 'primary': 'secondary'} />} 
+                    active={location.pathname === '/feed' ? 'primary': 'secondary'}
+                    path={'/feed'}>Лента&nbsp;заказов
+          </NavItem>       
         </ul>
         <div className={styles.logo}>
            <Link to={'/'} className={styles.logo__link}>

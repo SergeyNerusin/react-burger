@@ -25,6 +25,7 @@ import ProfilePage from '../../pages/profile/profile';
 import ResetPasswordPage from '../../pages/reset-password/reset-password';
 import NotFound from '../../pages/not-found-404/not-found';
 import ProtectedRoute from '../protected-route/protected-route';
+import Feed from '../../pages/feed/feed';
 import { tokenRefresh, getDataUser } from '../../services/store/actions/action-user-auth';
 
 const App = () => {
@@ -34,7 +35,6 @@ const App = () => {
   const dispatch = useDispatch();
   
   const {data} = useSelector(store => store.ingredients);
-  // const showOrderNumber = useSelector(store => store.order.order);
   const {order, orderRequest} = useSelector(store => store.order);
   const location = useLocation();
   const history = useHistory();
@@ -106,6 +106,9 @@ const App = () => {
             <Route path='/ingredients/:id' exact={true}>
               <IngredientDetails/>
             </Route>
+            <Route path='/feed' exact={true}>
+              <Feed/>
+            </Route>
             <Route>
               <NotFound/>
             </Route>
@@ -118,7 +121,7 @@ const App = () => {
                 <IngredientDetails/>
           </Modal>
         </Route> }
-      { !!orderRequest && 
+      { orderRequest && 
         <Modal onClose={handleCloseModalOrder}>
               <OrderDetails orderNumber={order}/>
         </Modal> }
