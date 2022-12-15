@@ -109,6 +109,9 @@ const App = () => {
             <Route path='/feed' exact={true}>
               <Feed/>
             </Route>
+            <Route path='/feed/:id' exact={true}>
+              <OrderInfo/>
+            </Route>
             <Route>
               <NotFound/>
             </Route>
