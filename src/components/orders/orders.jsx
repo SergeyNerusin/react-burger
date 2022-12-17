@@ -1,32 +1,24 @@
 import React from "react";
-import { CurrencyIcon, Counter, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './orders.module.css';
-import { useSelector } from 'react-redux';
-import { Link } from "react-router-dom";
+import { useLocation, Link } from 'react-router-dom';
+import { useBurgerIngredients } from '../../utils/burger-ingredients';
 
 export const Orders = ({order}) => {
-
-  const listIngredients = useSelector(store => store.ingredients.data);
-  const id_burg = order.ingredients.reduce((prevVal, item) => (prevVal[item] = (prevVal[item] || 0) + 1, prevVal), {});
-
-  const burg = Object.keys(id_burg).map(id => listIngredients.find(ingr => {
-    if(ingr._id === id && ingr.type !== 'bun'){
-        ingr.things = id_burg[id];
-        return ingr;
-    } else if(ingr._id === id && ingr.type === 'bun'){
-        ingr.things = 2;
-        return ingr;
-    } 
-  }));
-
-  const price = burg.reduce((sum, item) => sum + item.price * item.things,0);
   
-  console.log("order", order);
-  console.log("new_burg", id_burg); 
-  console.log("burg", burg);     
+  const location = useLocation();
+  console.log("location", location);
+  
+  const [burg, price] = useBurgerIngredients(order);
+  
+  // console.log("order", order);
+  // console.log("new_burg", id_burg); 
+  // console.log("burg", burg);     
 
   return ( 
-    <Link to={{ pathname:`/feed/${order._id}`, state:{background: location }}}>
+    // <Link to={{  pathname: `/feed/${order._id}`, state: { background: location }}}
+          // className={styles.link}>
+    <Link to={`/feed/${order._id}`} className={styles.link}> 
       <li className={styles.order + ' p-6'}>
         <div className={styles.bar_numberOrder_time}>
           <span className='text text_type_digits-default'>{`#${order.number}`}</span>

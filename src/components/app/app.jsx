@@ -18,6 +18,8 @@ import { DndProvider } from 'react-dnd/dist/core';
 
 import { Switch, Route, useLocation, useHistory} from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
+import { tokenRefresh, getDataUser } from '../../services/store/actions/action-user-auth';
+
 import LoginPage from '../../pages/login/login';
 import RegisterPage from '../../pages/register/register';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
@@ -26,7 +28,7 @@ import ResetPasswordPage from '../../pages/reset-password/reset-password';
 import NotFound from '../../pages/not-found-404/not-found';
 import ProtectedRoute from '../protected-route/protected-route';
 import Feed from '../../pages/feed/feed';
-import { tokenRefresh, getDataUser } from '../../services/store/actions/action-user-auth';
+import { OrderInfo } from '../../pages/ordrer-info/order-info';
 
 const App = () => {
   

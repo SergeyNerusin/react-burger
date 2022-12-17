@@ -1,3 +1,8 @@
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .order {
   box-sizing: border-box;
   width: 100%;
