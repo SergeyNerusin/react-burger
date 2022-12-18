@@ -1,7 +1,7 @@
 .container {
   width: 640px;
   min-height: 620px;
-  background-color: #131316;
+  background-color: inherit;
   margin: 0;
   padding: 0;
 }
@@ -37,7 +37,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background: #131316;
+  background: inherit;
   column-gap: 16px;
 }
 

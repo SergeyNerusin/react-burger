@@ -3,7 +3,8 @@ import styles from './feed.module.css';
 // import { useSelector } from 'react-redux';
 import { Orders } from '../../components/orders/orders';
 import { Stats } from '../../components/stats/stats';
-import { data } from '../../utils/data';
+
+import { data } from '../../utils/data'; // моковые данные для отладки
 
 export default function Feed(){
 

@@ -53,9 +53,12 @@ const App = () => {
     }
   };
 
-  
   const handleCloseModalIng = () => {
-      history.replace({ pathname: '/' });
+        history.replace({ pathname: '/' });
+  };
+
+  const handleCloseModalOrderInfo = () => {
+        history.goBack();
   };
 
   const handleCloseModalOrder = () => {
@@ -126,6 +129,12 @@ const App = () => {
                 <IngredientDetails/>
           </Modal>
         </Route> }
+      { !!background && 
+        <Route path='/feed/:id' exact={true}> 
+          <Modal onClose={handleCloseModalOrderInfo}>
+                <OrderInfo/>
+          </Modal>
+        </Route> }  
       { orderRequest && 
         <Modal onClose={handleCloseModalOrder}>
               <OrderDetails orderNumber={order}/>

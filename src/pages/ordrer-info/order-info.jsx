@@ -4,7 +4,7 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import { useParams } from "react-router-dom";
 import { useBurgerIngredients } from '../../utils/burger-ingredients';
 
-import { data } from '../../utils/data';
+import { data } from '../../utils/data';  // моковые данные для отладки
 
 export const OrderInfo = () => {
   const { id } = useParams();
@@ -14,7 +14,7 @@ export const OrderInfo = () => {
         order.status === 'pending' ? 'Готовится' : 'Отменён';
   
   const [burg, price] = useBurgerIngredients(order);
-  console.log('page OrderInfo', order);
+  
 return (
   <article className={styles.container}>
     <p className={styles.number + ' text text_type_digits-default mb-10'}>#{order.number}</p>

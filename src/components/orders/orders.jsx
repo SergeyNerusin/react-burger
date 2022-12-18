@@ -7,7 +7,7 @@ import { useBurgerIngredients } from '../../utils/burger-ingredients';
 export const Orders = ({order}) => {
   
   const location = useLocation();
-  console.log("location", location);
+  // console.log("location", location);
   
   const [burg, price] = useBurgerIngredients(order);
   
@@ -16,9 +16,9 @@ export const Orders = ({order}) => {
   // console.log("burg", burg);     
 
   return ( 
-    // <Link to={{  pathname: `/feed/${order._id}`, state: { background: location }}}
-          // className={styles.link}>
-    <Link to={`/feed/${order._id}`} className={styles.link}> 
+    <Link to={{  pathname: `/feed/${order._id}`, state: { background: location }}}
+          className={styles.link}>
+    {/* <Link to={`/feed/${order._id}`} className={styles.link}>  */}
       <li className={styles.order + ' p-6'}>
         <div className={styles.bar_numberOrder_time}>
           <span className='text text_type_digits-default'>{`#${order.number}`}</span>

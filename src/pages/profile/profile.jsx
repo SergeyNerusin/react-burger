@@ -14,7 +14,6 @@ export default function ProfilePage(){
 
   const dispatch = useDispatch();
 
-  // const [form, setValue] = React.useState({name: '', email: '', password:''});
   const  { form, onChange, setValues } = useForm({name: '', email: '', password:''});
 
   const { name, email } = useSelector(state => state.userAuth.user); 
@@ -31,10 +30,6 @@ export default function ProfilePage(){
   // eslint-disable-next-line 
   [name, email]);
 
-  // const onChange = (e) => {
-  //   setValue({...form, [e.target.name]: e.target.value});
-  // };
-
   // Изменить данные профиля пользователя
   const changeUserData = (e) => {
     e.preventDefault();
@@ -44,10 +39,7 @@ export default function ProfilePage(){
     }
   };
   
-  //отмена изменений данных профиля
-  // const handleResetForm = () => {
-  //   setValue({name: name , email: email, password: ''});
-  // };
+ 
   const handleResetForm = () => {
     setValues({name: name , email: email, password: ''});
   };
@@ -122,7 +114,7 @@ export default function ProfilePage(){
                     size='large' onClick={handleResetForm}>Отмена
             </Button>
             <Button htmlType='submit' type='primary' size='medium'>
-              Cохранить
+              Cохgitранить
             </Button>
           </div>
         </form> 
