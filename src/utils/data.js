@@ -2,7 +2,8 @@ export const data = {
   success: true, 
   orders: [
    { createdAt: "2022-12-05T20:49:55.177Z",
-    ingredients: ['60d3b41abdacab0026a733c7', '60d3b41abdacab0026a733cd', '60d3b41abdacab0026a733cf', '60d3b41abdacab0026a733cf'],
+    ingredients: ['60d3b41abdacab0026a733c7', '60d3b41abdacab0026a733cd', '60d3b41abdacab0026a733cf', '60d3b41abdacab0026a733cf', '60d3b41abdacab0026a733cc',
+  '60d3b41abdacab0026a733c9', '60d3b41abdacab0026a733cb', '60d3b41abdacab0026a733d1'],
     name: "Space флюоресцентный антарианский бургер",
     number: 32426,
     status: "done",
@@ -130,7 +131,7 @@ export const data = {
     _id: "638e56bd99a25c001cd643c9" },
 
     { createdAt: "2022-12-05T20:01:36.735Z",
-    ingredients: ['60d3b41abdacab0026a733cd', '60d3b41abdacab0026a733c6'],
+    ingredients: ['60d3b41abdacab0026a733c6', '60d3b41abdacab0026a733cd'],
     name: "Space краторный бургер",
     number: 32410,
     status: "done",

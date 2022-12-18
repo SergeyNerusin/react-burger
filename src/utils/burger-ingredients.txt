@@ -9,11 +9,18 @@ export  function useBurgerIngredients(order) {
     prevVal[item] = (prevVal[item] || 0) + 1, prevVal
   ),{});
 
+  let countIngredients = 0;
   const burg = Object.keys(id_burg).map(id => listIngredients.find(ingr => 
-    ingr._id === id && ingr.type !== 'bun' ? ingr.things = id_burg[id] :
-    ingr._id === id && ingr.type === 'bun' ? ingr.things = 2 : null)
+    { if(ingr._id === id && ingr.type !== 'bun'){
+        countIngredients++;
+        return ingr.things = id_burg[id];
+      } else if(ingr._id === id && ingr.type === 'bun'){
+        return ingr.things = 2; 
+      }
+      return null;
+    })
   );
-  
+  burg.countIngr = countIngredients;
   const price = burg.reduce((sum, item) => sum + item.price * item.things,0);
 
   return [burg, price];

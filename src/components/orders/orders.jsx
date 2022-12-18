@@ -28,10 +28,24 @@ export const Orders = ({order}) => {
         <h2 className='text text_type_main-medium'>{order.name}</h2>
         <div className={styles.wrapper}>
           <ul className={styles.img_container}>
-            { burg.map(ingr => (
-                <li key={ingr._id} className={styles.item}>
-                  <img className={styles.img} src={ingr.image} alt={ingr.name}/>
-                </li>))
+            { burg.map((ingr, index) => (index <= 4) ?  
+                <li key={ingr._id} className={styles.item}
+                     style={{top: 0, right: `${16*(index)}px`, zIndex: `${5-index}`}}>
+                    <img className={styles.img} src={ingr.image} 
+                         alt={ingr.name}/>
+                </li>
+                : 
+                (index === 5) ?
+                <li key={ingr._id} className={styles.item}
+                     style={{top: 0, right: `${16*(index)}px`, zIndex: `${5-index}`}}>
+                    <img className={styles.img} src={ingr.image} 
+                         alt={ingr.name}/>
+                    <div className={styles.count}>
+                      <span className={styles.counter}>
+                        {`+ ${burg.length - index}`}
+                      </span>
+                    </div>
+                </li> : null)
             }
           </ul>
           <ul className={styles.totalsumm}>

@@ -17,9 +17,9 @@ return(
           <ul className={styles.items_stats}>
             { 
               done.map((order, index) => (index < 10)? 
-              (<li key={order.number} className={styles.item_stats + ' text text_type_digits-default'}>
+              <li key={order._id} className={styles.item_stats + ' text text_type_digits-default'}>
                 {order.number}
-              </li>):<></>)
+              </li> : null)
             }
           </ul>
         </div>
@@ -28,9 +28,9 @@ return(
           <ul className={styles.items_stats}>
             {
               pending.map((order, index) => (index < 10)? 
-              (<li key={order.number} className={styles.item_stats + ' text text_type_digits-default'}>
+              <li key={order._id} className={styles.item_stats + ' text text_type_digits-default'}>
                 {order.number}
-              </li>):<></>)
+              </li> : null)
             }
           </ul>
         </div>

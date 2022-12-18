@@ -10,7 +10,7 @@
   max-height: 752px;
   margin: 0;
   padding: 0;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .orders {
@@ -31,10 +31,8 @@
   height: 626px;
   margin: 0;
   padding: 0;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
-
-
 
 
 /*** полоса прокрутки настройка ****/
