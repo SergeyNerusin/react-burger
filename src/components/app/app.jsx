@@ -30,6 +30,7 @@ import ProtectedRoute from '../protected-route/protected-route';
 import Feed from '../../pages/feed/feed';
 import { OrderInfo } from '../../pages/ordrer-info/order-info';
 
+
 const App = () => {
   
   const {ingredients} = useSelector(store => store.burgerConstructor);
@@ -68,9 +69,10 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngr());  //получаем ингредиенты 
+    console.log('Попали в app getIngr');
   }, [dispatch]); 
 
-   useEffect(() =>{
+  useEffect(() =>{
     if (!cookie && refreshToken) {
       dispatch(tokenRefresh());
     }

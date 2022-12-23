@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './order-info.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector, useDispatch } from 'react-redux'; 
+import { wsConnectionInit, wsConnectionClose} from '../../services/store/actions/action-ws-order-all';
 import { useParams } from "react-router-dom";
 import { useBurgerIngredients } from '../../utils/burger-ingredients';
 
-import { data } from '../../utils/data';  // моковые данные для отладки
+// import { data } from '../../utils/data';  // моковые данные для отладки
 
 export const OrderInfo = () => {
+  const dispatch = useDispatch();
+  const [rerender, setRerender] = useState(false);
   const { id } = useParams();
+  console.log('OrderInfo id:', id);
+  
+  useEffect(() => {
+    dispatch(wsConnectionInit());
+    return () => {
+      dispatch(wsConnectionClose());
+    };
+  },[dispatch]);
 
+  const data = useSelector(state => state.wsOrderAll.data);
+  console.log('OrderInfo data:', data);
+  if(data === undefined){
+      setRerender(!rerender);
+    }
   const order = data.orders.find(order => order._id === id);
   const status = order.status === 'done' ? 'Выполнен' :
-        order.status === 'pending' ? 'Готовится' : 'Отменён';
+  order.status === 'pending' ? 'Готовится' : 'Отменён';
   
   const [burg, price] = useBurgerIngredients(order);
-  
-return (
+
+return !!data &&(
   <article className={styles.container}>
     <p className={styles.number + ' text text_type_digits-default mb-10'}>#{order.number}</p>
     <h2 className='text text_type_main-medium mb-3'>{order.name}</h2>
@@ -33,7 +50,6 @@ return (
                     <span className='text text_type_digits-default'>{ingr.price}</span>
                     <CurrencyIcon/>
                   </div>
-                 
                 </li>))
       }
      </ul>
