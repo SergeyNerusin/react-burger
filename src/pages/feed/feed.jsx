@@ -11,7 +11,6 @@ import {  wsConnectionInit, wsConnectionClose } from '../../services/store/actio
 export default function Feed(){
   const dispatch = useDispatch();
   
-  
   useEffect(() => {
       dispatch(wsConnectionInit());
     return () => {

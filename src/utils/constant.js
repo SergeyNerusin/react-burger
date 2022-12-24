@@ -10,8 +10,10 @@ export const AUTH_URL = {
   TOKEN: '/api/auth/token',
   UPDATING_USER_INFO: '/api/auth/user',
   FORGOT_PASSWORD: '/api/password-reset',
-  PASSWORD_RESET: '/api/password-reset/reset'
+  PASSWORD_RESET: '/api/password-reset/reset',
 }; 
+
+export const ORDERS = '/api/orders';
 
 export const WS_URL = {
   ORDERS:'/orders',

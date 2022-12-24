@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux";
 
 export  function useBurgerIngredients(order) {
-
   const listIngredients = useSelector(store => store.ingredients.data);
+
+  if(order === null){
+    return [];
+  } 
 
   const id_burg = order.ingredients.reduce((prevVal, item) => (
     // eslint-disable-next-line
