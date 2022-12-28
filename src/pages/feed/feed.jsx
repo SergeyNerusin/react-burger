@@ -2,9 +2,6 @@ import React, {useEffect} from 'react';
 import styles from './feed.module.css';
 import { Orders } from '../../components/orders/orders';
 import { Stats } from '../../components/stats/stats';
-
-// import { data } from '../../utils/data';  // моковые данные для отладки
-
 import { useSelector, useDispatch } from 'react-redux';
 import {  wsConnectionInit, wsConnectionClose } from '../../services/store/actions/action-ws-order-all'; 
 
@@ -16,9 +13,7 @@ export default function Feed(){
     return () => {
       dispatch(wsConnectionClose());
     };
-  }, 
-  // eslint-disable-next-line 
-  [dispatch]);
+  },[dispatch]);
   
   const  data  = useSelector(state => state.wsOrderAll.data);
   console.log('data', data);
@@ -29,7 +24,7 @@ export default function Feed(){
         <h1 className='text text_type_main-large mb-6'>Лента заказов</h1>
         <ul className={styles.orders}>
           { 
-            data.orders.map(order => <Orders key={order._id} order={order}/>)
+            data.orders.map(order => <Orders key={order._id} order={order} path={'/feed'}/>)
           }
         </ul>
       </article>

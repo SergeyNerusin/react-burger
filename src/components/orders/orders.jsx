@@ -3,14 +3,15 @@ import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burge
 import styles from './orders.module.css';
 import { useLocation, Link } from 'react-router-dom';
 import { useBurgerIngredients } from '../../utils/burger-ingredients';
+import PropTypes from 'prop-types';
 
-export const Orders = ({order}) => {
+export const Orders = ({order, path}) => {
   
   const location = useLocation();
   const [burg, price] = useBurgerIngredients(order);
   
   return ( 
-    <Link to={{  pathname: `/feed/${order.number}`, state: { background: location }}}
+    <Link to={{  pathname: `${path}/${order.number}`, state: { background: location }}}
           className={styles.link}>
       <li className={styles.order + ' p-6'}>
         <div className={styles.bar_numberOrder_time}>
@@ -52,4 +53,9 @@ export const Orders = ({order}) => {
         </div>
       </li>
     </Link>);
+};
+
+Orders.propTypes = {
+	order: PropTypes.object.isRequired,
+	path: PropTypes.string.isRequired
 };

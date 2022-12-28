@@ -6,7 +6,8 @@ import { WS_AUTH_CONNECTION_OPEN,
 const initialOrdersUser = {
   data: null,
   wsAuthConnected: false,
-  wsAuthConnectedError: false
+  wsAuthConnectedError: false,
+  wsAuthLoadingData: false
 };        
 
 export const wsAuthOrdersUserReducer = (state = initialOrdersUser, action)=>{
@@ -14,7 +15,8 @@ export const wsAuthOrdersUserReducer = (state = initialOrdersUser, action)=>{
     case WS_AUTH_CONNECTION_OPEN:
       return {
         ...state,
-        wsAuthConnected: true
+        wsAuthConnected: true,
+        wsAuthLoadingData: true,
       };
 
     case WS_AUTH_CONNECTION_ERROR:
@@ -33,7 +35,8 @@ export const wsAuthOrdersUserReducer = (state = initialOrdersUser, action)=>{
     case WS_AUTH_GET_DATA:
       return {
         ...state,
-        data: action.payload
+        data: action.payload,
+        wsAuthLoadingData: false,
       };
 
     default:

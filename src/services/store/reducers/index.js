@@ -5,7 +5,7 @@ import { createdOrderReducer } from './reducer-get-order';
 import { userAuthReducer } from './reducer-auth-user';
 import { orderInfoReducer} from './reducer-order-info';
 import { wsOrderAllReducer } from './reducer-ws-order-all';
-
+import { wsAuthOrdersUserReducer } from './reducer-ws-auth';
 
 
 export const rootReducer = combineReducers({
@@ -14,7 +14,8 @@ export const rootReducer = combineReducers({
   order: createdOrderReducer,
   userAuth: userAuthReducer,
   orderInfo: orderInfoReducer,
-  wsOrderAll: wsOrderAllReducer, 
+  wsOrderAll: wsOrderAllReducer,
+  wsAuthOrdersUser: wsAuthOrdersUserReducer  
 });
 
 
@@ -25,6 +26,7 @@ export const rootReducer = combineReducers({
     order: createdOrderReducer - номер созданного заказа,
     userAuth: userAuthReducer - регистрация, авторизация пользователя, восстановление пароля,
     orderInfo: orderInfoReduser - информация о составе бургера сделанного ранее заказа,  
-    wsOrderAll: wsOrderAllReducer - получение данных обо всех сделанных заказах через вебсокет, 
+    wsOrderAll: wsOrderAllReducer - получение данных обо всех сделанных заказах через вебсокет,
+    wsAuthOrdersUser: wsAuthOrdersUserReducer - информация о заказах сделанных пользователем 
   }
 */ 
