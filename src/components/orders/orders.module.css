@@ -1,0 +1,87 @@
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.order {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  background-color: #1c1c21;
+  border-radius: 40px;
+  border: 1px dashed #1c1c21;
+  margin: 0;
+}
+
+.order:hover {
+  border: 1px solid #4c4cff;
+}
+
+.bar_numberOrder_time {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.img_container {
+  width: 100%;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  /* border: 1px solid yellow; */
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.img {
+  width: 64px;
+  height: 64px;
+  object-position: center;
+  object-fit: cover;
+  border: 2px solid #4c4cff;
+  border-radius: 50%;
+  background-color: #131316;
+  padding: 0;
+  margin: 0;
+}
+
+.count {
+  width: 62px;
+  height: 62px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(28, 28, 33, 0.6);
+  border-radius: 50%;
+  top: 2;
+  left: 2;
+}
+
+.counter {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #f2f2f3
+}
+
+.totalsumm {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}

@@ -7,8 +7,7 @@ import { useDrag } from 'react-dnd';
 import { useLocation, Link } from 'react-router-dom';
 
 function Ingredient({data}) {  
-  const {ingredients} = useSelector(store => store.burgerConstructor);
-  const {bun} = useSelector(store => store.burgerConstructor);
+  const {ingredients, bun} = useSelector(store => store.burgerConstructor);
   const [, dragRef] = useDrag({
     type: 'ingredient',
     item: data,

@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  justify-content: center;
+  column-gap: 60px;
+  padding: 0;
+}
+
+.orderFeed {
+  width: 608px;
+  max-height: 752px;
+  margin: 0;
+  padding: 0;
+  /* border: 1px solid red; */
+}
+
+.orders {
+  box-sizing: border-box;
+  width: 100%;
+  max-height: calc(752px - 64px);
+  overflow-y: scroll;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px 0 0;
+  margin: 0;
+  row-gap: 24px;
+}
+
+.stats {
+  width: 580px;
+  height: 626px;
+  margin: 0;
+  padding: 0;
+  /* border: 1px solid red; */
+}
+
+
+/*** полоса прокрутки настройка ****/
+
+/* ширина всей полосы прокрутки */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* цвет зоны отслеживания */
+::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+/* цвет зоны отслеживания при наведении курсора */
+::-webkit-scrollbar-track:hover {
+  background: #4c4cff
+}
+
+/* настройка параметров бегунка */
+::-webkit-scrollbar-thumb {
+  /* цвет бегунка */
+  background-color: #8585AD;
+  /* округлось бегунка */
+  border-radius: 0px;
+}
+
+/* Цвет бегунка при наведении курсора  */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #9f9ff1;
+}

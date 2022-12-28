@@ -30,7 +30,7 @@ const Modal = ({onClose, title='', children}) => {
     <>
       <div className={style.container}>
           <div className={style.containerTitle}>
-            <h2 className='text text_type_main-large'>{title}</h2>
+            {!!title && <h2 className='text text_type_main-large'>{title}</h2>}
             <div className={style.cursorBox}> 
               <CloseIcon type='primary' onClick={onClose}/>
             </div>   

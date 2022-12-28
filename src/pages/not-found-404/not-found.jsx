@@ -4,7 +4,7 @@ import styles from './not-found.module.css';
 
 export default function NotFound() {
  return (
-    <div className={styles.wrapper}>
+    <article className={styles.wrapper}>
       <h1 className='text text_type_main-medium'>
         Извините, страница не найдена.
       </h1>
@@ -15,6 +15,6 @@ export default function NotFound() {
             className={styles.link + ' text text_type_main-default text_color_inactive'}>
         Вернуться на главную
       </Link>
-    </div>
+    </article>
   );
 }
