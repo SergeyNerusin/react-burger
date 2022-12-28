@@ -4,7 +4,7 @@ import { burgerConstructorReducer } from './reducer-constructor-ingr';
 import { createdOrderReducer } from './reducer-get-order';
 import { userAuthReducer } from './reducer-auth-user';
 import { orderInfoReducer} from './reducer-order-info';
-import { wsOrderAllReducer } from './reducer-ws-order-all';
+import { wsOrdersAllReducer } from './reducer-ws-order-all';
 import { wsAuthOrdersUserReducer } from './reducer-ws-auth';
 
 
@@ -14,7 +14,7 @@ export const rootReducer = combineReducers({
   order: createdOrderReducer,
   userAuth: userAuthReducer,
   orderInfo: orderInfoReducer,
-  wsOrderAll: wsOrderAllReducer,
+  wsOrdersAll: wsOrdersAllReducer,
   wsAuthOrdersUser: wsAuthOrdersUserReducer  
 });
 

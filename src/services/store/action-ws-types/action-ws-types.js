@@ -17,11 +17,11 @@ export const WS_AUTH_SEND_DATA = 'WS_AUTH_SEND_DATA';
 
 export const wsActions = {
 	wsInit: WS_CONNECTION_INIT,
-	wsSendMessage: WS_SEND_DATA,
 	onOpen: WS_CONNECTION_OPEN,
 	onError: WS_CONNECTION_ERROR,
 	onClose: WS_CONNECTION_CLOSE,
-	onMessage: WS_GET_DATA
+	onMessage: WS_GET_DATA,
+	wsSendMessage: WS_SEND_DATA,
 };
 
 export const wsAuthActions = {
@@ -30,6 +30,6 @@ export const wsAuthActions = {
 	onOpen: WS_AUTH_CONNECTION_OPEN,
 	onClose: WS_AUTH_CONNECTION_CLOSE,
 	onMessage: WS_AUTH_GET_DATA,
-	wsSendMessage: WS_AUTH_SEND_DATA
+	wsSendMessage: WS_AUTH_SEND_DATA,
 };
 

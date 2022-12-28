@@ -15,8 +15,9 @@ export default function Feed(){
     };
   },[dispatch]);
   
-  const  data  = useSelector(state => state.wsOrderAll.data);
-  console.log('data', data);
+  const  data = useSelector(state => state.wsOrdersAll.data);
+  // console.log('Feed', data);
+  
   return !!data && (
     <div className={styles.container + ' mt-10'}>
       <article className={styles.orderFeed} 

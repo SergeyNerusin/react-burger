@@ -1,5 +1,4 @@
-import {  //WS_CONNECTION_INIT,
-          WS_CONNECTION_OPEN, // SUCCESS
+import {  WS_CONNECTION_OPEN, 
           WS_CONNECTION_CLOSE, 
           WS_CONNECTION_ERROR, 
           WS_GET_DATA          
@@ -11,7 +10,7 @@ const initialStateOrderAll = {
   wsConnectedError: false
 };        
 
-export const wsOrderAllReducer = (state = initialStateOrderAll, action)=>{
+export const wsOrdersAllReducer = (state = initialStateOrderAll, action)=>{
   switch(action.type){
     case WS_CONNECTION_OPEN:
       return {
@@ -41,4 +40,4 @@ export const wsOrderAllReducer = (state = initialStateOrderAll, action)=>{
     default:
       return state;  
   }
-};        
+};       

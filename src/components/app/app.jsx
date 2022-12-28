@@ -32,16 +32,17 @@ import { OrderInfo } from '../ordrer-info/order-info';
 
 
 const App = () => {
-  
-  const {ingredients} = useSelector(store => store.burgerConstructor);
-  const {bun} = useSelector(store => store.burgerConstructor);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
+  
+  const background = location.state?.background; 
+
+  const {bun, ingredients} = useSelector(store => store.burgerConstructor);
+ 
   
   const {data} = useSelector(store => store.ingredients);
   const {order, orderRequest} = useSelector(store => store.order);
-  const location = useLocation();
-  const history = useHistory();
-  const background = location.state?.background; 
   
   const refreshToken = localStorage.getItem('refreshToken');
   const cookie = getCookie('token');
@@ -69,7 +70,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngr());  //получаем ингредиенты 
-    console.log('Попали в app getIngr');
   }, [dispatch]); 
 
   useEffect(() =>{

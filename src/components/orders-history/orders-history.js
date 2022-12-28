@@ -12,8 +12,7 @@ export const OrdersHistory = () => {
       <div className={styles.container}>
         {wsAuthLoadingData && !data.orders ? 
         <h2 className='text text_type_main-medium'>Загрузка данных...</h2> :
-        !wsAuthLoadingData && !!data.orders && 
-        <h2 className='text text_type_main-medium'>На данный момент у вас нет заказов</h2>}
+        !wsAuthLoadingData && <h2 className='text text_type_main-medium'>На данный момент у вас нет заказов</h2>}
         {!!data.orders && 
           <ul className={styles.orders}>
             { 

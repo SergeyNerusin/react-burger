@@ -3,14 +3,14 @@ import styles from './order-info.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from 'react-redux'; 
 import { useParams } from "react-router-dom";
-import { useBurgerIngredients } from '../../utils/burger-ingredients';
+import { useBurgerIngredients } from '../../utils/use-burger-ingredients';
 import { getOrderInfo, orderInfoClean } from '../../services/store/actions/action-order-info';
 
 export const OrderInfo = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
     
-  const { data } = useSelector(state => state.wsOrderAll);
+  const { data } = useSelector(state => state.wsOrdersAll);
     
   useEffect(() => {
     if (!data){

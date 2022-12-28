@@ -20,3 +20,6 @@ export const WS_URL = {
   ORDERS_ALL: '/orders/all'
 };
 
+// id булок для бургера
+export const BUN_ID =['60d3b41abdacab0026a733c6', '60d3b41abdacab0026a733c7'];
+
