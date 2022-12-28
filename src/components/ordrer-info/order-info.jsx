@@ -2,45 +2,61 @@ import React, { useEffect } from 'react';
 import styles from './order-info.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from 'react-redux'; 
-import { useParams } from "react-router-dom";
+import { useParams, useRouteMatch } from "react-router-dom";
 import { useBurgerIngredients } from '../../utils/use-burger-ingredients';
 import { getOrderInfo, orderInfoClean } from '../../services/store/actions/action-order-info';
+import { wsAuthConnectionInit, wsAuthConnectionClose } from '../../services/store/actions/action-ws-auth';
 
 export const OrderInfo = () => {
-  const dispatch = useDispatch();
+  
   const { id } = useParams();
-    
-  const { data } = useSelector(state => state.wsOrdersAll);
-    
+  const { path } = useRouteMatch();
+  const dispatch = useDispatch();
+  
+  const isFeed = (path === '/feed/:id');
+  const isProfile = (path === '/profile/orders/:id');
+  
   useEffect(() => {
-    if (!data){
-       dispatch(getOrderInfo(Number(id)));
-    }
-    return () => {
-      dispatch(orderInfoClean());
-    };
-  },[data, id, dispatch]);
-
- 
-  const orderinfo = useSelector(state => state.orderInfo.order);
+    isFeed && dispatch(getOrderInfo(Number(id)));
+    isProfile && dispatch(wsAuthConnectionInit());
     
+    return () => {
+      isFeed && dispatch(orderInfoClean());
+      isProfile && dispatch(wsAuthConnectionClose());
+    };
+  },[id, isFeed, isProfile, dispatch]);
+
+  const dataOrdersAll  = useSelector(state => state.wsOrdersAll.data);  
+  const dataOrdersUser = useSelector(state => state.wsAuthOrdersUser.data);
+  const data = (isFeed && dataOrdersAll) || (isProfile && dataOrdersUser);
+  const orderinfo = useSelector(state => state.orderInfo.order);
   const order = !!data ? data.orders.find(order => order.number === Number(id)) : orderinfo;
   
+  console.log({
+   'id': id,
+   'path:': path,
+   'isFeed':isFeed,
+   'isProfile': isProfile,
+   'data': data,
+   'dataOrdersAll': dataOrdersAll,
+   'dataOrdersUser': dataOrdersUser,
+   'orderInfo': orderinfo,
+ });
+ 
   const [burg, price] = useBurgerIngredients(order);
 
-  return !!order && !!burg &&(
+  return !!burg && (
   <article className={styles.container}>
     <p className={styles.number + ' text text_type_digits-default mb-10'}>#{order.number}</p>
     <h2 className='text text_type_main-medium mb-3'>{order.name}</h2>
-    <p className={styles.status + ' text text_type_main-default mb-15'}>{
-    order.status === 'done' ? 'Выполнен' :
-    order.status === 'pending' ? 'Готовится' : 'Отменён'
-    }</p>
+    <p className={styles.status + ' text text_type_main-default mb-15'}>
+      {order.status === 'done' ? 'Выполнен' : order.status === 'pending' ? 'Готовится' : 'Отменён'}
+    </p>
     <p className='text text_type_main-medium mb-6'>Состав:</p>
     <div className={styles.info_container + ' mb-10 '}>
-     <ul className={styles.info_wrapper + ' mr-6'}>
-      { burg.map(ingr => (
-                <li key={ingr._id} className={styles.item}>
+      <ul className={styles.info_wrapper + ' mr-6'}>
+          { burg.map(ingr => 
+             ( <li key={ingr._id} className={styles.item}>
                   <img className={styles.img} src={ingr.image} alt={ingr.name}/>
                   <h2 className={styles.title + ' text text_type_main-default'}>{ingr.name}</h2>
                   <div className={styles.item_price}>
@@ -49,9 +65,11 @@ export const OrderInfo = () => {
                     <span className='text text_type_digits-default'>{ingr.price}</span>
                     <CurrencyIcon/>
                   </div>
-                </li>))
-      }
-     </ul>
+                </li>
+              )
+            )
+          }
+      </ul>
     </div>
     <ul className={styles.wrapper}>
       <li className=' p-0 m-0'>
@@ -65,6 +83,5 @@ export const OrderInfo = () => {
         <CurrencyIcon/>
       </li>
     </ul>
-  </article>
-);
-}; 
+  </article>);
+};  

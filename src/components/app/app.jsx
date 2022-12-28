@@ -142,7 +142,13 @@ const App = () => {
           <Modal onClose={handleCloseModalOrderInfo}>
                 <OrderInfo/>
           </Modal>
-        </Route> }  
+        </Route> } 
+       { !!background &&
+        <ProtectedRoute path='/profile/orders/:id' exact={true}>
+          <Modal onClose={handleCloseModalOrderInfo}>
+            <OrderInfo/>
+          </Modal>
+        </ProtectedRoute>}    
       { orderRequest && 
         <Modal onClose={handleCloseModalOrder}>
               <OrderDetails orderNumber={order}/>
