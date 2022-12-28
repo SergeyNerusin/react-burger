@@ -3,7 +3,7 @@ import { WS_CONNECTION_INIT,
          WS_CONNECTION_CLOSE, 
          WS_CONNECTION_ERROR, 
          WS_GET_DATA,
-         WS_SEND_DATA } from '../action-types/ws-action-types';
+         WS_SEND_DATA } from '../action-ws-types/action-ws-types';
 
 
 export const wsConnectionInit = () => {

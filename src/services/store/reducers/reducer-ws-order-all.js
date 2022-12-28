@@ -3,7 +3,7 @@ import {  //WS_CONNECTION_INIT,
           WS_CONNECTION_CLOSE, 
           WS_CONNECTION_ERROR, 
           WS_GET_DATA          
-        } from '../action-types/ws-action-types';
+        } from '../action-ws-types/action-ws-types';
 
 const initialStateOrderAll = {
   data: null,

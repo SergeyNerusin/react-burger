@@ -21,7 +21,7 @@ export const wsActions = {
 	onOpen: WS_CONNECTION_OPEN,
 	onError: WS_CONNECTION_ERROR,
 	onClose: WS_CONNECTION_CLOSE,
-	onMessage: WS_GET_DATA,
+	onMessage: WS_GET_DATA
 };
 
 export const wsAuthActions = {
@@ -30,6 +30,6 @@ export const wsAuthActions = {
 	onOpen: WS_AUTH_CONNECTION_OPEN,
 	onClose: WS_AUTH_CONNECTION_CLOSE,
 	onMessage: WS_AUTH_GET_DATA,
-	wsSendMessage: WS_AUTH_SEND_DATA,
+	wsSendMessage: WS_AUTH_SEND_DATA
 };
 

@@ -11,15 +11,13 @@ export const wsMiddleware = (wsUrl, wsActions, isAuth) => {
       const accessToken = getCookie('token');
 
       if (type === wsInit && isAuth) {
-        socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
+          socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
       } else if (type === wsInit && !isAuth) {
-        socket = new WebSocket(wsUrl);
-        
+          socket = new WebSocket(wsUrl);
         }
               
 
       if (socket) {
-        
         socket.onerror = event => {
           dispatch({ type: onError, payload: event });
         };
@@ -41,7 +39,7 @@ export const wsMiddleware = (wsUrl, wsActions, isAuth) => {
         };
 
         if (type === wsSendMessage) {
-          const data = { ...payload, token: accessToken };
+          const data = { ...payload };
           socket.send(JSON.stringify(data));
         }
       }
