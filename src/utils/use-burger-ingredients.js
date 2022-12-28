@@ -31,21 +31,6 @@ export  function useBurgerIngredients(order) {
     ingr._id === id && ingr.type === 'bun' ? ingr.things = 2 : null)
   );
   
-  // const price = burg.reduce((sum, item) => {
-  //   if(item){
-  //     return sum + item.price * item.things;
-  //   } else {
-  //     console.log('Пусто???', {
-  //       'length': burgIngr.length,
-  //       'id_burg': burg_id,
-  //       'isBun': burgIngr.some(ingr => BUN_ID.includes(ingr)),
-  //       'order': order,
-  //       'burg':burg});
-  //     return[];
-  //   }
-  // },0); 
-    
-  
   const price = burg.reduce((sum, item) => sum + item.price * item.things,0);
 
   return [burg, price];

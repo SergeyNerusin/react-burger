@@ -107,7 +107,7 @@ const App = () => {
             <Route path='/reset-password' exact={true}>
               <ResetPasswordPage/>
             </Route>
-            <ProtectedRoute path='/profile' exact={true}>
+            <ProtectedRoute path='/profile'>
               <ProfilePage/>
             </ProtectedRoute>
             <Route path='/ingredients/:id' exact={true}>
@@ -119,7 +119,13 @@ const App = () => {
             <Route path='/feed/:id' exact={true}>
               <OrderInfo/>
             </Route>
-            <Route>
+            <ProtectedRoute path='/profile'>
+              <ProfilePage/>
+            </ProtectedRoute>
+            <ProtectedRoute path='/profile/orders/:id'>
+              <OrderInfo/>
+            </ProtectedRoute>
+            <Route path='*'>
               <NotFound/>
             </Route>
         </Switch>
