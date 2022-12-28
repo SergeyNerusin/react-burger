@@ -14,7 +14,7 @@ export const wsMiddleware = (wsUrl, wsActions, isAuth) => {
         socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
       } else if (type === wsInit && !isAuth) {
         socket = new WebSocket(wsUrl);
-        // console.log('Попали сюда - isAuth = false');
+        
         }
               
 
@@ -36,7 +36,7 @@ export const wsMiddleware = (wsUrl, wsActions, isAuth) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
-          // console.log('wsMiddleware restParsedData:', restParsedData); 
+          
           dispatch({ type: onMessage, payload: restParsedData });
         };
 

@@ -28,7 +28,7 @@ import ResetPasswordPage from '../../pages/reset-password/reset-password';
 import NotFound from '../../pages/not-found-404/not-found';
 import ProtectedRoute from '../protected-route/protected-route';
 import Feed from '../../pages/feed/feed';
-import { OrderInfo } from '../../pages/ordrer-info/order-info';
+import { OrderInfo } from '../ordrer-info/order-info';
 
 
 const App = () => {
