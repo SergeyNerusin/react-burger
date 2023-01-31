@@ -89,25 +89,23 @@ export const userAuthReducer =  (state = initialState, action) => {
           [action.name]: action.value
         }
       };
+
     case REQUEST_USER_REGISTRATION:
       return {
         ...state,
-        // userRegistered: false,
         requestUserRegistration: true,
-        // registrationError: false,
       };
+
     case USER_REGISTRATION_SUCCESS:
       return {
         ...state,
         userRegistered: true,
-        // requestUserRegistration: false,
-        // registrationError: false,
       };
+      
     case USER_REGISTRATION_ERROR:
       return {
         ...state,
         userRegistered: false,
-        // requestUserRegistration: false,
         registrationError: true,
       };   
       
@@ -124,8 +122,6 @@ export const userAuthReducer =  (state = initialState, action) => {
       return {
         ...state,
         requestUserAuthorization: true,
-        // userAuthorization: false,
-        // authorizationUserError: false,
       }; 
     
     case AUTHORIZATION_USER_SUCCESS:
@@ -141,10 +137,9 @@ export const userAuthReducer =  (state = initialState, action) => {
         name: action.payload.name,
         email: action.payload.email
       },      
-      // requestUserAuthorization: false,
       userAuthorization: true,
       userRegistered: true,
-      // authorizationUserError: false,
+     
     }; 
 
     case AUTHORIZATION_USER_ERROR:
@@ -155,7 +150,6 @@ export const userAuthReducer =  (state = initialState, action) => {
         email:'',
         password:'',
       },
-      // requestUserAuthorization: false,
       userAuthorization: false,
       userRegistered: false,
       authorizationUserError: true,
@@ -166,9 +160,6 @@ export const userAuthReducer =  (state = initialState, action) => {
         ...state,
         userLogoutRequest: true,
         userRegistered: true,
-        // logoutUserSuccess: false,
-        // messagelogout: '',
-        // logoutUserError: false,
       };
 
     case LOGOUT_USER_SUCCESS:
@@ -179,10 +170,8 @@ export const userAuthReducer =  (state = initialState, action) => {
           name: '',
           email: ''
         },
-        // userLogoutRequest: false,
         logoutUserSuccess: true,
         messageLogout: action.payload,
-        // logoutUserError: false,
       };
 
     case LOGOUT_USER_ERROR:
@@ -193,9 +182,7 @@ export const userAuthReducer =  (state = initialState, action) => {
           name: '',
           email: ''
         },
-        // userLogoutRequest: false,
         logoutUserSuccess: false,
-        // messagelogout: '',
         logoutUserError: true,
       };
 
@@ -271,7 +258,7 @@ export const userAuthReducer =  (state = initialState, action) => {
         ...state,
         form:{
           ...state.form,
-         [action.name]:action.value,
+         [action.name]: action.value,
         }
       }; 
     

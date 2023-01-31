@@ -4,39 +4,35 @@ import { useParams } from 'react-router-dom';
 
 const IngredientDetails = () => {
   const { id } = useParams();
-  // console.log("IngredientDetails id:", id)
+  
   const ingredients = useSelector(store => store.ingredients.data);
-  // console.log( "IngredientDetails:", ingredients);
-
+  
   const data = ingredients.find(ingr => ingr._id === id);
   
-  // console.log("IngredientDetails data:", data);
-  // const data = useSelector(state => state.ingredientInfo.ingredient);
-
-  return !!data && (
+return !!data && (
     <>
-        <div className={styles.imgContainer}>
-          <img className={styles.img} src={data.image_large} alt={data.name} />
-        </div>
-        <h3 className='text text_type_main-medium mt-4 mb-8'>{data.name}</h3>
-        <ul className={styles.listCompound}>
-          <li className={styles.itemCompoundm}>
-            <span className='text text_type_main-default text_color_inactive'>Калории,ккал</span>
-            <span className='text text_type_digits-default text_color_inactive'>{data.calories}</span>
-          </li>
-          <li className={styles.itemCompound}>
-            <span className='text text_type_main-default text_color_inactive'>Белки, г</span>
-            <span className='text text_type_digits-default text_color_inactive'>{data.proteins}</span>
-          </li>
-          <li className={styles.itemCompound}>
-            <span className='text text_type_main-default text_color_inactive'>Жиры, г</span>
-            <span className='text text_type_digits-default text_color_inactive'>{data.fat}</span>
-          </li>
-          <li className={styles.itemCompound}>
-            <span className='text text_type_main-default text_color_inactive'>Улеводы, г</span>
-            <span className='text text_type_digits-default text_color_inactive'>{data.carbohydrates}</span>
-          </li>
-        </ul>
+      <div className={styles.imgContainer}>
+        <img className={styles.img} src={data.image_large} alt={data.name} />
+      </div>
+      <h3 className='text text_type_main-medium mt-4 mb-8'>{data.name}</h3>
+      <ul className={styles.listCompound}>
+        <li className={styles.itemCompoundm}>
+          <span className='text text_type_main-default text_color_inactive'>Калории,ккал</span>
+          <span className='text text_type_digits-default text_color_inactive'>{data.calories}</span>
+        </li>
+        <li className={styles.itemCompound}>
+          <span className='text text_type_main-default text_color_inactive'>Белки, г</span>
+          <span className='text text_type_digits-default text_color_inactive'>{data.proteins}</span>
+        </li>
+        <li className={styles.itemCompound}>
+          <span className='text text_type_main-default text_color_inactive'>Жиры, г</span>
+          <span className='text text_type_digits-default text_color_inactive'>{data.fat}</span>
+        </li>
+        <li className={styles.itemCompound}>
+          <span className='text text_type_main-default text_color_inactive'>Улеводы, г</span>
+          <span className='text text_type_digits-default text_color_inactive'>{data.carbohydrates}</span>
+        </li>
+      </ul>
    </>
   );
 };

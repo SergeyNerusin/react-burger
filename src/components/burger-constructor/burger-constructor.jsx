@@ -1,8 +1,8 @@
 import React from 'react';
 import style from './burger-constructor.module.css';
-import {ConstructorElement, 
-        Button, 
-        CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, 
+         Button, 
+         CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 

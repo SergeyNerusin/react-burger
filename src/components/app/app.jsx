@@ -18,6 +18,8 @@ import { DndProvider } from 'react-dnd/dist/core';
 
 import { Switch, Route, useLocation, useHistory} from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
+import { tokenRefresh, getDataUser } from '../../services/store/actions/action-user-auth';
+
 import LoginPage from '../../pages/login/login';
 import RegisterPage from '../../pages/register/register';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
@@ -25,20 +27,22 @@ import ProfilePage from '../../pages/profile/profile';
 import ResetPasswordPage from '../../pages/reset-password/reset-password';
 import NotFound from '../../pages/not-found-404/not-found';
 import ProtectedRoute from '../protected-route/protected-route';
-import { tokenRefresh, getDataUser } from '../../services/store/actions/action-user-auth';
+import Feed from '../../pages/feed/feed';
+import { OrderInfo } from '../ordrer-info/order-info';
+
 
 const App = () => {
-  
-  const {ingredients} = useSelector(store => store.burgerConstructor);
-  const {bun} = useSelector(store => store.burgerConstructor);
   const dispatch = useDispatch();
-  
-  const {data} = useSelector(store => store.ingredients);
-  // const showOrderNumber = useSelector(store => store.order.order);
-  const {order, orderRequest} = useSelector(store => store.order);
   const location = useLocation();
   const history = useHistory();
+  
   const background = location.state?.background; 
+
+  const {bun, ingredients} = useSelector(store => store.burgerConstructor);
+ 
+  
+  const {data} = useSelector(store => store.ingredients);
+  const {order, orderRequest} = useSelector(store => store.order);
   
   const refreshToken = localStorage.getItem('refreshToken');
   const cookie = getCookie('token');
@@ -51,9 +55,12 @@ const App = () => {
     }
   };
 
-  
   const handleCloseModalIng = () => {
-      history.replace({ pathname: '/' });
+        history.replace({ pathname: '/' });
+  };
+
+  const handleCloseModalOrderInfo = () => {
+        history.goBack();
   };
 
   const handleCloseModalOrder = () => {
@@ -65,7 +72,7 @@ const App = () => {
     dispatch(getIngr());  //получаем ингредиенты 
   }, [dispatch]); 
 
-   useEffect(() =>{
+  useEffect(() =>{
     if (!cookie && refreshToken) {
       dispatch(tokenRefresh());
     }
@@ -100,13 +107,25 @@ const App = () => {
             <Route path='/reset-password' exact={true}>
               <ResetPasswordPage/>
             </Route>
-            <ProtectedRoute path='/profile' exact={true}>
+            <ProtectedRoute path='/profile'>
               <ProfilePage/>
             </ProtectedRoute>
             <Route path='/ingredients/:id' exact={true}>
               <IngredientDetails/>
             </Route>
-            <Route>
+            <Route path='/feed' exact={true}>
+              <Feed/>
+            </Route>
+            <Route path='/feed/:id' exact={true}>
+              <OrderInfo/>
+            </Route>
+            <ProtectedRoute path='/profile'>
+              <ProfilePage/>
+            </ProtectedRoute>
+            <ProtectedRoute path='/profile/orders/:id'>
+              <OrderInfo/>
+            </ProtectedRoute>
+            <Route path='*'>
               <NotFound/>
             </Route>
         </Switch>
@@ -118,7 +137,19 @@ const App = () => {
                 <IngredientDetails/>
           </Modal>
         </Route> }
-      { !!orderRequest && 
+      { !!background && 
+        <Route path='/feed/:id' exact={true}> 
+          <Modal onClose={handleCloseModalOrderInfo}>
+                <OrderInfo/>
+          </Modal>
+        </Route> } 
+       { !!background &&
+        <ProtectedRoute path='/profile/orders/:id' exact={true}>
+          <Modal onClose={handleCloseModalOrderInfo}>
+            <OrderInfo/>
+          </Modal>
+        </ProtectedRoute>}    
+      { orderRequest && 
         <Modal onClose={handleCloseModalOrder}>
               <OrderDetails orderNumber={order}/>
         </Modal> }

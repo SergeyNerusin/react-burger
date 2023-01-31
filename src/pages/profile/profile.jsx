@@ -1,39 +1,54 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './profile.module.css';
-import { NavLink } from 'react-router-dom';
+import { Switch, Route, NavLink, useLocation } from 'react-router-dom';
+
 import { Input, 
          EmailInput, 
          PasswordInput, 
          Button } from '@ya.praktikum/react-developer-burger-ui-components';
+
 import { userLogout,
-         changeDataUser } from '../../services/store/actions/action-user-auth';
+         changeDataUser, 
+         tokenRefresh, 
+         getDataUser } from '../../services/store/actions/action-user-auth';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
+import { OrdersHistory } from '../../components/orders-history/orders-history';
+import { OrderInfo } from '../../components/ordrer-info/order-info';
+import { getCookie } from '../../utils/cookie';
 
 export default function ProfilePage(){
 
   const dispatch = useDispatch();
+  const location = useLocation();
+  const background = location.state?.background; 
 
-  // const [form, setValue] = React.useState({name: '', email: '', password:''});
+  const refreshToken = localStorage.getItem('refreshToken');
+  const cookie = getCookie('token');
+
   const  { form, onChange, setValues } = useForm({name: '', email: '', password:''});
 
   const { name, email } = useSelector(state => state.userAuth.user); 
   
   
-  React.useEffect(
+  useEffect(
     () => {
       setValues({
         name: name, 
         email: email,
         password: '' 
       });
-    }, 
-  // eslint-disable-next-line 
-  [name, email]);
-
-  // const onChange = (e) => {
-  //   setValue({...form, [e.target.name]: e.target.value});
-  // };
+    },[name, email, setValues]);
+  
+  useEffect(() =>{
+    if (!cookie && refreshToken) {
+      dispatch(tokenRefresh());
+    }
+    if (cookie && refreshToken) {
+      dispatch(getDataUser());
+    }
+   },[dispatch, cookie, refreshToken]);   
 
   // Изменить данные профиля пользователя
   const changeUserData = (e) => {
@@ -44,10 +59,6 @@ export default function ProfilePage(){
     }
   };
   
-  //отмена изменений данных профиля
-  // const handleResetForm = () => {
-  //   setValue({name: name , email: email, password: ''});
-  // };
   const handleResetForm = () => {
     setValues({name: name , email: email, password: ''});
   };
@@ -57,25 +68,25 @@ export default function ProfilePage(){
   };
 
   return (
-    <div className={styles.wrapper}>
+    <article className={styles.profile} aria-label="Профиль пользователя">
       <nav className={styles.menu}>
        <ul className={styles.items}>
         <li className={styles.item}>
-          <NavLink to='/profile' 
-            className={styles.itemLink + ' text text_type_main-medium text_color_inactive'}
-            activeClassName={styles.itemActive}>Профиль
+          <NavLink to='/profile' exact={true}
+            className={styles.link + ' text text_type_main-medium text_color_inactive'}
+            activeClassName={styles.linkActive + ' text text_type_main-medium text_color_inactive'}>Профиль
           </NavLink>
         </li>
         <li className={styles.item}>
-          <NavLink to='/profile/orders' 
-            className={styles.itemLink + ' text text_type_main-medium text_color_inactive'}
-            activeClassName={styles.itemActive}>История заказов
+          <NavLink to='/profile/orders' exact={true}
+            className={styles.link + ' text text_type_main-medium text_color_inactive'}
+            activeClassName={styles.linkActive + ' text text_type_main-medium text_color_inactive'}>История заказов
           </NavLink>
         </li>
         <li className={styles.item}>
           <NavLink to='/login' onClick={handleLogoutUser}
-            className={styles.itemLink + ' text text_type_main-medium text_color_inactive'}
-            activeClassName={styles.itemActive}>Выход  
+            className={styles.link + ' text text_type_main-medium text_color_inactive'}
+            activeClassName={styles.linkActive + ' text text_type_main-medium text_color_inactive'}>Выход  
           </NavLink>
         </li>
        </ul>
@@ -84,49 +95,59 @@ export default function ProfilePage(){
        </p> 
       </nav>
       <div>
-        <form className={styles.form} onSubmit={changeUserData}>
-          <div className='mb-6'>
-            <Input
-              type='text'
-              placeholder='Имя'
-              onChange={onChange}
-              value={form.name}
-              name='name'
-              error={false}
-              size='default'
-              autoComplete='current-name'
-              icon='EditIcon'
-            />
-          </div>
-          <div className='mb-6'>
-            <EmailInput
-              onChange={onChange}
-              value={form.email}
-              size = 'default'
-              name='email'
-              autoComplete='current-email'
-              isIcon={true}
-            />
-          </div>
-          <div className='mb-6'>
-            <PasswordInput
-              onChange={onChange}
-              value={form.password}
-              name='password'
-              autoComplete='on'
-              icon='EditIcon'
-            />
-          </div>
-          <div className={styles.button}>
-            <Button htmlType='reset' type='secondary'
-                    size='large' onClick={handleResetForm}>Отмена
-            </Button>
-            <Button htmlType='submit' type='primary' size='medium'>
-              Cохранить
-            </Button>
-          </div>
-        </form> 
+        <Switch location={background || location}>
+          <Route path='/profile/orders' exact={true}>
+            <OrdersHistory/>
+          </Route>
+          <Route path='/profile/orders/:id' exact={true}>
+            <OrderInfo/>
+          </Route>
+          <Route path='/profile'>
+            <form className={styles.form} onSubmit={changeUserData}>
+              <div className='mb-6'>
+                <Input
+                  type='text'
+                  placeholder='Имя'
+                  onChange={onChange}
+                  value={form.name}
+                  name='name'
+                  error={false}
+                  size='default'
+                  autoComplete='current-name'
+                  icon='EditIcon'
+                />
+              </div>
+              <div className='mb-6'>
+                <EmailInput
+                  onChange={onChange}
+                  value={form.email}
+                  size = 'default'
+                  name='email'
+                  autoComplete='current-email'
+                  isIcon={true}
+                />
+              </div>
+              <div className='mb-6'>
+                <PasswordInput
+                  onChange={onChange}
+                  value={form.password}
+                  name='password'
+                  autoComplete='on'
+                  icon='EditIcon'
+                />
+              </div>
+              <div className={styles.button}>
+                <Button htmlType='reset' type='secondary'
+                        size='large' onClick={handleResetForm}>Отмена
+                </Button>
+                <Button htmlType='submit' type='primary' size='medium'>
+                  Cохранить
+                </Button>
+              </div>
+            </form>
+         </Route>
+        </Switch> 
       </div>
-    </div>
+    </article>
   );
 }
