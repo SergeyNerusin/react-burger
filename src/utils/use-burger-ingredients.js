@@ -8,17 +8,17 @@ export  function useBurgerIngredients(order) {
   if(order === null) return [];
   
   // для подсчета количества одноименных ингредиентов
-  const burg_id = order.ingredients.reduce((prevVal, item) => (
-    // eslint-disable-next-line
-    prevVal[item] = (prevVal[item] || 0) + 1, prevVal
-  ),{});
-
+  const burg_id = order.ingredients.reduce((prevVal, item) => {
+    if (item) {
+      prevVal[item] = (prevVal[item] || 0) + 1;
+    }
+    return prevVal;
+  }, {});
+   
   let burgIngr = Object.keys(burg_id);
 
-  /* 
-     Проверка на минимальный состав бургера (2 булки + 1 ингредиент),
-     в противном случае заказ не собран...
-  */
+  /* Проверка на минимальный состав бургера (2 булки + 1 ингредиент),
+     в противном случае заказ не собран... */
   if((burgIngr.length < 2) || (!burgIngr.some(ingr => BUN_ID.includes(ingr)))) return[];
 
   // Порядок расположения булка первая, затем начинка
