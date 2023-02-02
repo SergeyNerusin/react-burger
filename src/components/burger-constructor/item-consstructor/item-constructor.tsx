@@ -1,13 +1,19 @@
+import React from 'react';
 import style from '../item-consstructor/item-constructor.module.css';
-import ingredientType from '../../../utils/type';
-import PropTypes from 'prop-types';
+import { TIngredientsType } from '../../../utils/type';
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {delBurgerIngr} from '../../../services/store/actions/action-constructor-ingr';
 import { useDrag, useDrop } from 'react-dnd';
 import {useDispatch} from 'react-redux';
 import {useRef} from 'react';
 
-export default function ItemConstructor({ingredient, index, moveIngr}) {
+type TItemConstructor = {
+  ingredient: TIngredientsType;
+  index: number;
+  moveIngr: () => void;
+};
+
+export const ItemConstructor: React.FC<TItemConstructor> = ({ingredient, index, moveIngr}) => {
   const dispatch = useDispatch();
   const refItem = useRef(null);
 
@@ -61,9 +67,5 @@ export default function ItemConstructor({ingredient, index, moveIngr}) {
   )
 }
 
-ItemConstructor.propTypes = {
-  ingredient: ingredientType.isRequired,
-  index: PropTypes.number.isRequired,
-  moveIngr: PropTypes.func.isRequired
-};
+
 

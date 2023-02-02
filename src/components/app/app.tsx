@@ -29,13 +29,13 @@ import NotFound from '../../pages/not-found-404/not-found';
 import ProtectedRoute from '../protected-route/protected-route';
 import Feed from '../../pages/feed/feed';
 import { OrderInfo } from '../ordrer-info/order-info';
-
-
-const App = () => {
+import  { Tlocation } from '../../utils/type';
+ 
+const App: React.FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation<Tlocation>();
   const history = useHistory();
-  
+  console.log('location', location);
   const background = location.state?.background; 
 
   const {bun, ingredients} = useSelector(store => store.burgerConstructor);
@@ -82,78 +82,82 @@ const App = () => {
    },[dispatch, cookie, refreshToken]);
 
 
-  return !!data && (
-    <>
-      <AppHeader/>
-      <div className={styles.wrapper}>
-        <Switch location={ background || location }>
-            <Route path='/' exact={true}>
-              <DndProvider backend={HTML5Backend}>
-                <main className={styles.container + ' mb-10'}>
-                  <BurgerIngredients/> 
-                  <BurgerConstructor openModal={handleOrder}/> 
-                </main>
-              </DndProvider>  
-            </Route>
-            <Route path='/login' exact={true}>
-              <LoginPage/>
-            </Route>
-            <Route path='/register' exact={true}>
-              <RegisterPage/>
-            </Route>
-            <Route path='/forgot-password' exact={true}>
-              <ForgotPasswordPage/> 
-            </Route>
-            <Route path='/reset-password' exact={true}>
-              <ResetPasswordPage/>
-            </Route>
-            <ProtectedRoute path='/profile'>
-              <ProfilePage/>
-            </ProtectedRoute>
-            <Route path='/ingredients/:id' exact={true}>
-              <IngredientDetails/>
-            </Route>
-            <Route path='/feed' exact={true}>
-              <Feed/>
-            </Route>
-            <Route path='/feed/:id' exact={true}>
-              <OrderInfo/>
-            </Route>
-            <ProtectedRoute path='/profile'>
-              <ProfilePage/>
-            </ProtectedRoute>
-            <ProtectedRoute path='/profile/orders/:id'>
-              <OrderInfo/>
-            </ProtectedRoute>
-            <Route path='*'>
-              <NotFound/>
-            </Route>
-        </Switch>
-      </div>
-      { !!background && 
-        <Route path='/ingredients/:id' exact={true}> 
-          <Modal onClose={handleCloseModalIng} 
-                title={'Детали инградиента'}>
+  return (
+  <>
+    { !!data && (
+      <> 
+        <AppHeader/>
+        <div className={styles.wrapper}>
+          <Switch location={ background || location }>
+              <Route path='/' exact={true}>
+                <DndProvider backend={HTML5Backend}>
+                  <main className={styles.container + ' mb-10'}>
+                    <BurgerIngredients/> 
+                    <BurgerConstructor openModal={handleOrder}/> 
+                  </main>
+                </DndProvider>  
+              </Route>
+              <Route path='/login' exact={true}>
+                <LoginPage/>
+              </Route>
+              <Route path='/register' exact={true}>
+                <RegisterPage/>
+              </Route>
+              <Route path='/forgot-password' exact={true}>
+                <ForgotPasswordPage/> 
+              </Route>
+              <Route path='/reset-password' exact={true}>
+                <ResetPasswordPage/>
+              </Route>
+              <ProtectedRoute path='/profile'>
+                <ProfilePage/>
+              </ProtectedRoute>
+              <Route path='/ingredients/:id' exact={true}>
                 <IngredientDetails/>
-          </Modal>
-        </Route> }
-      { !!background && 
-        <Route path='/feed/:id' exact={true}> 
-          <Modal onClose={handleCloseModalOrderInfo}>
+              </Route>
+              <Route path='/feed' exact={true}>
+                <Feed/>
+              </Route>
+              <Route path='/feed/:id' exact={true}>
                 <OrderInfo/>
-          </Modal>
-        </Route> } 
-       { !!background &&
-        <ProtectedRoute path='/profile/orders/:id' exact={true}>
-          <Modal onClose={handleCloseModalOrderInfo}>
-            <OrderInfo/>
-          </Modal>
-        </ProtectedRoute>}    
-      { orderRequest && 
-        <Modal onClose={handleCloseModalOrder}>
-              <OrderDetails orderNumber={order}/>
-        </Modal> }
-    </>
+              </Route>
+              <ProtectedRoute path='/profile'>
+                <ProfilePage/>
+              </ProtectedRoute>
+              <ProtectedRoute path='/profile/orders/:id'>
+                <OrderInfo/>
+              </ProtectedRoute>
+              <Route path='*'>
+                <NotFound/>
+              </Route>
+          </Switch>
+        </div>
+        { !!background && 
+          <Route path='/ingredients/:id' exact={true}> 
+            <Modal onClose={handleCloseModalIng} 
+                  title={'Детали инградиента'}>
+                  <IngredientDetails/>
+            </Modal>
+          </Route> }
+        { !!background && 
+          <Route path='/feed/:id' exact={true}> 
+            <Modal onClose={handleCloseModalOrderInfo}>
+                  <OrderInfo/>
+            </Modal>
+          </Route> } 
+        { !!background &&
+          <ProtectedRoute path='/profile/orders/:id' exact={true}>
+            <Modal onClose={handleCloseModalOrderInfo}>
+              <OrderInfo/>
+            </Modal>
+          </ProtectedRoute>}    
+        { orderRequest && 
+          <Modal onClose={handleCloseModalOrder}>
+                <OrderDetails orderNumber={order}/>
+          </Modal> }
+      </>
+    )}
+  </>
   );
 }
 

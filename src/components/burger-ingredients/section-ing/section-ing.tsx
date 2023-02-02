@@ -1,10 +1,16 @@
+import React from 'react';
 import Ingredient from '../ingredient/ingredient';
 import style from './section-ing.module.css';
-import ingredientType from '../../../utils/type';
-import PropTypes from 'prop-types';
+import {TIngredientsType} from '../../../utils/type';
 
 
-const SectionIng = ({ingredients, scrollToRef, children}) => { 
+type TSectionIng = {
+  ingredients:TIngredientsType[];
+  scrollToRef: React.Ref<HTMLElement>;
+  children: string;
+  'things'?: number;
+}
+const SectionIng: React.FC<TSectionIng>  = ({ingredients, scrollToRef, children}) => { 
      
   return (
     <section className={style.section + ' mt-10'} ref={scrollToRef}>
@@ -15,12 +21,6 @@ const SectionIng = ({ingredients, scrollToRef, children}) => {
     </section>
   );
 } 
-
-SectionIng.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-  scrollToRef: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired
-};
 
 export default SectionIng;
 

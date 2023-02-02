@@ -5,7 +5,7 @@ import { Stats } from '../../components/stats/stats';
 import { useSelector, useDispatch } from 'react-redux';
 import {  wsConnectionInit, wsConnectionClose } from '../../services/store/actions/action-ws-order-all'; 
 
-export default function Feed(){
+const Feed: React.FC = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -16,9 +16,10 @@ export default function Feed(){
   },[dispatch]);
   
   const  data = useSelector(state => state.wsOrdersAll.data);
-  // console.log('Feed', data);
-  
-  return !!data && (
+    
+  return (
+  <>
+    {!!data && (
     <div className={styles.container + ' mt-10'}>
       <article className={styles.orderFeed} 
                aria-label="Лента заказов">
@@ -34,6 +35,9 @@ export default function Feed(){
       aria-label="Выполненные заказы и заказы в работе">
       <Stats data={data}/>
     </article>
-    </div>
+    </div> )}
+  </>
   );
 } 
+
+export default Feed;

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from './services/store/store';
 
 
-const container = document.getElementById('root');
+const container = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
   <React.StrictMode>

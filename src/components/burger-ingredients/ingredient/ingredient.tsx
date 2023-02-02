@@ -1,18 +1,23 @@
 import React from 'react';
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
-import ingredientType from '../../../utils/type';
+import { TIngredientsType } from '../../../utils/type';
 import styles from './ingredient.module.css';
 import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { useLocation, Link } from 'react-router-dom';
 
-function Ingredient({data}) {  
+type TIngredient =  {
+  data: TIngredientsType;
+ 'things': number;
+}
+
+const Ingredient:React.FC<TIngredient> = ({data}) => {  
   const {ingredients, bun} = useSelector(store => store.burgerConstructor);
   const [, dragRef] = useDrag({
     type: 'ingredient',
     item: data,
   });
-
+  console.log('Ingredient:', data);
   const location = useLocation();
   
   const counter = React.useMemo(
@@ -40,9 +45,5 @@ function Ingredient({data}) {
     </Link>
   )
 }
-
-Ingredient.propTypes = {
-  data: ingredientType.isRequired
-};
 
 export default Ingredient
