@@ -2,9 +2,18 @@ import { API_URL, AUTH_URL } from './constant';
 import { request } from './fetch-request';
 import { getCookie } from './cookie';
 
+interface TForm {
+  name?: string;
+  email: string;
+  password: string;
+}
+
+type TFormToken = Omit<TForm, 'name' | 'email' > & {
+  token:string;
+}
 
 // регистрация нового пользователя
-export const fetchUserRegistration = (form) => {
+export const fetchUserRegistration = (form:TForm) => {
   const { name, email, password } = form; 
   return request(`${API_URL}${AUTH_URL.REGISTER}`,
     { method: 'POST',
@@ -18,7 +27,7 @@ export const fetchUserRegistration = (form) => {
 };
 
 // авторизоваться с ранее созданными данными пользователя(логином и паролем)
-export const fetchUserAuthorization = (form) => {
+export const fetchUserAuthorization = (form:TForm) => {
   const { email, password } = form;
   return request( `${API_URL}${AUTH_URL.LOGIN}`,
     { method: 'POST',
@@ -46,14 +55,12 @@ export const fetchLogoutUser = () => {
 export const fetchGetDataUser = () => {
   return request(`${API_URL}${AUTH_URL.UPDATING_USER_INFO}`,
     { method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + getCookie('token')
-      }
+     headers: { Authorization: 'Bearer ' + getCookie('token')}
     });
 }; 
 
 // изменение данных о пользователе
-export const  fetchChangeDataUser = (form) => {
+export const  fetchChangeDataUser = (form:TForm) => {
   const { name, email, password } = form;
   return request(`${API_URL}${AUTH_URL.UPDATING_USER_INFO}`,
     { method: 'PATCH',
@@ -70,7 +77,7 @@ export const  fetchChangeDataUser = (form) => {
 };
 
 // запрос на восстановление пароля
-export const fetchForgotPassword = (email) => {
+export const fetchForgotPassword = (email:string) => {
   return request(`${API_URL}${AUTH_URL.FORGOT_PASSWORD}`,
     { method: 'POST',
       headers: {
@@ -83,7 +90,7 @@ export const fetchForgotPassword = (email) => {
 }; 
 
 // запрос на смену пароля 
-export const fetchNewPassword = async (form) => {
+export const fetchNewPassword = async (form:TFormToken) => {
   const {password, token} = form;
   return request (`${API_URL}${AUTH_URL.PASSWORD_RESET}`,
     { method:'POST',

@@ -2,7 +2,7 @@ import { API_URL, ORDERS }  from './constant';
 import { request } from './fetch-request';
 import { getCookie } from './cookie';
 
-export const fetchGetOrderNumber = (ingredientsId) => 
+export const fetchGetOrderNumber = (ingredientsId:string[]) => 
   request(`${API_URL}${ORDERS}`,
            {  method: 'POST',
               headers: {
@@ -15,4 +15,4 @@ export const fetchGetOrderNumber = (ingredientsId) =>
 export const fetchDataIngredients = () => request(`${API_URL}/api/ingredients`,{});
 
 
-export const fetchOrderInfo = (number) => request(`${API_URL}${ORDERS}/${number}`,{});
+export const fetchOrderInfo = (number:number) => request(`${API_URL}${ORDERS}/${number}`,{});

@@ -1,7 +1,8 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './not-found.module.css';
 
-export default function NotFound() {
+const NotFound: React.FC = () => {
  return (
     <article className={styles.wrapper}>
       <h1 className='text text_type_main-medium'>
@@ -17,3 +18,5 @@ export default function NotFound() {
     </article>
   );
 }
+
+export default NotFound;
