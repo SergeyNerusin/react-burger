@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 
 export type TIngredientsType = {
   '_id': string;
@@ -15,14 +14,40 @@ export type TIngredientsType = {
   '__v': number;
 };
 
+export type TIngrediensConstructor = TIngredientsType & { 
+  keyId: string 
+};
 
 export type Tlocation = {
   hash: string;
   key:  string;
   pathname: string;
   search: string;
-  state?: object; 
-  background?: object;
-  from?: string;
+  from: string;
+  background: {
+     hash: string;
+     key:  string;
+     pathname: string;
+     search: string;
+     state: null;
+    }; 
+  }
 
+
+export type TIngredient = TIngredientsType & {
+ 'things': number;
+};
+
+export type TOrder = {
+  createdAt: string;
+  ingredients: Array<string>;
+  name: string;
+  number: number;
+  status: string; 
+  updatedAt: string; 
+  _id:string; 
+};
+
+export type TObject = {
+  [name:string ]:number 
 }

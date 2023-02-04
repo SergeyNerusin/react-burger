@@ -15,7 +15,7 @@ export function getOrderInfo(number) {
   fetchOrderInfo(number)
   .then(res => {
     if(res && res.success){
-      console.log('fetchOrderInfo res.orders', res.orders[0]);
+      // console.log('fetchOrderInfo res.orders', res.orders[0]);
     dispatch({
       type: GET_ORDERINFO_SUCCESS,
       payload: res.orders[0]

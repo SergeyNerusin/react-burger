@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './not-found.module.css';
 
-
 export default function NotFound() {
  return (
     <article className={styles.wrapper}>

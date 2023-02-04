@@ -4,49 +4,53 @@ import SectionIng from './section-ing/section-ing';
 import styles from './burger-ingredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useSelector} from 'react-redux';
+import { TIngredientsType } from '../../utils/type';
 
 
-const BurgerIngredients = () => {
-  const bunRef = useRef(null);
-  const sauceRef = useRef(null);
-  const mainRef = useRef(null); 
-  const refContainer = useRef();
+const BurgerIngredients: React.FC = () => {
+
+  const bunRef = useRef<HTMLElement>(null);
+  const sauceRef = useRef<HTMLElement>(null);
+  const mainRef = useRef<HTMLElement>(null); 
+  const refContainer = useRef<HTMLDivElement>(null);
   
   // идём в store, получаем ссылку на массив объектов для отрисовки 
   const {data} = useSelector(store => store.ingredients);
   
   const [current, setCurrent] = useState('bun');
 
-  const handleMenuScroll = (value, scrollToRef) => {
-    scrollToRef.current.scrollIntoView({ behavior: 'smooth' });
-    setCurrent(value);
+  const handleMenuScroll = (value:string, scrollToRef: React.RefObject<HTMLElement>) => {
+    if(scrollToRef.current !== null){
+       scrollToRef.current.scrollIntoView({ behavior: 'smooth' });
+       setCurrent(value);
+    }
   };
 
   const handleScroll = () => {
+       
+    const scrollDis = refContainer.current? refContainer.current.scrollTop + 362: 362;
         
-    const scrollDis = refContainer.current.scrollTop + 362;
-    
-    if(bunRef.current.offsetTop <= scrollDis){
+    if((bunRef.current !== null) && bunRef.current.offsetTop <= scrollDis){
       setCurrent('bun');
      } 
-    if(sauceRef.current.offsetTop <= scrollDis){
+    if((sauceRef.current !== null) && sauceRef.current.offsetTop <= scrollDis){
       setCurrent('sauce');
      } 
-    if (mainRef.current.offsetTop <= scrollDis){
+    if ((mainRef.current !== null) && mainRef.current.offsetTop <= scrollDis){
       setCurrent('main');
      }
   };
   
   // создаём массивы объектов по соответствию ингредиентов
-  const buns = React.useMemo(() => data.filter((item) => item.type === 'bun'),
+  const buns = React.useMemo(() => data.filter((item:TIngredientsType) => item.type === 'bun'),
     [data]
   );
 
-  const sauces = React.useMemo(() => data.filter((item) => item.type === 'sauce'),
+  const sauces = React.useMemo(() => data.filter((item:TIngredientsType) => item.type === 'sauce'),
     [data]
   );
 
-  const mains = React.useMemo(() => data.filter((item) => item.type === 'main'),
+  const mains = React.useMemo(() => data.filter((item:TIngredientsType) => item.type === 'main'),
     [data]
   );
 
@@ -77,7 +81,7 @@ const BurgerIngredients = () => {
         <SectionIng  ingredients  = {mains} scrollToRef={mainRef}>Начинки</SectionIng>
       </div>
     </article>
-  )
+  );
 }
 
-export default BurgerIngredients
+export default BurgerIngredients;

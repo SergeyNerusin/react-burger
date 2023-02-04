@@ -1,21 +1,25 @@
 import React from 'react';
 import style from '../item-consstructor/item-constructor.module.css';
-import { TIngredientsType } from '../../../utils/type';
+import { TIngredientsType, TIngrediensConstructor } from '../../../utils/type';
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {delBurgerIngr} from '../../../services/store/actions/action-constructor-ingr';
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrag, useDrop, DropTargetMonitor, XYCoord } from 'react-dnd';
 import {useDispatch} from 'react-redux';
 import {useRef} from 'react';
 
 type TItemConstructor = {
   ingredient: TIngredientsType;
   index: number;
-  moveIngr: () => void;
+  moveIngr: (dragIndex:number, hoverIndex:number) => void;
 };
+
+type Tdrop = TIngrediensConstructor & {
+  index: number;
+}
 
 export const ItemConstructor: React.FC<TItemConstructor> = ({ingredient, index, moveIngr}) => {
   const dispatch = useDispatch();
-  const refItem = useRef(null);
+  const refItem = useRef<HTMLLIElement>(null);
 
   const [{isDragging}, dragRef] = useDrag({
     type: 'item',
@@ -27,16 +31,17 @@ export const ItemConstructor: React.FC<TItemConstructor> = ({ingredient, index, 
 
   const [, drop] = useDrop({
     accept: 'item',
-    hover: (item, monitor) => {
+    hover: (item:Tdrop, monitor:DropTargetMonitor) => {
       if (!refItem.current) return;
       const dragIndex = item.index;
-      const hoverIndex = index;
+      const hoverIndex = index; 
 
       if (dragIndex === hoverIndex) return;
 
       const hoverItemRect = refItem.current?.getBoundingClientRect();
       const hoverMiddleY = (hoverItemRect.bottom - hoverItemRect.top) / 2;
-      const hoverActualY = monitor.getClientOffset() - hoverItemRect.top;
+      const hoverActualY = Number(monitor.getClientOffset())  - hoverItemRect.top;
+      console.log("item-constructor:", monitor.getClientOffset());
 
       if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return;
       if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;

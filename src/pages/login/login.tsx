@@ -7,17 +7,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useLocation, useHistory } from 'react-router-dom';
 import { userloginForm, userLogin } from '../../services/store/actions/action-user-auth'; 
 import { getCookie } from '../../utils/cookie';
+import { Tlocation } from '../../utils/type';
 
-export default function LoginPage(){
+const LoginPage:React.FC = () => {
   const dispatch = useDispatch(); 
   const form = useSelector(state => state.userAuth.form);
   const { email, password } = form; 
   
-  const history = useHistory();
-  const location = useLocation();
+  const history = useHistory<Tlocation>();
+  const location = useLocation<Tlocation>();
   const cookie = getCookie('token');
 
-  const onChange = e => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(userloginForm(e.target.name, e.target.value));
   };
 
@@ -35,7 +36,7 @@ export default function LoginPage(){
     [history]
   ); 
 
-  function submitFormAuthorizationUser(e){
+  function submitFormAuthorizationUser(e:React.FormEvent<HTMLFormElement>){
     e.preventDefault();
     if (email && password){
       dispatch(userLogin(form)); //запрос на авторизацию пользователя
@@ -93,3 +94,5 @@ export default function LoginPage(){
     </div>
   );
 }
+
+export default LoginPage;

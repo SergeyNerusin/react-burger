@@ -17,11 +17,13 @@ import { useForm } from '../../hooks/useForm';
 import { OrdersHistory } from '../../components/orders-history/orders-history';
 import { OrderInfo } from '../../components/ordrer-info/order-info';
 import { getCookie } from '../../utils/cookie';
+import { Tlocation } from '../../utils/type';
 
-export default function ProfilePage(){
+const ProfilePage: React.FC = () =>{
 
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation<Tlocation>();
+  console.log('ProfilePage location', location);
   const background = location.state?.background; 
 
   const refreshToken = localStorage.getItem('refreshToken');
@@ -51,7 +53,7 @@ export default function ProfilePage(){
    },[dispatch, cookie, refreshToken]);   
 
   // Изменить данные профиля пользователя
-  const changeUserData = (e) => {
+  const changeUserDataForm = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const {name, email, password} = form;
     if(name && email && password){
@@ -103,7 +105,7 @@ export default function ProfilePage(){
             <OrderInfo/>
           </Route>
           <Route path='/profile'>
-            <form className={styles.form} onSubmit={changeUserData}>
+            <form className={styles.form} onSubmit={changeUserDataForm}>
               <div className='mb-6'>
                 <Input
                   type='text'
@@ -151,3 +153,5 @@ export default function ProfilePage(){
     </article>
   );
 }
+
+export default ProfilePage;

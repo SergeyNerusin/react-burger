@@ -1,9 +1,12 @@
+import React from 'react';
 import styles from './order-details.module.css';
 import takeInWork from '../../../images/done.jpg';
-import PropTypes from 'prop-types';
 
+type TOrderNumber = {
+  orderNumber: number;
+}
 
-const OrderDetails = ({orderNumber}) => {
+const OrderDetails: React.FC<TOrderNumber> = ({orderNumber}) => {
   
 return (
     <>
@@ -21,12 +24,6 @@ return (
     </>
   );
 }
-
-OrderDetails.propTypes = {
-   orderNumber: PropTypes.number.isRequired,
-  
-};
-
 
 
 export default OrderDetails; 

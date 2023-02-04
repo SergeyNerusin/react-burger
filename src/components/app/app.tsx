@@ -29,13 +29,14 @@ import NotFound from '../../pages/not-found-404/not-found';
 import ProtectedRoute from '../protected-route/protected-route';
 import Feed from '../../pages/feed/feed';
 import { OrderInfo } from '../ordrer-info/order-info';
-import  { Tlocation } from '../../utils/type';
+import  { Tlocation, TIngredientsType } from '../../utils/type';
+
  
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const location = useLocation<Tlocation>();
   const history = useHistory();
-  console.log('location', location);
+  console.log('app location', location);
   const background = location.state?.background; 
 
   const {bun, ingredients} = useSelector(store => store.burgerConstructor);
@@ -49,7 +50,7 @@ const App: React.FC = () => {
   
   const handleOrder = () => {
     if (cookie && refreshToken){
-      dispatch(getOreder([bun._id, ...ingredients.map(ingr => ingr._id), bun._id]));
+      dispatch(getOreder([bun._id, ...ingredients.map((ingr:TIngredientsType) => ingr._id), bun._id]));
     } else {
         history.push('/login');
     }
@@ -141,18 +142,21 @@ const App: React.FC = () => {
           </Route> }
         { !!background && 
           <Route path='/feed/:id' exact={true}> 
-            <Modal onClose={handleCloseModalOrderInfo}>
+            <Modal onClose={handleCloseModalOrderInfo}
+                   title={''}>
                   <OrderInfo/>
             </Modal>
           </Route> } 
         { !!background &&
           <ProtectedRoute path='/profile/orders/:id' exact={true}>
-            <Modal onClose={handleCloseModalOrderInfo}>
+            <Modal onClose={handleCloseModalOrderInfo}
+                   title={''}>
               <OrderInfo/>
             </Modal>
           </ProtectedRoute>}    
         { orderRequest && 
-          <Modal onClose={handleCloseModalOrder}>
+          <Modal onClose={handleCloseModalOrder}
+                 title={''}>
                 <OrderDetails orderNumber={order}/>
           </Modal> }
       </>

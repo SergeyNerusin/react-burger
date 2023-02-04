@@ -1,9 +1,17 @@
 import React from "react";
 import styles from './stats.module.css';
-import PropTypes from 'prop-types';
 import { BUN_ID } from "../../utils/constant";
+import { TOrder, TObject } from "../../utils/type";
 
-export const Stats = ({ data }) =>{
+type TStats = {
+  data: {
+    orders: TOrder[];
+    total: number;
+    totalToday: number;
+  }
+};
+
+export const Stats: React.FC<TStats> = ({ data }) =>{
 
   /* 
       Сортировка номеров заказов по статусу, с проверкой 
@@ -11,14 +19,16 @@ export const Stats = ({ data }) =>{
       по аналогии с функцией  useBurgerIngredients 
       в катологе: src/utils/use-burger-ingredients.js
    */
-  const sorting = (name) => 
+  const sorting = (name:string) => 
     data.orders.filter(order => {
       if (order.status === `${name}`){
-         const burg_id = order.ingredients.reduce((prevVal, item) => (
+         const burg_id = order.ingredients.reduce((prevVal:TObject, item: string) => (
         // eslint-disable-next-line
         prevVal[item] = (prevVal[item] || 0) + 1, prevVal
      ),{});
+     
      let burgIngr = Object.keys(burg_id);
+
      if((burgIngr.length < 2) || (!burgIngr.some(ingr => BUN_ID.includes(ingr)))){
        return null;
      } else {
@@ -73,6 +83,3 @@ return(
 );
 };
 
-Stats.propTypes = {
-	data: PropTypes.object.isRequired
-};

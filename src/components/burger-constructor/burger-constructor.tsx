@@ -3,7 +3,7 @@ import style from './burger-constructor.module.css';
 import { ConstructorElement, 
          Button, 
          CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
+
 import { useSelector, useDispatch } from 'react-redux';
 
 import { addBurgerBun, 
@@ -11,15 +11,22 @@ import { addBurgerBun,
          sortBurgerIngr } from '../../services/store/actions/action-constructor-ingr';
 import { useDrop } from 'react-dnd';
 import { ItemConstructor } from './item-consstructor/item-constructor';
+import { TIngrediensConstructor } from '../../utils/type';
 
-function BurgerConstructor({openModal}) {
+type TfuncModal = {
+  openModal: () => void;
+};
+
+type TmoveIngr = (dragIndex:number, hoverIndex:number) => void; 
+
+const BurgerConstructor: React.FC<TfuncModal> = ({openModal}) => {
 
   const dispatch = useDispatch();
   const {bun, ingredients} = useSelector(store => store.burgerConstructor);
   
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
-    drop(item) {
+    drop(item: TIngrediensConstructor) {
       dispatch(item.type === 'bun' ? addBurgerBun(item) : (addBurgerIngr(item)));
     },
     collect: monitor => ({
@@ -29,10 +36,10 @@ function BurgerConstructor({openModal}) {
 
   const totalOrder = React.useMemo(() => { 
     return ((bun === null || ingredients === null) ? 0 
-    : bun.price*2 + ingredients.reduce((sum, item) => sum + item.price,0));
+    : bun.price*2 + ingredients.reduce((sum:number, item: TIngrediensConstructor) => sum + item.price,0));
   },[bun, ingredients]);
 
-  const moveIngr = React.useCallback ((dragIndex, hoverIndex) => {
+  const moveIngr = React.useCallback<TmoveIngr>((dragIndex, hoverIndex) => {
     const dragItem = ingredients[dragIndex];
     const hoverItem = ingredients[hoverIndex];
     const mixIngredients = [...ingredients];
@@ -46,7 +53,7 @@ function BurgerConstructor({openModal}) {
     <div ref={dropRef} 
          className={isOver ? `${style.container} ${style.bordercolor} mt-25` 
          : `${style.container}  mt-25`}>
-      <article className={style.constructor}>
+      <article className={style.constructor} aria-label="Бургер конструктор">
         {!!bun ?
         <div className={style.itemlock + ' mr-4 mt-0 mb-4'}>
           <ConstructorElement
@@ -65,7 +72,7 @@ function BurgerConstructor({openModal}) {
         {!!ingredients ?
         <div>
           <ul className={style.fillings + ' ml-4'}>
-            {ingredients.map((ingr, index) => (
+            {ingredients.map((ingr:TIngrediensConstructor, index:number) => (
               <ItemConstructor ingredient={ingr} index={index} key={ingr.keyId} moveIngr={moveIngr}/>
             ))}
           </ul>
@@ -104,8 +111,5 @@ function BurgerConstructor({openModal}) {
   )
 }
 
-BurgerConstructor.propTypes = {
-  openModal: PropTypes.func.isRequired
-};
 
 export default BurgerConstructor

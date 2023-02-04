@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './orders-history.module.css';
 import { wsAuthConnectionInit, wsAuthConnectionClose  } from '../../services/store/actions/action-ws-auth';
 import { Orders } from '../orders/orders';
+import { TOrder } from '../../utils/type';
 
-export const OrdersHistory = () => {
+export const OrdersHistory: React.FC = () => {
 
   const dispatch = useDispatch();
 
@@ -16,8 +17,8 @@ export const OrdersHistory = () => {
   },[dispatch]); 
 
   const { wsAuthLoadingData, data} = useSelector(state => state.wsAuthOrdersUser);
-  console.log('OrdersHistory', !data);
-  console.log('OrdersHistory', data );
+  
+  // console.log('OrdersHistory data:', data );
 
   return (<div className={styles.container}>
         <div className={styles.loader}>
@@ -29,7 +30,7 @@ export const OrdersHistory = () => {
         {!!data && 
           <ul className={styles.orders}>
             { 
-              data.orders.map(order => <Orders key={order._id} order={order} path={'/profile/orders'}/>)
+              data.orders.map((order:TOrder) => <Orders key={order._id} order={order} path={'/profile/orders'}/>)
             }
           </ul> 
         }

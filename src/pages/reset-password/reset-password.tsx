@@ -5,17 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { newPasswordForm, newPassword } from '../../services/store/actions/action-user-auth';
 import { getCookie } from '../../utils/cookie';
+import { Tlocation } from '../../utils/type';
 
-export default function ResetPasswordPage(){
+ const ResetPasswordPage: React.FC = () => {
   const dispatch = useDispatch();
   const {form, newPasswordSuccess}  = useSelector(state => state.userAuth);
   const { password, token } = form; 
   const history = useHistory();
-  const location = useLocation();
+  const location = useLocation<Tlocation>();
   const cookie = getCookie('token');
   
 
-  const onChange = e => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(newPasswordForm(e.target.name, e.target.value));
   };
 
@@ -26,7 +27,7 @@ export default function ResetPasswordPage(){
     [history]
   ); 
 
-  const submitNewPassword = (e) => {
+  const submitNewPassword = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { password, token} = form;
     if(password && token){
@@ -78,3 +79,5 @@ export default function ResetPasswordPage(){
     </div>
   );
 }
+
+export default ResetPasswordPage;

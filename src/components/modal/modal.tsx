@@ -1,16 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './modal.module.css'; 
 import ModalOverlay from './modal-overlay/modal-overlay'; 
 
-const body = document.querySelector('body');  
+type TModal = {
+    title: string;
+    children: React.ReactNode;
+    onClose: () => void;
+}
 
-const Modal = ({onClose, title='', children}) => {
+
+const body = document.querySelector('body') as HTMLBodyElement;
+const modalRoot = document.getElementById('popup') as HTMLDivElement;  
+
+const Modal: React.FC<TModal> = ({onClose, title, children}) => {
   
   React.useEffect(() => {
-  const closeOnEscapeKeyDown = evt => {
+  const closeOnEscapeKeyDown = (evt:{key: string}) => {
     if (evt.key === 'Escape') {
       onClose();
     }
@@ -38,15 +45,8 @@ const Modal = ({onClose, title='', children}) => {
           {children} 
         </div>
         <ModalOverlay onClose={onClose}/>
-     </>,
-      document.getElementById('popup')
+     </>, modalRoot
   );
 };
-
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string
-}
 
 export default Modal;

@@ -3,9 +3,10 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-dev
 import styles from './app-header.module.css';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { Tlocation } from '../../utils/type';
  
-const AppHeader = () => {
-  const location = useLocation();
+const AppHeader: React.FC = () => {
+  const location = useLocation<Tlocation>();
   return (
     <header className={`${styles.header} ml-10 mt-10 mr-10`}>
       <nav className={`${styles.menu} pb-4 pt-4`}>

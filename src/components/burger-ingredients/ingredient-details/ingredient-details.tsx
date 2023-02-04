@@ -2,13 +2,14 @@ import React from 'react';
 import styles from './ingradient-details.module.css';
 import {useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { TIngredientsType } from '../../../utils/type';
 
 const IngredientDetails: React.FC = () => {
   const { id } = useParams<{id:string}>();
   
   const ingredients = useSelector(store => store.ingredients.data);
   
-  const data = ingredients.find(ingr => ingr._id === id);
+  const data = ingredients.find((ingr:TIngredientsType) => ingr._id === id);
   
 return (
     <>

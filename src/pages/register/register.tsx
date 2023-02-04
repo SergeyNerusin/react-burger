@@ -6,29 +6,31 @@ import { useSelector, useDispatch } from 'react-redux';
 import { userDataForm, userRegistration } from '../../services/store/actions/action-user-auth';
 import { Redirect, useLocation, useHistory } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
+import { Tlocation } from '../../utils/type';
 
-
-export default function RegisterPage(){
+const RegisterPage: React.FC = () => {
   
-  const inputRef = React.useRef(null);
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
   
   const history = useHistory();
-  const location = useLocation();
+  const location = useLocation<Tlocation>();
   const cookie = getCookie('token');
 
   const  form = useSelector(state => state.userAuth.form);
   const {name, email, password} = form;
   
   const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 10);
+    setTimeout(() => {
+      if(inputRef.current !== null) inputRef.current.focus()
+    }, 10);
   };
 
-  const onChange = e => {
+  const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     dispatch(userDataForm(e.target.name, e.target.value));
   };
     
-  function submitFormUserRegister(e){
+  function submitFormUserRegister(e:React.FormEvent<HTMLFormElement>){
     e.preventDefault();
     if(name && email && password){
       dispatch(userRegistration(form)); // запрос на регистрацию пользователя
@@ -94,3 +96,6 @@ export default function RegisterPage(){
     </div>
   );
 }
+
+
+export default RegisterPage;

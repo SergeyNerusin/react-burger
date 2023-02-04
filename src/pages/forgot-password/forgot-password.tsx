@@ -6,14 +6,15 @@ import { Redirect, useLocation, useHistory  } from 'react-router-dom';
 import { forgotPassword } from '../../services/store/actions/action-user-auth'; 
 import { getCookie } from '../../utils/cookie';
 import { useForm } from '../../hooks/useForm';
+import { Tlocation } from '../../utils/type';
 
-export default function ForgotPasswordPage(){
+const ForgotPasswordPage: React.FC = () =>{
   
   // const [form, setValue] = React.useState({ email:'' });
   const { form, onChange } = useForm({ email:''});
 
   const dispatch = useDispatch();
-  const location = useLocation();
+  const location = useLocation<Tlocation>();
   const history = useHistory();
   const cookie = getCookie('token');
   
@@ -31,7 +32,7 @@ export default function ForgotPasswordPage(){
     [history]
   ); 
 
-  const submitEmail = (e) => {
+  const submitEmail = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if(!!form.email){
       dispatch(forgotPassword(form.email));
@@ -74,3 +75,5 @@ export default function ForgotPasswordPage(){
     </div>
   );
 }
+
+export default ForgotPasswordPage;

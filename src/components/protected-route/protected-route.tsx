@@ -1,9 +1,17 @@
+import React from 'react';
 import { Redirect, Route, useLocation } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
+import { Tlocation } from '../../utils/type';
 
-export default function ProtectedRoute({ children, ...rest }) {
+type Props = {
+	children: React.ReactNode;
+	path: string;
+	exact?: boolean;
+}
+
+const ProtectedRoute:React.FC<Props> = ({ children, ...rest }) => {
 	const cookie = getCookie('token');
-	const location = useLocation();
+	const location = useLocation<Tlocation>();
 
 	return (
 		<Route
@@ -23,3 +31,5 @@ export default function ProtectedRoute({ children, ...rest }) {
 		/>
 	);
 } 
+
+export default ProtectedRoute;
