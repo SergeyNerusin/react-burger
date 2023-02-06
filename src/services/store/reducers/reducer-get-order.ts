@@ -2,16 +2,22 @@
 import { GET_ORDER_REQUEST,
          GET_ORDER_SUCCESS,
          GET_ORDER_ERROR, 
-         CLEAN_ORDER_NUMBER } from '../actions/action-get-order';
+         CLEAN_ORDER_NUMBER,
+         TGetOrderActions } from '../actions/action-get-order';
 
+type TinitialState = {
+  order: null | number,
+  orderRequest: boolean,
+  orderFailed: boolean,
+}
 
-const initialOrderState = {
-  order: 0,
+const initialOrderState: TinitialState = {
+  order: null,
   orderRequest: false,
   orderFailed: false,
 };
 
-export const createdOrderReducer = (state = initialOrderState, action) => {
+export const createdOrderReducer = (state = initialOrderState, action:TGetOrderActions):TinitialState => {
   switch(action.type){
     case GET_ORDER_REQUEST: {
       return {
@@ -38,7 +44,7 @@ export const createdOrderReducer = (state = initialOrderState, action) => {
     case CLEAN_ORDER_NUMBER: {
       return {
        ...state,
-       order: 0,
+       order: null,
        orderRequest: false
       };
     }

@@ -31,9 +31,57 @@ import { FORM_DATA_USER_REGISTRATION,
         
         TOKEN_REFRESH_REQUEST,
         TOKEN_REFRESH_SUCCESS,
-        TOKEN_REFRESH_ERROR } from '../actions/action-user-auth';
+        TOKEN_REFRESH_ERROR,
+        TUserAuthActions } from '../actions/action-user-auth';
 
-const initialState = {
+type TinitialState = {
+  form:{ name: string;
+         email: string;
+         password: string;
+         token: string; 
+        };
+  
+  user: { name: string;
+          email: string; 
+        };
+
+  requestUserRegistration: boolean;
+  userRegistered: boolean;
+  registrationError: boolean;
+
+  requestUserAuthorization: boolean;
+  userAuthorization: boolean;
+  authorizationUserError: boolean;
+
+  userLogoutRequest: boolean;
+  logoutUserSuccess: boolean;
+  messageLogout: string;
+  logoutUserError: boolean;
+
+  getDataUserRequest: boolean;
+  getDataUserSuccess: boolean;
+  getDataUserError: boolean; 
+
+  updateDataUserRequest: boolean;
+  updateDataUserSuccess: boolean;
+  updateDataUserError: boolean;
+
+  forgotPasswordRequest: boolean;
+  forgotPasswordSuccess: boolean
+  massageForgotPassword: string;
+  forgotPasswordError: boolean;
+  
+  newPasswordRequest: boolean;
+  newPasswordSuccess: boolean;
+  massageNewPassword: string;
+  newPasswordError: boolean;
+
+  tokenRefreshRequest: boolean;
+  tokenRefreshSuccess: boolean;
+  tokenRefreshError: boolean;
+};
+
+const initialState: TinitialState = {
   form:{ name:'',
          email:'',
          password:'',
@@ -78,7 +126,7 @@ const initialState = {
   tokenRefreshError: false
 };
 
-export const userAuthReducer =  (state = initialState, action) => {
+export const userAuthReducer =  (state = initialState, action:TUserAuthActions):TinitialState => {
   switch(action.type){
 
     case FORM_DATA_USER_REGISTRATION:

@@ -1,3 +1,6 @@
+import { TIngredientsType } from "./type";
+
+
 type TOptionRequest = {} | {
    method: 'GET' | 'POST' | 'PATCH',
    headers: {
@@ -6,7 +9,21 @@ type TOptionRequest = {} | {
    body?: string
 }
 
-const checkResponse = (res:Response):Promise<object> => {
+type Tres = {
+  success: boolean;
+  data: any;
+  accessToken: string;
+  refreshToken: string;
+  user: string;
+  message: string;
+  orders: string[]; 
+  order: {
+    number: number;
+  };
+  
+}
+
+const checkResponse = (res:Response):Promise<Tres> => {
   if (res.ok) return res.json();
   return Promise.reject(`Ошибка: ${res.status}`);
   

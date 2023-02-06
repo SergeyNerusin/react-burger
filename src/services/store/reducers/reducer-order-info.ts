@@ -2,15 +2,21 @@
 import { GET_ORDERINFO_REQUEST, 
          GET_ORDERINFO_SUCCESS, 
          GET_ORDERINFO_ERRОR,
-         CLEAN_ORDERINFO} from '../actions/action-order-info';
+         CLEAN_ORDERINFO,
+        TOrderInfoActions} from '../actions/action-order-info';
 
-const initialState = {
+type TinitialState = {
+  order: number | null,
+  orderInfoRequest: boolean,
+  orderInfoError: boolean
+}
+const initialState: TinitialState = {
   order: null,
   orderInfoRequest: false,
   orderInfoError: false
 };
 
-export const orderInfoReducer = (state = initialState, action) => {
+export const orderInfoReducer = (state = initialState, action: TOrderInfoActions): TinitialState  => {
   switch(action.type){
     case GET_ORDERINFO_REQUEST: 
       return {
