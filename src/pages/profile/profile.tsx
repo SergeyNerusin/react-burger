@@ -23,7 +23,6 @@ const ProfilePage: React.FC = () =>{
 
   const dispatch = useDispatch();
   const location = useLocation<Tlocation>();
-  console.log('ProfilePage location', location);
   const background = location.state?.background; 
 
   const refreshToken = localStorage.getItem('refreshToken');

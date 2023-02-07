@@ -321,7 +321,6 @@ export const getDataUser: AppThunk = () => {
     });
     fetchGetDataUser()
     .then(res => {
-      console.log('getDataUser res', res)
       if(res && res.success){
         dispatch({
           type: GET_DATA_USER_SUCCESS,

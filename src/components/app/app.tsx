@@ -36,7 +36,7 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
   const location = useLocation<Tlocation>();
   const history = useHistory();
-  // console.log('app location', location);
+  
   const background = location.state?.background; 
 
   const ingredients = useSelector(store => store.burgerConstructor.ingredients);

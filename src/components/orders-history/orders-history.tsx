@@ -18,9 +18,7 @@ export const OrdersHistory: React.FC = () => {
 
   const { wsAuthLoadingData, data} = useSelector(state => state.wsAuthOrdersUser);
   
-  // console.log('OrdersHistory data:', data );
-
-  return (<div className={styles.container}>
+return (<div className={styles.container}>
         <div className={styles.loader}>
           {(wsAuthLoadingData && !data)?
           <h2 className='text text_type_main-medium'>Загрузка данных...</h2> :
