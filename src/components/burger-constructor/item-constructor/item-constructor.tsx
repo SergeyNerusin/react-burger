@@ -1,5 +1,5 @@
 import React from 'react';
-import style from '../item-consstructor/item-constructor.module.css';
+import styles from '../item-constructor/item-constructor.module.css';
 import { TIngredientsType, TIngrediensConstructor } from '../../../utils/type';
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {delBurgerIngr} from '../../../services/store/actions/action-constructor-ingr';
@@ -41,8 +41,7 @@ export const ItemConstructor: React.FC<TItemConstructor> = ({ingredient, index, 
       const hoverItemRect = refItem.current?.getBoundingClientRect();
       const hoverMiddleY = (hoverItemRect.bottom - hoverItemRect.top) / 2;
       const hoverActualY = Number(monitor.getClientOffset())  - hoverItemRect.top;
-      console.log("item-constructor:", monitor.getClientOffset());
-
+      
       if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return;
       if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;
 
@@ -56,8 +55,8 @@ export const ItemConstructor: React.FC<TItemConstructor> = ({ingredient, index, 
   const HandleDelItem = () => {dispatch(delBurgerIngr(index))};
 
   return (
-    <li className={isDragging ? `${style.item} ${style.item_hover} pr-2` : `${style.item} pr-2`} ref={refItem}>
-      <div className={style.icon}>
+    <li className={isDragging ? `${styles.item} ${styles.item_hover} pr-2` : `${styles.item} pr-2`} ref={refItem}>
+      <div className={styles.icon}>
         <span className='mr-2'>
           <DragIcon type='primary' />
         </span>

@@ -10,7 +10,7 @@ import { addBurgerBun,
          addBurgerIngr, 
          sortBurgerIngr } from '../../services/store/actions/action-constructor-ingr';
 import { useDrop } from 'react-dnd';
-import { ItemConstructor } from './item-consstructor/item-constructor';
+import { ItemConstructor } from './item-constructor/item-constructor';
 import { TIngrediensConstructor } from '../../utils/type';
 
 type TfuncModal = {

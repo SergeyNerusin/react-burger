@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import style from './modal.module.css'; 
+import styles from './modal.module.css'; 
 import ModalOverlay from './modal-overlay/modal-overlay'; 
 
 type TModal = {
@@ -35,10 +35,10 @@ const Modal: React.FC<TModal> = ({onClose, title, children}) => {
 
   return ReactDOM.createPortal(
     <>
-      <div className={style.container}>
-          <div className={style.containerTitle}>
+      <div className={styles.container}>
+          <div className={styles.containerTitle}>
             {!!title && <h2 className='text text_type_main-large'>{title}</h2>}
-            <div className={style.cursorBox}> 
+            <div className={styles.cursorBox}> 
               <CloseIcon type='primary' onClick={onClose}/>
             </div>   
           </div>
