@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { allIngredinentsReducer } from './reducer-get-ingr';
 import { burgerConstructorReducer } from './reducer-constructor-ingr';
-import { createdOrderReducer } from './reducer-get-order';
+import { createdOrderReducer } from './reducer-get-order-number';
 import { userAuthReducer } from './reducer-auth-user';
 import { orderInfoReducer} from './reducer-order-info';
 import { wsOrdersAllReducer } from './reducer-ws-order-all';

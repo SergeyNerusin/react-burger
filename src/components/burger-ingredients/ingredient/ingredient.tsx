@@ -1,13 +1,13 @@
 import React from 'react';
 import {CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../../hooks/redux-hoks';
 import { useDrag } from 'react-dnd';
 import { useLocation, Link } from 'react-router-dom';
-import { TIngredient, TIngredientsType } from '../../../utils/type';
+import { TIngredientsType } from '../../../utils/type';
 
 type TData = {
-  data: TIngredient;
+  data: TIngredientsType ;
 }
 
 const Ingredient:React.FC<TData> = ({data}) => {  
@@ -22,7 +22,7 @@ const Ingredient:React.FC<TData> = ({data}) => {
   const counter = React.useMemo(
    () => {
     if (data.type !== 'bun' && ingredients !== null) {
-      return ingredients.filter((item: TIngredientsType) => item._id === data._id).length;
+      return ingredients.filter((item) => item._id === data._id).length;
     } else if (bun?._id === data._id) {
       return 2;
     } else return 0;

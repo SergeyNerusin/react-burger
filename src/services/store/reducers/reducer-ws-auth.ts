@@ -2,15 +2,24 @@ import { WS_AUTH_CONNECTION_OPEN,
          WS_AUTH_CONNECTION_CLOSE,
          WS_AUTH_CONNECTION_ERROR,
          WS_AUTH_GET_DATA } from "../action-ws-types/action-ws-types"; 
-    
-const initialOrdersUser = {
+import { TWsAuthActions } from "../actions/action-ws-auth";
+import { TStats } from "../../../utils/type";    
+
+type TInitialOrdersUser = {
+  data: null | TStats;
+  wsAuthConnected: boolean,
+  wsAuthConnectedError: boolean,
+  wsAuthLoadingData: boolean
+}
+
+const initialOrdersUser: TInitialOrdersUser = {
   data: null,
   wsAuthConnected: false,
   wsAuthConnectedError: false,
   wsAuthLoadingData: false
-};        
+}        
 
-export const wsAuthOrdersUserReducer = (state = initialOrdersUser, action)=>{
+export const wsAuthOrdersUserReducer = (state = initialOrdersUser, action: TWsAuthActions):TInitialOrdersUser => {
   switch(action.type){
     case WS_AUTH_CONNECTION_OPEN:
       return {
@@ -21,6 +30,7 @@ export const wsAuthOrdersUserReducer = (state = initialOrdersUser, action)=>{
 
     case WS_AUTH_CONNECTION_ERROR:
       return {
+        ...state,
         wsAuthConnected: false,
         wsAuthConnectedError: true,
       };

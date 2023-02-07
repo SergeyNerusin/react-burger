@@ -6,9 +6,10 @@ import { useBurgerIngredients } from '../../utils/use-burger-ingredients';
 import { TOrder } from "../../utils/type";
 
 type TOrders = {
-order: TOrder; 
-path: string;
+  order: TOrder; 
+  path: string;
 };
+
 export const Orders:React.FC<TOrders> = ({ order, path }) => {
   
   const location = useLocation();

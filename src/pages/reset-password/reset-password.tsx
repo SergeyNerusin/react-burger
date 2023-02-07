@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styles from './reset-password.module.css';
 import {Input, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux-hoks';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import { newPasswordForm, newPassword } from '../../services/store/actions/action-user-auth';
 import { getCookie } from '../../utils/cookie';

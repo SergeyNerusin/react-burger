@@ -3,10 +3,11 @@ import { Action, ActionCreator } from "redux";
 import { store } from "./store"; 
 import { TConstructorBurgerActions } from "./actions/action-constructor-ingr";
 import { TBurgerIngredientsActions } from "./actions/action-get-ingr";
-import { TGetOrderActions } from "./actions/action-get-order";
+import { TGetOrderActions } from "./actions/action-get-order-number";
 import { TOrderInfoActions } from "./actions/action-order-info";
 import { TUserAuthActions } from "./actions/action-user-auth";
-import { TwsActions, TwsAuthActions } 
+import { TWsOrderAllActions } from "./actions/action-ws-order-all";
+import { TWsAuthActions } from "./actions/action-ws-auth"; 
 
 
 type TApplicationActions =
@@ -15,8 +16,8 @@ TBurgerIngredientsActions
 | TGetOrderActions
 | TOrderInfoActions 
 | TUserAuthActions
-| TwsActions
-| TwsAuthActions
+| TWsOrderAllActions
+| TWsAuthActions
 
 
 export type RootState = ReturnType<typeof store.getState>;

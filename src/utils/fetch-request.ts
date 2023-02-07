@@ -1,4 +1,4 @@
-import { TIngredientsType } from "./type";
+import { TOrder } from "./type";
 
 
 type TOptionRequest = {} | {
@@ -14,9 +14,12 @@ type Tres = {
   data: any;
   accessToken: string;
   refreshToken: string;
-  user: string;
+  user: {
+    name: string;
+    email: string;
+  };
   message: string;
-  orders: string[]; 
+  orders: TOrder[]; 
   order: {
     number: number;
   };

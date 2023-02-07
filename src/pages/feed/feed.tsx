@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import styles from './feed.module.css';
 import { Orders } from '../../components/orders/orders';
 import { Stats } from '../../components/stats/stats';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../hooks/redux-hoks';
 import {  wsConnectionInit, wsConnectionClose } from '../../services/store/actions/action-ws-order-all'; 
 import { TOrder } from '../../utils/type';
 
@@ -29,7 +29,7 @@ const Feed: React.FC = () => {
         <h1 className='text text_type_main-large mb-6'>Лента заказов</h1>
         <ul className={styles.orders}>
           { 
-            data.orders.map((order: TOrder) => <Orders key={order._id} order={order} path={'/feed'}/>)
+            data.orders.map((order:TOrder) => <Orders key={order._id} order={order} path={'/feed'}/>)
           }
         </ul>
       </article>

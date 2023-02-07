@@ -12,6 +12,7 @@ export type TIngredientsType = {
   'image_mobile': string;
   'image_large': string;
   '__v': number;
+  'things'?: number;
 };
 
 export type TIngrediensConstructor = TIngredientsType & { 
@@ -34,18 +35,33 @@ export type Tlocation = {
   }
 
 
-export type TIngredient = TIngredientsType & {
- 'things': number;
-};
-
 export type TOrder = {
   createdAt: string;
   ingredients: Array<string>;
   name: string;
   number: number;
   status: string; 
-  updatedAt: string; 
-  _id:string; 
+  updatedAt: string;
+  owner?: string;
+  __v: number; 
+  _id: string; 
+};
+
+// export type TorderUser = TOrder & {
+//   owner: string;
+// }
+
+export type TIngredient = TIngredientsType & {
+ 'things': number;
+};
+
+// export type TOrderInfo = TOrder |  null | undefined;
+
+export type TStats = {
+    orders: TOrder[];
+    total: number;
+    totalToday: number;
+  
 };
 
 export type TObject = {

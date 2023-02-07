@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import styles from './order-info.module.css';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch } from 'react-redux'; 
+import { useSelector, useDispatch } from '../../hooks/redux-hoks'; 
 import { useParams, useRouteMatch } from "react-router-dom";
 import { useBurgerIngredients } from '../../utils/use-burger-ingredients';
 import { getOrderInfo, orderInfoClean } from '../../services/store/actions/action-order-info';
 import { wsAuthConnectionInit, wsAuthConnectionClose } from '../../services/store/actions/action-ws-auth';
-import { TOrder, TIngredient } from '../../utils/type';
-
 
 export const OrderInfo: React.FC = () => {
   
@@ -32,24 +30,28 @@ export const OrderInfo: React.FC = () => {
   const dataOrdersUser = useSelector(state => state.wsAuthOrdersUser.data);
   const data = (isFeed && dataOrdersAll) || (isProfile && dataOrdersUser);
   const orderinfo = useSelector(state => state.orderInfo.order);
-  const order:TOrder = !!data ? data.orders.find((order:TOrder) => order.number === Number(id)) : orderinfo;
+
+  const order = data? data.orders.find((order) => order.number === Number(id)) : orderinfo? orderinfo: null;
   
+  const [burg, price] = useBurgerIngredients(order);
+
 //   console.log("OrderInfo", {
 //    'id': id,
-//    'path:': path,
+//    'path': path,
 //    'isFeed':isFeed,
 //    'isProfile': isProfile,
-//    'data': data,
 //    'dataOrdersAll': dataOrdersAll,
 //    'dataOrdersUser': dataOrdersUser,
+//    'data': data,
 //    'orderInfo': orderinfo,
+//    'order' : order,
+//    'burg' : burg,
+//    "price" : price
 //  });
- 
-  const [burg, price] = useBurgerIngredients(order);
 
   return (
   <>
-    { !!burg && (
+    { !!burg && !!order && (
       <article className={styles.container}>
         <p className={styles.number + ' text text_type_digits-default mb-10'}>#{order.number}</p>
         <h2 className='text text_type_main-medium mb-3'>{order.name}</h2>
@@ -60,17 +62,20 @@ export const OrderInfo: React.FC = () => {
         <div className={styles.info_container + ' mb-10 '}>
           <ul className={styles.info_wrapper + ' mr-6'}>
               { burg.map((ingr) => 
-                ( <li key={ingr._id} className={styles.item}>
-                    <img className={styles.img} src={ingr.image} alt={ingr.name}/>
-                    <h2 className={styles.title + ' text text_type_main-default'}>{ingr.name}</h2>
-                    <div className={styles.item_price}>
-                      <span className='text text_type_digits-default'>{ingr.things}</span>
-                      <span className='text text_type_main-default'>x</span>
-                      <span className='text text_type_digits-default'>{ingr.price}</span>
-                      <CurrencyIcon type="primary"/>
-                    </div>
-                  </li>
-                  )
+                (<>
+                  { !!ingr && 
+                    <li key={ingr._id} className={styles.item}>
+                      <img className={styles.img} src={ingr.image} alt={ingr.name}/>
+                      <h2 className={styles.title + ' text text_type_main-default'}>{ingr.name}</h2>
+                      <div className={styles.item_price}>
+                        <span className='text text_type_digits-default'>{ingr.things}</span>
+                        <span className='text text_type_main-default'>x</span>
+                        <span className='text text_type_digits-default'>{ingr.price}</span>
+                        <CurrencyIcon type="primary"/>
+                      </div>
+                    </li>
+                  }
+                </>)
                 )
               }
           </ul>

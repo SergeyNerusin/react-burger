@@ -3,8 +3,8 @@ import style from '../item-consstructor/item-constructor.module.css';
 import { TIngredientsType, TIngrediensConstructor } from '../../../utils/type';
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {delBurgerIngr} from '../../../services/store/actions/action-constructor-ingr';
-import { useDrag, useDrop, DropTargetMonitor, XYCoord } from 'react-dnd';
-import {useDispatch} from 'react-redux';
+import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd';
+import {useDispatch} from '../../../hooks/redux-hoks';
 import {useRef} from 'react';
 
 type TItemConstructor = {

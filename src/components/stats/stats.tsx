@@ -1,17 +1,13 @@
 import React from "react";
 import styles from './stats.module.css';
 import { BUN_ID } from "../../utils/constant";
-import { TOrder, TObject } from "../../utils/type";
+import { TStats, TObject } from "../../utils/type";
 
-type TStats = {
-  data: {
-    orders: TOrder[];
-    total: number;
-    totalToday: number;
-  }
-};
+type TData = {
+  data: TStats
+}
 
-export const Stats: React.FC<TStats> = ({ data }) =>{
+export const Stats: React.FC<TData> = ({ data }) =>{
 
   /* 
       Сортировка номеров заказов по статусу, с проверкой 

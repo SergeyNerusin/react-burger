@@ -15,6 +15,10 @@ export const REQUEST_USER_REGISTRATION = 'REQUEST_USER_REGISTRATION';
 export const USER_REGISTRATION_SUCCESS = 'USER_REGISTERATION_SUCCESS';
 export const USER_REGISTRATION_ERROR = 'USER_REGISTERATION_ERROR'; 
 
+type TUser = {
+    name: string, email: string 
+}
+
 interface IFormDataUserRegistratuion {
 	readonly type: typeof FORM_DATA_USER_REGISTRATION;
   name: string;
@@ -51,7 +55,7 @@ interface IAuthorizationRequestUser {
 
 interface IAuthorizationUserSucces {
 	readonly type: typeof AUTHORIZATION_USER_SUCCESS;
-  payload: { name:string; email: string };
+  payload: TUser;
 }
 
 interface IAuthorizationUserError {
@@ -89,7 +93,7 @@ interface IGetDataUserRequest {
 
 interface IGetDataUserSucces {
   readonly type: typeof GET_DATA_USER_SUCCESS;
-  payload: { name:string; email: string }
+  payload: TUser;
 }
 
 interface IGetDataUserError {
@@ -107,7 +111,7 @@ interface IUpdateDataUserRequest {
 
 interface IUpdateDataUserSucces {
   readonly type: typeof UPDATE_DATA_USER_SUCCESS;
-  payload: { name: string; email: string };
+  payload: TUser
 }
 
 interface IUpdateDataUserError {
@@ -168,7 +172,7 @@ interface ITokenRefreshRequest {
 
 interface ITokenRefreshSuccess {
 	readonly type: typeof TOKEN_REFRESH_SUCCESS;
-	payload: string;
+	
 }
 
 interface ITokenRefreshError {
@@ -317,6 +321,7 @@ export const getDataUser: AppThunk = () => {
     });
     fetchGetDataUser()
     .then(res => {
+      console.log('getDataUser res', res)
       if(res && res.success){
         dispatch({
           type: GET_DATA_USER_SUCCESS,

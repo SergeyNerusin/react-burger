@@ -7,10 +7,10 @@ import IngredientDetails from '../burger-ingredients/ingredient-details/ingredie
 import Modal from '../modal/modal';
 import OrderDetails from '../burger-constructor/order-details/order-details';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../hooks/redux-hoks'
 import { getIngr } from '../../services/store/actions/action-get-ingr';
-import { getOreder } from '../../services/store/actions/action-get-order';
-import { cleanOrder } from '../../services/store/actions/action-get-order';
+import { getOreder } from '../../services/store/actions/action-get-order-number';
+import { cleanOrder } from '../../services/store/actions/action-get-order-number';
 import { cleanBurgerConctrutor } from '../../services/store/actions/action-constructor-ingr';
 
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -36,21 +36,23 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
   const location = useLocation<Tlocation>();
   const history = useHistory();
-  console.log('app location', location);
+  // console.log('app location', location);
   const background = location.state?.background; 
 
-  const {bun, ingredients} = useSelector(store => store.burgerConstructor);
+  const ingredients = useSelector(store => store.burgerConstructor.ingredients);
+  const bun = useSelector(store => store.burgerConstructor.bun);
  
   
-  const {data} = useSelector(store => store.ingredients);
-  const {order, orderRequest} = useSelector(store => store.order);
+  const data = useSelector(store => store.ingredients.data);
+  const orderNumber = useSelector(store => store.order.orderNumber);
+  const orderRequest = useSelector(store => store.order.orderRequest);
   
   const refreshToken = localStorage.getItem('refreshToken');
   const cookie = getCookie('token');
   
   const handleOrder = () => {
     if (cookie && refreshToken){
-      dispatch(getOreder([bun._id, ...ingredients.map((ingr:TIngredientsType) => ingr._id), bun._id]));
+      dispatch(getOreder([bun!._id, ...ingredients!.map((ingr:TIngredientsType) => ingr._id), bun!._id]));
     } else {
         history.push('/login');
     }
@@ -157,7 +159,7 @@ const App: React.FC = () => {
         { orderRequest && 
           <Modal onClose={handleCloseModalOrder}
                  title={''}>
-                <OrderDetails orderNumber={order}/>
+                <OrderDetails orderNumber={orderNumber}/>
           </Modal> }
       </>
     )}

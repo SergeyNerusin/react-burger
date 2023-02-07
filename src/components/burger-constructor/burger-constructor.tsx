@@ -4,7 +4,7 @@ import { ConstructorElement,
          Button, 
          CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../hooks/redux-hoks';
 
 import { addBurgerBun, 
          addBurgerIngr, 
@@ -22,7 +22,8 @@ type TmoveIngr = (dragIndex:number, hoverIndex:number) => void;
 const BurgerConstructor: React.FC<TfuncModal> = ({openModal}) => {
 
   const dispatch = useDispatch();
-  const {bun, ingredients} = useSelector(store => store.burgerConstructor);
+  const bun = useSelector(store => store.burgerConstructor.bun);
+  const ingredients = useSelector(store => store.burgerConstructor.ingredients);
   
   const [{isOver}, dropRef] = useDrop({
     accept: 'ingredient',
@@ -40,9 +41,9 @@ const BurgerConstructor: React.FC<TfuncModal> = ({openModal}) => {
   },[bun, ingredients]);
 
   const moveIngr = React.useCallback<TmoveIngr>((dragIndex, hoverIndex) => {
-    const dragItem = ingredients[dragIndex];
-    const hoverItem = ingredients[hoverIndex];
-    const mixIngredients = [...ingredients];
+    const dragItem = ingredients![dragIndex];
+    const hoverItem = ingredients![hoverIndex];
+    const mixIngredients = [...ingredients!];
     mixIngredients[dragIndex] = hoverItem;
     mixIngredients[hoverIndex] = dragItem;
     dispatch(sortBurgerIngr(mixIngredients));
@@ -50,10 +51,9 @@ const BurgerConstructor: React.FC<TfuncModal> = ({openModal}) => {
   },[ingredients]);
 
   return ( 
-    <div ref={dropRef} 
-         className={isOver ? `${style.container} ${style.bordercolor} mt-25` 
-         : `${style.container}  mt-25`}>
-      <article className={style.constructor} aria-label="Бургер конструктор">
+    <article className={isOver ? `${style.container} ${style.bordercolor} mt-25` 
+         : `${style.container}  mt-25`} aria-label="Бургер конструктор" ref={dropRef}>
+      <div>
         {!!bun ?
         <div className={style.itemlock + ' mr-4 mt-0 mb-4'}>
           <ConstructorElement
@@ -72,7 +72,7 @@ const BurgerConstructor: React.FC<TfuncModal> = ({openModal}) => {
         {!!ingredients ?
         <div>
           <ul className={style.fillings + ' ml-4'}>
-            {ingredients.map((ingr:TIngrediensConstructor, index:number) => (
+            {ingredients.map((ingr, index) => (
               <ItemConstructor ingredient={ingr} index={index} key={ingr.keyId} moveIngr={moveIngr}/>
             ))}
           </ul>
@@ -106,10 +106,9 @@ const BurgerConstructor: React.FC<TfuncModal> = ({openModal}) => {
         :
         <></>
         }
-      </article>
-    </div> 
+      </div>
+    </article> 
   )
 }
-
 
 export default BurgerConstructor

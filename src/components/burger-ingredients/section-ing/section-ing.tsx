@@ -1,11 +1,11 @@
 import React from 'react';
 import Ingredient from '../ingredient/ingredient';
 import style from './section-ing.module.css';
-import { TIngredient } from '../../../utils/type';
+import { TIngredientsType } from '../../../utils/type';
 
 
 type TSectionIng = {
-  ingredients:TIngredient[];
+  ingredients:TIngredientsType[];
   scrollToRef: React.Ref<HTMLElement>;
   children: string;
 }
@@ -16,7 +16,7 @@ const SectionIng: React.FC<TSectionIng>  = ({ingredients, scrollToRef, children}
     <section className={style.section + ' mt-10'} ref={scrollToRef}>
       <h2 className='text text_type_main-medium'>{children}</h2>
       <ul className={style.items + ' mt-6'}>
-        { ingredients.map((ing:TIngredient) => <Ingredient data={ing} key={ing._id}/>) }
+        { ingredients.map(ing => <Ingredient data={ing} key={ing._id}/>) }
       </ul>
     </section>
   );

@@ -3,16 +3,16 @@ import { GET_ORDER_REQUEST,
          GET_ORDER_SUCCESS,
          GET_ORDER_ERROR, 
          CLEAN_ORDER_NUMBER,
-         TGetOrderActions } from '../actions/action-get-order';
+         TGetOrderActions } from '../actions/action-get-order-number';
 
 type TinitialState = {
-  order: null | number,
+  orderNumber: null | number,
   orderRequest: boolean,
   orderFailed: boolean,
 }
 
 const initialOrderState: TinitialState = {
-  order: null,
+  orderNumber: null,
   orderRequest: false,
   orderFailed: false,
 };
@@ -29,7 +29,7 @@ export const createdOrderReducer = (state = initialOrderState, action:TGetOrderA
     case GET_ORDER_SUCCESS: {
        return {
         ...state,
-        order: action.order,
+        orderNumber: action.order,
       };
     }
 
@@ -44,7 +44,7 @@ export const createdOrderReducer = (state = initialOrderState, action:TGetOrderA
     case CLEAN_ORDER_NUMBER: {
       return {
        ...state,
-       order: null,
+       orderNumber: null,
        orderRequest: false
       };
     }

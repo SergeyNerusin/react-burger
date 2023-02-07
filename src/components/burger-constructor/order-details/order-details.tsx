@@ -3,7 +3,7 @@ import styles from './order-details.module.css';
 import takeInWork from '../../../images/done.jpg';
 
 type TOrderNumber = {
-  orderNumber: number;
+  orderNumber: number | null;
 }
 
 const OrderDetails: React.FC<TOrderNumber> = ({orderNumber}) => {
@@ -11,7 +11,7 @@ const OrderDetails: React.FC<TOrderNumber> = ({orderNumber}) => {
 return (
     <>
     <div className={styles.wrapper + ' mb-8'}>
-      { orderNumber === 0 ? <h2 className={'text text_type_main-large'}>Запрос номера...</h2>
+      { orderNumber === null ? <h2 className={'text text_type_main-large'}>Запрос номера...</h2>
       :
       <h2 className='text text_type_digits-large'>{orderNumber}</h2>}
     </div>

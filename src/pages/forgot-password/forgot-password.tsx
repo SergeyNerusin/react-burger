@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styles from './forgot-password.module.css';
 import {EmailInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux-hoks';
 import { Redirect, useLocation, useHistory  } from 'react-router-dom';
 import { forgotPassword } from '../../services/store/actions/action-user-auth'; 
 import { getCookie } from '../../utils/cookie';

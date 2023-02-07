@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux-hoks';
 import styles from './orders-history.module.css';
 import { wsAuthConnectionInit, wsAuthConnectionClose  } from '../../services/store/actions/action-ws-auth';
 import { Orders } from '../orders/orders';

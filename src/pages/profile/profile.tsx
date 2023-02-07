@@ -12,7 +12,7 @@ import { userLogout,
          tokenRefresh, 
          getDataUser } from '../../services/store/actions/action-user-auth';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux-hoks';
 import { useForm } from '../../hooks/useForm';
 import { OrdersHistory } from '../../components/orders-history/orders-history';
 import { OrderInfo } from '../../components/ordrer-info/order-info';

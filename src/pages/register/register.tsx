@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import styles from './register.module.css';
 import {Input, EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../hooks/redux-hoks';
 import { userDataForm, userRegistration } from '../../services/store/actions/action-user-auth';
 import { Redirect, useLocation, useHistory } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';

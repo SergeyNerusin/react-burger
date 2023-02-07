@@ -16,6 +16,15 @@ export const WS_AUTH_CONNECTION_CLOSE = 'WS_AUTH_CONNECTION_CLOSED';
 export const WS_AUTH_GET_DATA = 'WS_AUTH_GET_DATA';
 export const WS_AUTH_SEND_DATA = 'WS_AUTH_SEND_DATA';
 
+export type TWsMiddlewareActions = {
+	wsInit: string,
+	onOpen: string,
+	onError: string,
+	onClose: string,
+	onMessage: string,
+	wsSendMessage: string,
+}
+
 export const wsActions = {
 	wsInit: WS_CONNECTION_INIT,
 	onOpen: WS_CONNECTION_OPEN,

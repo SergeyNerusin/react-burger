@@ -1,16 +1,25 @@
 import {  WS_CONNECTION_OPEN, 
           WS_CONNECTION_CLOSE, 
           WS_CONNECTION_ERROR, 
-          WS_GET_DATA          
+          WS_GET_DATA 
         } from '../action-ws-types/action-ws-types';
 
-const initialStateOrderAll = {
+import { TWsOrderAllActions } from '../actions/action-ws-order-all';
+import { TStats } from '../../../utils/type';
+
+type TinitialStateOrderAll = {
+  data: null | TStats;
+  wsConnected: boolean;
+  wsConnectedError: boolean;
+}
+
+const initialStateOrderAll: TinitialStateOrderAll = {
   data: null,
   wsConnected: false,
   wsConnectedError: false
 };        
 
-export const wsOrdersAllReducer = (state = initialStateOrderAll, action)=>{
+export const wsOrdersAllReducer = (state = initialStateOrderAll, action: TWsOrderAllActions):TinitialStateOrderAll => {
   switch(action.type){
     case WS_CONNECTION_OPEN:
       return {
@@ -20,6 +29,7 @@ export const wsOrdersAllReducer = (state = initialStateOrderAll, action)=>{
 
     case WS_CONNECTION_ERROR:
       return {
+        ...state,
         wsConnected: false,
         wsConnectedError: true,
       };

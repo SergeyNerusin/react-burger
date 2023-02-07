@@ -4,9 +4,10 @@ import { GET_ORDERINFO_REQUEST,
          GET_ORDERINFO_ERRОR,
          CLEAN_ORDERINFO,
         TOrderInfoActions} from '../actions/action-order-info';
+import { TOrder } from '../../../utils/type';
 
 type TinitialState = {
-  order: number | null,
+  order: TOrder | null | undefined,
   orderInfoRequest: boolean,
   orderInfoError: boolean
 }

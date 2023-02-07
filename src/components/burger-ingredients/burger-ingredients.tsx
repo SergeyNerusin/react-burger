@@ -3,7 +3,7 @@ import {useState, useRef} from 'react';
 import SectionIng from './section-ing/section-ing';
 import styles from './burger-ingredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import {useSelector} from 'react-redux';
+import {useSelector} from '../../hooks/redux-hoks';
 import { TIngredientsType } from '../../utils/type';
 
 
@@ -15,7 +15,7 @@ const BurgerIngredients: React.FC = () => {
   const refContainer = useRef<HTMLDivElement>(null);
   
   // идём в store, получаем ссылку на массив объектов для отрисовки 
-  const {data} = useSelector(store => store.ingredients);
+  const data = useSelector(store => store.ingredients.data!);
   
   const [current, setCurrent] = useState('bun');
 
@@ -42,15 +42,15 @@ const BurgerIngredients: React.FC = () => {
   };
   
   // создаём массивы объектов по соответствию ингредиентов
-  const buns = React.useMemo(() => data.filter((item:TIngredientsType) => item.type === 'bun'),
+  const buns = React.useMemo(() => data?.filter((item) => item.type === 'bun'),
     [data]
   );
 
-  const sauces = React.useMemo(() => data.filter((item:TIngredientsType) => item.type === 'sauce'),
+  const sauces = React.useMemo(() => data?.filter((item) => item.type === 'sauce'),
     [data]
   );
 
-  const mains = React.useMemo(() => data.filter((item:TIngredientsType) => item.type === 'main'),
+  const mains = React.useMemo(() => data?.filter((item) => item.type === 'main'),
     [data]
   );
 
