@@ -1,10 +1,11 @@
 /* для получения номера заказа  */ 
 import { fetchGetOrderNumber } from '../../../utils/burger-api';
+import { AppThunk, AppDispatch } from '../types-store';
+
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_ERROR = 'GET_ORDER_ERR';
 export const CLEAN_ORDER_NUMBER = 'CLEAN_ORDER_NUMBER';
-import { AppThunk, AppDispatch } from '../types-store';
 
 
 interface IGetOrderRequest {

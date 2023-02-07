@@ -10,7 +10,6 @@ import { Tlocation } from '../../utils/type';
 
 const ForgotPasswordPage: React.FC = () =>{
   
-  // const [form, setValue] = React.useState({ email:'' });
   const { form, onChange } = useForm({ email:''});
 
   const dispatch = useDispatch();
@@ -20,11 +19,7 @@ const ForgotPasswordPage: React.FC = () =>{
   
   const forgotPasswordSuccess = useSelector(state => state.userAuth.forgotPasswordSuccess); 
 
-  // const onChange = e => {
-  //   setValue({...form, email: e.target.value});
-  //   console.log("form reset password", form);
-  // };
- 
+   
   const handleLogin = useCallback(
     () => {
         history.replace({ pathname: '/login' });

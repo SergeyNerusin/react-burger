@@ -1,9 +1,9 @@
 import React from 'react';
-import { Redirect, Route, useLocation } from 'react-router-dom';
+import { Redirect, Route, RouteProps, useLocation } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 import { Tlocation } from '../../utils/type';
 
-type Props = {
+type Props = RouteProps & {
 	children: React.ReactNode;
 	path: string;
 	exact?: boolean;

@@ -17,12 +17,12 @@ const modalRoot = document.getElementById('popup') as HTMLDivElement;
 const Modal: React.FC<TModal> = ({onClose, title, children}) => {
   
   React.useEffect(() => {
-  const closeOnEscapeKeyDown = (evt:{key: string}) => {
-    if (evt.key === 'Escape') {
-      onClose();
-    }
-  };
-
+    const closeOnEscapeKeyDown = (evt: KeyboardEvent) => {
+      if (evt.key === 'Escape') {
+        onClose();
+      }
+    };
+    
     document.body.addEventListener('keyup', closeOnEscapeKeyDown);
     body.style.overflow = 'hidden'; 
    
