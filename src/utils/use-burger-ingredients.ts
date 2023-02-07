@@ -7,25 +7,18 @@ export const useBurgerIngredients =
 (order:TOrder | null | undefined):[ Array<TIngredientsType | undefined> | null, number | null]=> {
 
   const listIngredients = useSelector(store => store.ingredients.data);
-  // eslint-disable-next-line  
-  if((typeof order === null) || (listIngredients === null)) return [null, null];
+   
+  if((order === null) || (order === undefined) || (listIngredients === null)) return [null, null];
   
   // для подсчета количества одноименных ингредиентов
-  const burg_id = order!.ingredients.reduce((prevVal:TObject, item:string) => {
+  const burg_id = order.ingredients.reduce((prevVal:TObject, item:string) => {
     if (item) {
       prevVal[item] = (prevVal[item] || 0) + 1;
 
-      // console.log('typeof prevVal[item]',{
-      //   'typeof prevVal[item]': typeof prevVal[item],
-      //   'typeof prevVal': typeof prevVal,
-      //   'typeof item': typeof item,
-      // });
     }
     return prevVal;
   }, {});
-
-  // console.log('burg_id', burg_id);
-
+  
   let burgIngr = Object.keys(burg_id);
 
   /* Проверка на минимальный состав бургера (2 булки + 1 ингредиент),
@@ -47,16 +40,6 @@ export const useBurgerIngredients =
      return sum
     },0);
   
-  console.log("useBurgerIngredients ", {
-   'burg_id': burg_id,
-   'typeof burg_id': typeof burg_id,
-   'burgIngr' : burgIngr,
-   'typeof burgIngr': typeof burgIngr,
-   'burg' : burg,
-   'typeof burg': typeof burg,
-   "price" : price
- });
-
-  return [burg, price];
+    return [burg, price];
 }
 

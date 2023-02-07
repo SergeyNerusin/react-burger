@@ -9,8 +9,6 @@ import { wsActions, wsAuthActions } from './action-ws-types/action-ws-types';
 const wsUrl = `${WSS_URL}${WS_URL.ORDERS_ALL}`;
 const wsAuthUrl = `${WSS_URL}${WS_URL.ORDERS}`;
 
-// https://stackoverflow.com/questions/52800877/error-with-redux-devtools-extension-using-ts-property-redux-devtools-extens
-
 declare global {
     interface Window {
       __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;

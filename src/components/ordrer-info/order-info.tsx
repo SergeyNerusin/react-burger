@@ -35,21 +35,7 @@ export const OrderInfo: React.FC = () => {
   
   const [burg, price] = useBurgerIngredients(order);
 
-//   console.log("OrderInfo", {
-//    'id': id,
-//    'path': path,
-//    'isFeed':isFeed,
-//    'isProfile': isProfile,
-//    'dataOrdersAll': dataOrdersAll,
-//    'dataOrdersUser': dataOrdersUser,
-//    'data': data,
-//    'orderInfo': orderinfo,
-//    'order' : order,
-//    'burg' : burg,
-//    "price" : price
-//  });
-
-  return (
+return (
   <>
     { !!burg && !!order && (
       <article className={styles.container}>
@@ -61,12 +47,10 @@ export const OrderInfo: React.FC = () => {
         <p className='text text_type_main-medium mb-6'>Состав:</p>
         <div className={styles.info_container + ' mb-10 '}>
           <ul className={styles.info_wrapper + ' mr-6'}>
-              { burg.map((ingr) => 
-                (<>
-                  { !!ingr && 
+              { burg.map(ingr => (ingr!== undefined)?
                     <li key={ingr._id} className={styles.item}>
                       <img className={styles.img} src={ingr.image} alt={ingr.name}/>
-                      <h2 className={styles.title + ' text text_type_main-default'}>{ingr.name}</h2>
+                      <h2 className={styles.title + ' text text_type_main-default'}>{ingr!.name}</h2>
                       <div className={styles.item_price}>
                         <span className='text text_type_digits-default'>{ingr.things}</span>
                         <span className='text text_type_main-default'>x</span>
@@ -74,9 +58,7 @@ export const OrderInfo: React.FC = () => {
                         <CurrencyIcon type="primary"/>
                       </div>
                     </li>
-                  }
-                </>)
-                )
+                    :<></>)
               }
           </ul>
         </div>

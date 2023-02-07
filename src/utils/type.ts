@@ -1,4 +1,3 @@
-
 export type TIngredientsType = {
   '_id': string;
   'name': string;
@@ -47,15 +46,9 @@ export type TOrder = {
   _id: string; 
 };
 
-// export type TorderUser = TOrder & {
-//   owner: string;
-// }
-
 export type TIngredient = TIngredientsType & {
  'things': number;
 };
-
-// export type TOrderInfo = TOrder |  null | undefined;
 
 export type TStats = {
     orders: TOrder[];
