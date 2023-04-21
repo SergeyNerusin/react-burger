@@ -1,24 +1,24 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES5",  // указывает на целевую версию ECMAScript
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    ],  // список файлов библиотеки для включения в компиляцию
+    "allowJs": true, // разрешить компиляцию файлов JavaScript
+    "skipLibCheck": true, // пропустить проверку типов всех файлов объявлений
+    "esModuleInterop": true, // обеспечивает взаимодействие между модулями CommonJS и ES посредством создания объектов пространства имен для всех импортов, подразумевает «allowSyntheticDefaultImports»
+    "allowSyntheticDefaultImports": true, // разрешить импорт по умолчанию из модулей без экспорта по умолчанию
+    "strict": true, // включить все параметры строгой проверки типов
+    "forceConsistentCasingInFileNames": true, // запрещаем ссылки с несогласованным регистром на один и тот же файл.
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "module": "esnext", // указываем генерацию кода модуля
+    "moduleResolution": "node", // разрешить модули в стиле Node.js
+    "resolveJsonModule": true, // включить модули, импортированные с расширением .json
+    "isolatedModules": true, // транслирует каждый файл, как отдельный модуль
+    "noEmit": true, // не компилировать код, а только выполнять проверку типа
+    "jsx": "react-jsx" // поддержка JSX в файлах .tsx
   },
   "include": [
     "src"

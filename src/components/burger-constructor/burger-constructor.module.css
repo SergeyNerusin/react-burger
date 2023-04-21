@@ -1,15 +1,17 @@
 .container {
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: flex-start;
   width: 600px;
   border: 1px solid transparent;
 }
 
-.constructor {
+/* .constructor {
   width: 100%;
   padding: 0;
   margin: 0;
-}
+} */
 
 .bordercolor {
   border-color: #4c4cff;
@@ -32,27 +34,22 @@
 }
 
 .itemlock {
+  padding: 0 0 0 46px;
   display: flex;
   justify-content: flex-end;
 }
 
 .fillings {
   padding: 0;
-  max-width: 100%;
+  width: 100%;
   list-style-type: none;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: flex-start;
   overflow-y: scroll;
   max-height: calc(100vh - 574px);
   row-gap: 16px;
-}
-
-.item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  cursor: pointer;
 }
 
 .order {
